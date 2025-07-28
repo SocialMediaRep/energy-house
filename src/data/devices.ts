@@ -1,28 +1,27 @@
 import { Device } from '../types';
 
-// Globaler Lichtschalter
-{
-  id: 'global-lights',
-  name: 'Beleuchtung (Alle Räume)',
-  icon: 'Lightbulb',
-  wattage: 300,
-  standbyWattage: 0,
-  status: 'off',
-  category: 'lighting',
-  tips: [
-    'Nutzen Sie LED-Lampen für 80% weniger Verbrauch',
-    'Schalten Sie Licht nur bei Bedarf ein',
-    'Nutzen Sie Tageslicht so lange wie möglich',
-    'Verwenden Sie Bewegungsmelder in wenig genutzten Bereichen',
-    'Dimmen Sie das Licht am Abend für Energieeinsparung'
-  ],
-  description: 'Zentrale Lichtsteuerung für alle Räume im Haus.',
-  costPerHour: 0.09,
-  energyEfficiencyRating: 'A+',
-  hasStandby: false
-},
-
 export const devices: Device[] = [
+  // Globaler Lichtschalter
+  {
+    id: 'global-lights',
+    name: 'Beleuchtung (Alle Räume)',
+    icon: 'Lightbulb',
+    wattage: 300,
+    standbyWattage: 0,
+    status: 'off',
+    category: 'lighting',
+    tips: [
+      'Nutzen Sie LED-Lampen für 80% weniger Verbrauch',
+      'Schalten Sie Licht nur bei Bedarf ein',
+      'Nutzen Sie Tageslicht so lange wie möglich',
+      'Verwenden Sie Bewegungsmelder in wenig genutzten Bereichen',
+      'Dimmen Sie das Licht am Abend für Energieeinsparung'
+    ],
+    description: 'Zentrale Lichtsteuerung für alle Räume im Haus.',
+    costPerHour: 0.09,
+    energyEfficiencyRating: 'A+',
+    hasStandby: false
+  },
   // Badezimmer
   {
     id: 'bathroom-hairdryer',
