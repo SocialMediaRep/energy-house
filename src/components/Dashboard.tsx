@@ -5,7 +5,7 @@ import { rooms } from '../data/rooms';
 import { HouseLayout } from './HouseLayout';
 import { DeviceModal } from './DeviceModal';
 import { EnergyChart } from './EnergyChart';
-import { GlobalLightControl } from './GlobalLightControl';
+import { SimpleLightSwitch } from './SimpleLightSwitch';
 import { Zap, ArrowRight, Play } from 'lucide-react';
 
 export const Dashboard: React.FC = () => {
@@ -131,13 +131,12 @@ INSERT INTO devices (id, name, icon, wattage, standby_wattage, status, category,
 
       {/* Main Content */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* Global Light Control */}
+        {/* Simple Light Switch */}
         {globalLights && (
-          <div className="mb-8">
-            <GlobalLightControl 
+          <div className="mb-6">
+            <SimpleLightSwitch 
               isOn={globalLights.status === 'on'}
               onToggle={() => toggleDevice('global-lights')}
-              totalRooms={6}
             />
           </div>
         )}
