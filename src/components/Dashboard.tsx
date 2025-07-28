@@ -121,6 +121,7 @@ INSERT INTO devices (id, name, icon, wattage, standby_wattage, status, category,
       {/* Fixed Energy Chart Section */}
       <section className="sticky top-0 z-40 bg-gray-50 py-8 border-b border-gray-200 shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h1 className="text-4xl font-light text-gray-900 mb-6 tracking-tighter">Smart Home Energy Monitor</h1>
           <EnergyChart 
             totalConsumption={getCurrentConsumption()}
             activeConsumption={getActiveConsumption()}

@@ -168,7 +168,7 @@ export const EnergyChart: React.FC<EnergyChartProps> = ({
     <div className="bg-white rounded-lg border border-gray-200 p-4">
       {/* Header */}
       <div className="flex items-center justify-between mb-4">
-        <h2 className="text-lg font-medium text-gray-900 flex items-center">
+        <h2 className="text-3xl font-light text-gray-900 flex items-center tracking-tight">
           <div className="w-2 h-2 bg-green-500 rounded-full mr-2"></div>
           Aktueller Stromverbrauch
         </h2>
