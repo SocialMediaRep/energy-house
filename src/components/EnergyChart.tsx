@@ -165,7 +165,7 @@ export const EnergyChart: React.FC<EnergyChartProps> = ({
   const yAxisLabels = getYAxisLabels();
 
   return (
-    <div className="bg-white rounded-lg border border-gray-200 p-4">
+    <div className="bg-white rounded-2xl border border-repower-gray-200 p-6 shadow-sm hover:shadow-lg transition-all duration-300">
       {/* Header */}
       <div className="flex items-center justify-between mb-4">
         <h2 className="h3 flex items-center">

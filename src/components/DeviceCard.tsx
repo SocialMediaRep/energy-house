@@ -97,7 +97,7 @@ export const DeviceCard: React.FC<DeviceCardProps> = ({
 
   return (
     <div 
-      className={`p-4 rounded-2xl border transition-all duration-300 cursor-pointer hover:shadow-lg hover:scale-[1.02] hover:-translate-y-1 ${getStatusColor()} ${isGlobalDevice && device.status === 'on' ? 'ring-2 ring-yellow-200' : ''}`}
+      className={`p-4 rounded-xl border transition-all duration-300 cursor-pointer hover:shadow-lg hover:-translate-y-1 ${getStatusColor()} ${isGlobalDevice && device.status === 'on' ? 'ring-2 ring-yellow-200' : ''}`}
       onClick={() => onToggle(device.id)}
       role="button"
       tabIndex={0}
