@@ -5,7 +5,7 @@ import { rooms } from '../data/rooms';
 import { HouseLayout } from './HouseLayout';
 import { DeviceModal } from './DeviceModal';
 import { EnergyChart } from './EnergyChart';
-import { Zap, MapPin, ArrowRight, Play, User, Phone, Mail } from 'lucide-react';
+import { Zap, ArrowRight, Play } from 'lucide-react';
 
 export const Dashboard: React.FC = () => {
   const { devices, toggleDevice, getCurrentConsumption, getActiveConsumption, getStandbyConsumption } = useDevices();
@@ -118,112 +118,6 @@ export const Dashboard: React.FC = () => {
           onShowDeviceDetails={setSelectedDevice}
         />
       </main>
-
-      {/* CTA Section */}
-      <section className="bg-gradient-to-r from-red-600 to-red-700 py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-4xl font-bold text-white mb-6">
-            Sparen Sie bis zu 30% Energiekosten
-          </h2>
-          <p className="text-xl text-red-100 mb-10 max-w-3xl mx-auto">
-            Nutzen Sie unsere intelligenten Empfehlungen und optimieren Sie Ihren Verbrauch 
-            mit der Erfahrung von über 100 Jahren Energiekompetenz.
-          </p>
-          <div className="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-6">
-            <button className="bg-white text-red-600 px-10 py-4 rounded-full font-semibold hover:bg-red-50 transition-colors text-lg">
-              Kostenlose Beratung
-            </button>
-            <button className="border-2 border-white text-white px-10 py-4 rounded-full font-semibold hover:bg-white hover:text-red-600 transition-colors text-lg">
-              Mehr erfahren
-            </button>
-          </div>
-        </div>
-      </section>
-
-      {/* Footer */}
-      <footer className="bg-gray-900 text-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-            {/* Logo and Description */}
-            <div className="md:col-span-1">
-              <div className="flex items-center space-x-3 mb-6">
-                <div className="w-10 h-10 bg-red-600 rounded flex items-center justify-center">
-                  <Zap className="text-white" size={24} />
-                </div>
-                <div>
-                  <div className="text-2xl font-bold text-red-500">REPOWER</div>
-                  <div className="text-xs text-gray-400 -mt-1">Smart Energy</div>
-                </div>
-              </div>
-              <p className="text-gray-400 text-sm leading-relaxed">
-                Ihr zuverlässiger Partner für nachhaltige Energielösungen in der Schweiz.
-              </p>
-            </div>
-            
-            {/* Services */}
-            <div>
-              <h4 className="text-lg font-semibold mb-6">Services</h4>
-              <ul className="space-y-3 text-sm">
-                <li><a href="#" className="text-gray-400 hover:text-white transition-colors">Strom</a></li>
-                <li><a href="#" className="text-gray-400 hover:text-white transition-colors">Gas</a></li>
-                <li><a href="#" className="text-gray-400 hover:text-white transition-colors">Fernwärme</a></li>
-                <li><a href="#" className="text-gray-400 hover:text-white transition-colors">Photovoltaik</a></li>
-                <li><a href="#" className="text-gray-400 hover:text-white transition-colors">E-Mobilität</a></li>
-              </ul>
-            </div>
-            
-            {/* Company */}
-            <div>
-              <h4 className="text-lg font-semibold mb-6">Unternehmen</h4>
-              <ul className="space-y-3 text-sm">
-                <li><a href="#" className="text-gray-400 hover:text-white transition-colors">Über uns</a></li>
-                <li><a href="#" className="text-gray-400 hover:text-white transition-colors">Nachhaltigkeit</a></li>
-                <li><a href="#" className="text-gray-400 hover:text-white transition-colors">Karriere</a></li>
-                <li><a href="#" className="text-gray-400 hover:text-white transition-colors">Medien</a></li>
-                <li><a href="#" className="text-gray-400 hover:text-white transition-colors">Investor Relations</a></li>
-              </ul>
-            </div>
-            
-            {/* Contact */}
-            <div>
-              <h4 className="text-lg font-semibold mb-6">Kontakt</h4>
-              <div className="space-y-3 text-sm">
-                <div className="flex items-center space-x-2 text-gray-400">
-                  <Phone size={16} />
-                  <span>081 839 71 11</span>
-                </div>
-                <div className="flex items-center space-x-2 text-gray-400">
-                  <Mail size={16} />
-                  <span>info@repower.com</span>
-                </div>
-                <div className="flex items-start space-x-2 text-gray-400">
-                  <MapPin size={16} className="mt-0.5" />
-                  <div>
-                    <div>Repower AG</div>
-                    <div>Via da Clalt 307</div>
-                    <div>7742 Poschiavo</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          
-          {/* Bottom Bar */}
-          <div className="border-t border-gray-800 mt-12 pt-8">
-            <div className="flex flex-col md:flex-row items-center justify-between">
-              <div className="text-sm text-gray-400 mb-4 md:mb-0">
-                &copy; 2024 Repower AG. Alle Rechte vorbehalten.
-              </div>
-              <div className="flex items-center space-x-6 text-sm">
-                <a href="#" className="text-gray-400 hover:text-white transition-colors">Datenschutz</a>
-                <a href="#" className="text-gray-400 hover:text-white transition-colors">AGB</a>
-                <a href="#" className="text-gray-400 hover:text-white transition-colors">Impressum</a>
-                <a href="#" className="text-gray-400 hover:text-white transition-colors">Cookie-Einstellungen</a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </footer>
 
       {/* Device Modal */}
       <DeviceModal 
