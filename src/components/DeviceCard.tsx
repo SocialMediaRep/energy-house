@@ -84,17 +84,11 @@ export const DeviceCard: React.FC<DeviceCardProps> = ({
           </div>
           
           {/* Power Status Indicator */}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  onShowDetails(device);
-                }}
-                className={`p-3 rounded-xl transition-all duration-300 hover:scale-110 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 ${getInfoButtonColor()}`}
-                aria-label={`Details für ${device.name} anzeigen`}
-                title="Geräte-Details anzeigen"
-              <div className={`w-full h-full rounded-full animate-pulse ${
-                <Icons.Info size={18} />
-              }`}></div>
+          <div className={`absolute -bottom-1 -right-1 w-4 h-4 rounded-full border-2 ${getStatusIndicator()}`}>
+            {device.status === 'on' && (
+              <div className="w-full h-full rounded-full animate-pulse bg-green-300"></div>
             )}
+          </div>
           </div>
         </div>
         
