@@ -43,13 +43,13 @@ export const Dashboard: React.FC = () => {
           <h2 className="text-2xl font-medium text-gray-900 mb-2">Fehler beim Laden</h2>
           <p className="text-base text-gray-600 mb-4">{error}</p>
           <div className="bg-red-50 border border-red-200 rounded-lg p-4 mb-4 max-w-md mx-auto">
-            <h3 className="font-medium text-red-900 mb-2">Datenbank-Problem</h3>
-            <p className="text-small text-red-800 mb-3">
+            <h3 className="h6 text-red-900 mb-2">Datenbank-Problem</h3>
+            <p className="text-body-sm text-red-800 mb-3">
               Die Geräte-Tabelle existiert noch nicht in Ihrer Supabase-Datenbank.
             </p>
             <div className="text-left">
-              <p className="text-small font-medium text-red-900 mb-2">Lösung:</p>
-              <ol className="text-small text-red-800 space-y-1">
+              <p className="text-body-sm font-medium text-red-900 mb-2">Lösung:</p>
+              <ol className="text-body-sm text-red-800 space-y-1">
                 <li>1. Gehen Sie zu Ihrem <a href="https://supabase.com/dashboard" target="_blank" rel="noopener noreferrer" className="underline font-medium">Supabase Dashboard</a></li>
                 <li>2. Wählen Sie Ihr Projekt aus</li>
                 <li>3. Klicken Sie auf "SQL Editor"</li>
@@ -69,7 +69,7 @@ export const Dashboard: React.FC = () => {
           >
             SQL-Code kopieren
           </button>
-          <div className="bg-gray-900 text-green-400 p-4 rounded-lg text-left text-tiny font-mono max-w-4xl mx-auto max-h-64 overflow-y-auto">
+          <div className="bg-repower-dark text-green-400 p-4 rounded-lg text-left text-caption font-mono max-w-4xl mx-auto max-h-64 overflow-y-auto scrollbar-thin">
             <pre id="migration-sql">{`-- Geräte-Tabelle erstellen
 CREATE TABLE IF NOT EXISTS devices (
   id text PRIMARY KEY,
@@ -121,7 +121,7 @@ INSERT INTO devices (id, name, icon, wattage, standby_wattage, status, category,
       {/* Fixed Energy Chart Section */}
       <section className="sticky top-0 z-40 bg-gray-50 py-8 border-b border-gray-200 shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h1 className="text-4xl font-light text-gray-900 mb-6 tracking-tighter">Smart Home Energy Monitor</h1>
+          <h1 className="h1 mb-8 text-balance">Smart Home Energy Monitor</h1>
           <EnergyChart 
             totalConsumption={getCurrentConsumption()}
             activeConsumption={getActiveConsumption()}

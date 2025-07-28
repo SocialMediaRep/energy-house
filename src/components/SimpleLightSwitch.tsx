@@ -19,10 +19,10 @@ export const SimpleLightSwitch: React.FC<SimpleLightSwitchProps> = ({
         <Lightbulb 
           size={20} 
           className={`transition-colors duration-300 ${
-            isOn ? 'text-yellow-500' : 'text-gray-400'
+            isOn ? 'text-repower-orange-500' : 'text-repower-gray-400'
           }`}
         />
-        <span className="text-sm font-medium text-gray-700">
+        <span className="text-body-sm font-medium text-medium-contrast">
           Licht (Alle Räume)
         </span>
       </div>
@@ -33,8 +33,8 @@ export const SimpleLightSwitch: React.FC<SimpleLightSwitchProps> = ({
         disabled={disabled}
         className={`relative w-12 h-6 rounded-full transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-yellow-300 disabled:opacity-50 disabled:cursor-not-allowed ${
           isOn 
-            ? 'bg-yellow-500' 
-            : 'bg-gray-300 hover:bg-gray-400'
+            ? 'bg-repower-orange-500' 
+            : 'bg-repower-gray-300 hover:bg-repower-gray-400'
         }`}
         aria-label={`Licht ${isOn ? 'ausschalten' : 'einschalten'}`}
       >
@@ -46,14 +46,14 @@ export const SimpleLightSwitch: React.FC<SimpleLightSwitchProps> = ({
       </button>
 
       {/* Status */}
-      <span className={`text-xs font-medium transition-colors duration-300 ${
-        isOn ? 'text-yellow-600' : 'text-gray-500'
+      <span className={`text-caption font-medium transition-colors duration-300 ${
+        isOn ? 'text-repower-orange-600' : 'text-low-contrast'
       }`}>
         {isOn ? 'Ein' : 'Aus'}
       </span>
 
       {/* LED Energy Saving Tip */}
-      <div className="text-xs text-gray-500 ml-auto bg-gray-50 px-2 py-1 rounded-md">
+      <div className="text-caption text-low-contrast ml-auto bg-repower-gray-50 px-2 py-1 rounded-md">
         💡 <span className="font-medium">Tipp:</span> LED sparen 80% Energie
       </div>
     </div>

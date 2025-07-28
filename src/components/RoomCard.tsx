@@ -25,15 +25,15 @@ export const RoomCard: React.FC<RoomCardProps> = ({
     <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-200">
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h3 className="text-2xl font-medium text-gray-900 mb-1 tracking-tight">{room.name}</h3>
-          <div className="flex items-center space-x-4 text-small text-gray-500">
+          <h3 className="h3 mb-2 text-balance">{room.name}</h3>
+          <div className="flex items-center space-x-4 text-body-sm text-medium-contrast">
             <span>{room.devices.length} Geräte</span>
             <span>{activeDevices} aktiv</span>
-            <span className="font-medium text-gray-900">{totalConsumption}W</span>
+            <span className="font-medium text-high-contrast">{totalConsumption}W</span>
           </div>
         </div>
         <div className={`w-3 h-3 rounded-full ${
-          totalConsumption > 0 ? 'bg-green-500' : 'bg-gray-300'
+          totalConsumption > 0 ? 'bg-repower-green-500' : 'bg-repower-gray-300'
         }`}></div>
       </div>
       

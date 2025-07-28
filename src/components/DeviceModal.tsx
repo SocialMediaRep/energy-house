@@ -20,7 +20,7 @@ export const DeviceModal: React.FC<DeviceModalProps> = ({ device, onClose }) => 
         <div className="sticky top-0 bg-white p-6 border-b border-gray-100 rounded-t-3xl">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-3">
-              <h2 className="text-xl font-semibold text-gray-900">{device.name}</h2>
+              <h2 className="h4">{device.name}</h2>
               <div className={`px-3 py-1 rounded-full text-sm font-medium ${
                 device.status === 'on' ? 'bg-red-100 text-red-700' :
                 device.status === 'standby' ? 'bg-orange-100 text-orange-700' :
@@ -51,14 +51,14 @@ export const DeviceModal: React.FC<DeviceModalProps> = ({ device, onClose }) => 
               <IconComponent size={32} />
             </div>
             <div>
-              <h3 className="text-lg font-semibold text-gray-900">{device.name}</h3>
-              <p className="text-gray-600">{device.description}</p>
+              <h3 className="h5">{device.name}</h3>
+              <p className="text-body text-medium-contrast">{device.description}</p>
             </div>
           </div>
 
           {/* Energy Chart Placeholder */}
           <div className="mb-6">
-            <h4 className="text-sm font-medium text-gray-700 mb-3">Energieverbrauch</h4>
+            <h4 className="h6 mb-3">Energieverbrauch</h4>
             <DeviceChart device={device} />
           </div>
 
@@ -91,7 +91,7 @@ export const DeviceModal: React.FC<DeviceModalProps> = ({ device, onClose }) => 
 
           {/* Energy Saving Tips */}
           <div>
-            <h4 className="text-lg font-semibold text-gray-900 mb-4">
+            <h4 className="h5 mb-4">
               Stromspartipps
             </h4>
             <div className="space-y-4">
@@ -102,7 +102,7 @@ export const DeviceModal: React.FC<DeviceModalProps> = ({ device, onClose }) => 
                   <div className="w-6 h-6 bg-green-600 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
                     <Icons.Lightbulb size={14} className="text-white" />
                   </div>
-                  <p className="text-gray-700">{tip}</p>
+                  <p className="text-body text-medium-contrast">{tip}</p>
                 </div>
               ))}
             </div>
@@ -114,22 +114,22 @@ export const DeviceModal: React.FC<DeviceModalProps> = ({ device, onClose }) => 
               <div className="w-12 h-12 bg-green-600 rounded-2xl flex items-center justify-center mx-auto mb-2">
                 <Icons.Zap size={20} className="text-white" />
               </div>
-              <h5 className="font-medium text-gray-900 mb-1">Energieeffiziente Nutzung</h5>
-              <p className="text-sm text-gray-600">Optimiere die Geräteeinstellungen</p>
+              <h5 className="h6 mb-1">Energieeffiziente Nutzung</h5>
+              <p className="text-body-sm text-medium-contrast">Optimiere die Geräteeinstellungen</p>
             </div>
             <div className="text-center p-4 bg-green-50 rounded-2xl border border-green-100">
               <div className="w-12 h-12 bg-green-600 rounded-2xl flex items-center justify-center mx-auto mb-2">
                 <Icons.Settings size={20} className="text-white" />
               </div>
-              <h5 className="font-medium text-gray-900 mb-1">Regelmäßige Wartung</h5>
-              <p className="text-sm text-gray-600">Halte deine Geräte in Top-Zustand</p>
+              <h5 className="h6 mb-1">Regelmäßige Wartung</h5>
+              <p className="text-body-sm text-medium-contrast">Halte deine Geräte in Top-Zustand</p>
             </div>
             <div className="text-center p-4 bg-orange-50 rounded-2xl border border-orange-100">
               <div className="w-12 h-12 bg-green-600 rounded-2xl flex items-center justify-center mx-auto mb-2">
                 <Icons.ThermometerSun size={20} className="text-white" />
               </div>
-              <h5 className="font-medium text-gray-900 mb-1">Optimale Temperatur</h5>
-              <p className="text-sm text-gray-600">Verwende die richtige Temperatur</p>
+              <h5 className="h6 mb-1">Optimale Temperatur</h5>
+              <p className="text-body-sm text-medium-contrast">Verwende die richtige Temperatur</p>
             </div>
           </div>
         </div>

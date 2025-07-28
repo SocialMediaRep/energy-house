@@ -2,76 +2,356 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Typography Scale - Repower Style */
+/* Repower Typography System - Based on Figma Design Basics */
 @layer base {
-  /* Headings */
-  h1 {
-    @apply text-4xl font-light leading-tight tracking-tighter text-gray-900;
+  /* Font Face Definitions */
+  @font-face {
+    font-family: 'theMixB';
+    src: url('/fonts/TheMixB-W3Light.woff2') format('woff2'),
+         url('/fonts/TheMixB-W3Light.woff') format('woff');
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
   }
   
-  h2 {
-    @apply text-3xl font-light leading-tight tracking-tight text-gray-900;
+  @font-face {
+    font-family: 'theMixB';
+    src: url('/fonts/TheMixB-W5Plain.woff2') format('woff2'),
+         url('/fonts/TheMixB-W5Plain.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
   }
   
-  h3 {
-    @apply text-2xl font-medium leading-snug tracking-tight text-gray-900;
+  @font-face {
+    font-family: 'theMixB';
+    src: url('/fonts/TheMixB-W5Plain.woff2') format('woff2'),
+         url('/fonts/TheMixB-W5Plain.woff') format('woff');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
   }
   
-  h4 {
-    @apply text-xl font-medium leading-snug text-gray-800;
+  @font-face {
+    font-family: 'theMixB';
+    src: url('/fonts/TheMixB-W7Bold.woff2') format('woff2'),
+         url('/fonts/TheMixB-W7Bold.woff') format('woff');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
   }
   
-  h5 {
-    @apply text-lg font-medium leading-snug text-gray-800;
+  @font-face {
+    font-family: 'theMixB';
+    src: url('/fonts/TheMixB-W8ExtraBold.woff2') format('woff2'),
+         url('/fonts/TheMixB-W8ExtraBold.woff') format('woff');
+    font-weight: 800;
+    font-style: normal;
+    font-display: swap;
   }
-  
-  h6 {
-    @apply text-base font-medium leading-normal text-gray-800;
+
+  /* Base Typography - Repower Style */
+  html {
+    font-family: 'theMixB', ui-sans-serif, system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
-  
-  /* Body text */
+
   body {
-    @apply text-base font-normal leading-relaxed text-gray-900;
+    @apply font-normal text-base leading-relaxed text-repower-dark bg-white;
+    font-feature-settings: 'kern' 1, 'liga' 1, 'calt' 1;
+  }
+
+  /* Heading Hierarchy - From Figma Design Basics */
+  h1, .h1 {
+    @apply font-light text-display-lg leading-none tracking-tighter text-repower-dark;
+    /* 64px, Light, -0.025em */
   }
   
-  /* Small text */
-  .text-small {
-    @apply text-sm font-normal leading-normal text-gray-700;
+  h2, .h2 {
+    @apply font-light text-display-md leading-tight tracking-tighter text-repower-dark;
+    /* 48px, Light, -0.025em */
   }
   
-  .text-tiny {
-    @apply text-xs font-normal leading-normal text-gray-600;
+  h3, .h3 {
+    @apply font-medium text-display-sm leading-tight tracking-tight text-repower-dark;
+    /* 36px, Medium, -0.025em */
   }
   
-  /* Button text */
+  h4, .h4 {
+    @apply font-medium text-3xl leading-tight tracking-tight text-repower-dark;
+    /* 32px, Medium, -0.025em */
+  }
+  
+  h5, .h5 {
+    @apply font-medium text-2xl leading-snug tracking-tight text-repower-gray-800;
+    /* 24px, Medium, -0.025em */
+  }
+  
+  h6, .h6 {
+    @apply font-medium text-xl leading-snug text-repower-gray-800;
+    /* 20px, Medium */
+  }
+
+  /* Body Text Styles */
+  .text-body-lg {
+    @apply text-lg font-normal leading-relaxed text-repower-gray-700;
+    /* 18px, Regular, relaxed */
+  }
+  
+  .text-body {
+    @apply text-base font-normal leading-relaxed text-repower-gray-700;
+    /* 16px, Regular, relaxed */
+  }
+  
+  .text-body-sm {
+    @apply text-sm font-normal leading-normal text-repower-gray-600;
+    /* 14px, Regular, normal */
+  }
+  
+  .text-caption {
+    @apply text-xs font-normal leading-tight text-repower-gray-500;
+    /* 12px, Regular, tight */
+  }
+
+  /* Interactive Text */
+  .text-link {
+    @apply text-repower-red font-medium underline decoration-2 underline-offset-2;
+    @apply hover:text-repower-red-dark hover:no-underline;
+    @apply focus:outline-none focus:ring-2 focus:ring-repower-red focus:ring-offset-2;
+    @apply transition-all duration-200;
+  }
+
+  /* Button Text Styles */
+  .btn-text-lg {
+    @apply text-base font-medium leading-none tracking-wide;
+  }
+  
   .btn-text {
-    @apply text-sm font-medium leading-none text-white;
+    @apply text-sm font-medium leading-none tracking-wide;
   }
   
-  /* Caption text */
-  .caption {
-    @apply text-xs font-normal leading-tight text-gray-500;
+  .btn-text-sm {
+    @apply text-xs font-medium leading-none tracking-wider uppercase;
   }
-  
-  /* High contrast text classes */
+
+  /* High Contrast Text Classes */
   .text-high-contrast {
-    @apply text-gray-900;
+    @apply text-repower-dark;
   }
   
   .text-medium-contrast {
-    @apply text-gray-700;
+    @apply text-repower-gray-700;
   }
   
   .text-low-contrast {
-    @apply text-gray-500;
+    @apply text-repower-gray-500;
+  }
+
+  /* Focus States */
+  .focus-ring {
+    @apply focus:outline-none focus:ring-2 focus:ring-repower-red focus:ring-offset-2;
+  }
+
+  /* Selection */
+  ::selection {
+    @apply bg-repower-red text-white;
   }
 }
 
+/* Component Layer - Repower UI Components */
+@layer components {
+  /* Primary Button */
+  .btn-primary {
+    @apply inline-flex items-center justify-center px-6 py-3 rounded-lg;
+    @apply bg-repower-red text-white btn-text;
+    @apply hover:bg-repower-red-dark hover:shadow-md;
+    @apply focus:outline-none focus:ring-2 focus:ring-repower-red focus:ring-offset-2;
+    @apply active:bg-repower-red-dark active:scale-95;
+    @apply disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-repower-red;
+    @apply transition-all duration-200;
+  }
+
+  /* Secondary Button */
+  .btn-secondary {
+    @apply inline-flex items-center justify-center px-6 py-3 rounded-lg;
+    @apply bg-white text-repower-dark border-2 border-repower-gray-300 btn-text;
+    @apply hover:bg-repower-gray-50 hover:border-repower-gray-400 hover:shadow-sm;
+    @apply focus:outline-none focus:ring-2 focus:ring-repower-red focus:ring-offset-2;
+    @apply active:bg-repower-gray-100 active:scale-95;
+    @apply disabled:opacity-50 disabled:cursor-not-allowed;
+    @apply transition-all duration-200;
+  }
+
+  /* Ghost Button */
+  .btn-ghost {
+    @apply inline-flex items-center justify-center px-4 py-2 rounded-lg;
+    @apply bg-transparent text-repower-gray-700 btn-text;
+    @apply hover:bg-repower-gray-100 hover:text-repower-dark;
+    @apply focus:outline-none focus:ring-2 focus:ring-repower-red focus:ring-offset-2;
+    @apply active:bg-repower-gray-200 active:scale-95;
+    @apply disabled:opacity-50 disabled:cursor-not-allowed;
+    @apply transition-all duration-200;
+  }
+
+  /* Card Component */
+  .card {
+    @apply bg-white rounded-xl border border-repower-gray-200 shadow-sm;
+    @apply hover:shadow-md hover:border-repower-gray-300;
+    @apply transition-all duration-200;
+  }
+
+  .card-interactive {
+    @apply card cursor-pointer;
+    @apply hover:shadow-lg hover:-translate-y-0.5 hover:scale-[1.01];
+    @apply active:scale-[0.99] active:shadow-sm;
+  }
+
+  /* Input Component */
+  .input {
+    @apply w-full px-4 py-3 rounded-lg border border-repower-gray-300;
+    @apply bg-white text-repower-dark placeholder-repower-gray-500;
+    @apply focus:outline-none focus:ring-2 focus:ring-repower-red focus:border-transparent;
+    @apply disabled:bg-repower-gray-100 disabled:cursor-not-allowed;
+    @apply transition-all duration-200;
+  }
+
+  /* Badge Component */
+  .badge {
+    @apply inline-flex items-center px-3 py-1 rounded-full text-xs font-medium;
+  }
+
+  .badge-success {
+    @apply badge bg-repower-green-100 text-repower-green-700;
+  }
+
+  .badge-warning {
+    @apply badge bg-repower-orange-100 text-repower-orange-700;
+  }
+
+  .badge-error {
+    @apply badge bg-red-100 text-red-700;
+  }
+
+  .badge-info {
+    @apply badge bg-repower-blue-100 text-repower-blue-700;
+  }
+
+  .badge-neutral {
+    @apply badge bg-repower-gray-100 text-repower-gray-700;
+  }
+}
+
+/* Utility Layer */
 @layer utilities {
+  /* Text Utilities */
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .text-pretty {
+    text-wrap: pretty;
+  }
+
+  /* Line Clamp */
+  .line-clamp-1 {
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
   .line-clamp-2 {
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
+  }
+
+  .line-clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  /* Scrollbar Styling */
+  .scrollbar-thin {
+    scrollbar-width: thin;
+    scrollbar-color: theme('colors.repower.gray.400') theme('colors.repower.gray.100');
+  }
+
+  .scrollbar-thin::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar-track {
+    background: theme('colors.repower.gray.100');
+    border-radius: 3px;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar-thumb {
+    background: theme('colors.repower.gray.400');
+    border-radius: 3px;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar-thumb:hover {
+    background: theme('colors.repower.gray.500');
+  }
+
+  /* Animation Utilities */
+  .animate-fade-in {
+    animation: fadeIn 0.3s ease-in-out;
+  }
+
+  .animate-slide-up {
+    animation: slideUp 0.3s ease-out;
+  }
+
+  .animate-scale-in {
+    animation: scaleIn 0.2s ease-out;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  @keyframes slideUp {
+    from { 
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to { 
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes scaleIn {
+    from { 
+      opacity: 0;
+      transform: scale(0.95);
+    }
+    to { 
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+}
+
+/* Print Styles */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  
+  body {
+    @apply text-black bg-white;
+  }
+  
+  .card {
+    @apply border border-gray-300 shadow-none;
   }
 }
