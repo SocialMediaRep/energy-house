@@ -373,7 +373,7 @@ export const devices: Device[] = [
     icon: 'Flame',
     wattage: 3000,
     standbyWattage: 0,
-    status: 'off',
+    status: 'on',
     category: 'heating',
     hasStandby: false,
     tips: [

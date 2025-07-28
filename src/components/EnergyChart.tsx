@@ -278,7 +278,7 @@ export const EnergyChart: React.FC<EnergyChartProps> = ({
               <div className="text-sm text-gray-500 mb-1">
                 Tägliche Kosten
               </div>
-              <div className="text-2xl font-bold text-red-600">
+              <div className="text-2xl font-bold text-green-600">
                 {dailyCost.toFixed(2)} <span className="text-sm font-normal">CHF</span>
               </div>
               <div className="text-xs text-gray-600 mt-1">

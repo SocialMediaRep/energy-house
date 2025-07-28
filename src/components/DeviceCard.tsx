@@ -20,7 +20,7 @@ export const DeviceCard: React.FC<DeviceCardProps> = ({
   
   const getStatusColor = () => {
     switch (device.status) {
-      case 'on': return 'bg-red-600 border-red-500 text-white shadow-lg';
+      case 'on': return 'bg-green-600 border-green-500 text-white shadow-lg';
       case 'standby': return 'bg-orange-50 border-orange-200 text-gray-900';
       default: return 'bg-gray-50 border-gray-200 hover:border-red-300 hover:shadow-md';
     }
@@ -28,7 +28,7 @@ export const DeviceCard: React.FC<DeviceCardProps> = ({
 
   const getIconColor = () => {
     switch (device.status) {
-      case 'on': return 'bg-red-500 text-white';
+      case 'on': return 'bg-green-500 text-white';
       case 'standby': return 'bg-orange-100 text-orange-600';
       default: return 'bg-gray-100 text-gray-600';
     }
@@ -36,7 +36,7 @@ export const DeviceCard: React.FC<DeviceCardProps> = ({
 
   const getStatusIndicator = () => {
     switch (device.status) {
-      case 'on': return 'bg-red-400 border-red-600';
+      case 'on': return 'bg-green-400 border-green-600';
       case 'standby': return 'bg-orange-400 border-orange-50';
       default: return 'bg-gray-300 border-gray-50';
     }
@@ -44,7 +44,7 @@ export const DeviceCard: React.FC<DeviceCardProps> = ({
 
   const getStatusBadge = () => {
     switch (device.status) {
-      case 'on': return { bg: 'bg-red-600', text: 'text-white', label: 'Ein', dot: 'bg-white' };
+      case 'on': return { bg: 'bg-green-600', text: 'text-white', label: 'Ein', dot: 'bg-white' };
       case 'standby': return { bg: 'bg-orange-500', text: 'text-white', label: 'Standby', dot: 'bg-white' };
       default: return { bg: 'bg-gray-100', text: 'text-gray-700', label: 'Aus', dot: 'bg-gray-400' };
     }
@@ -52,7 +52,7 @@ export const DeviceCard: React.FC<DeviceCardProps> = ({
 
   const getInfoButtonColor = () => {
     switch (device.status) {
-      case 'on': return 'bg-red-500 text-white hover:bg-red-400 focus:ring-red-300';
+      case 'on': return 'bg-green-500 text-white hover:bg-green-400 focus:ring-green-300';
       case 'standby': return 'bg-orange-100 text-orange-600 hover:bg-orange-200 hover:text-orange-800 focus:ring-orange-300';
       default: return 'bg-gray-100 text-gray-600 hover:bg-gray-200 hover:text-gray-800 focus:ring-gray-300';
     }

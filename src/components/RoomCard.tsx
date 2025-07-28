@@ -33,7 +33,7 @@ export const RoomCard: React.FC<RoomCardProps> = ({
           </div>
         </div>
         <div className={`w-3 h-3 rounded-full ${
-          totalConsumption > 0 ? 'bg-red-500' : 'bg-gray-300'
+          totalConsumption > 0 ? 'bg-green-500' : 'bg-gray-300'
         }`}></div>
       </div>
       
