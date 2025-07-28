@@ -192,7 +192,7 @@ export const EnergyChart: React.FC<EnergyChartProps> = ({
                     onClick={() => setSelectedTimeRange(key)}
                     className={`px-4 py-2 rounded-md text-sm font-medium transition-all duration-200 hover:scale-105 ${
                       selectedTimeRange === key
-                        ? 'bg-green-600 text-white shadow-md'
+                        ? 'bg-red-600 text-white shadow-md'
                         : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
                     }`}
                   >
@@ -274,11 +274,11 @@ export const EnergyChart: React.FC<EnergyChartProps> = ({
               </div>
             </div>
             
-            <div className="bg-red-50 rounded-lg p-4 text-center border border-red-100">
+            <div className="bg-gray-50 rounded-lg p-4 text-center">
               <div className="text-sm text-gray-500 mb-1">
                 Tägliche Kosten
               </div>
-              <div className="text-2xl font-bold text-green-600">
+              <div className="text-2xl font-bold text-gray-900">
                 {dailyCost.toFixed(2)} <span className="text-sm font-normal">CHF</span>
               </div>
               <div className="text-xs text-gray-600 mt-1">
