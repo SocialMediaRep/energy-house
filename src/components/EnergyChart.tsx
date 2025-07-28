@@ -175,9 +175,9 @@ export const EnergyChart: React.FC<EnergyChartProps> = ({
       </div>
 
       {/* Main Content Grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-4 gap-4">
-        {/* Left side: Time selector and Chart */}
-        <div className="lg:col-span-3">
+      <div className="space-y-4">
+        {/* Chart Section */}
+        <div>
           {/* Time Range Selector - moved to left */}
           <div className="flex justify-start mb-4">
             <div className="flex bg-gray-100 rounded-lg p-1">
@@ -204,7 +204,7 @@ export const EnergyChart: React.FC<EnergyChartProps> = ({
           {/* Chart Container - reduced height */}
           <div className="relative">
             {/* Chart */}
-            <div className="h-40 relative bg-white border border-gray-200 rounded">
+            <div className="h-48 relative bg-white border border-gray-200 rounded">
               {/* Y-axis labels */}
               <div className="absolute left-0 top-0 h-full flex flex-col justify-between text-xs text-gray-500 pr-2 py-4">
                 {yAxisLabels.map((label, index) => (
@@ -257,23 +257,23 @@ export const EnergyChart: React.FC<EnergyChartProps> = ({
               <span className="text-sm text-gray-600">Verbrauch in kW</span>
             </div>
           </div>
-        </div>
 
-        {/* Right side: Statistics and Live data */}
-        <div className="lg:col-span-1 space-y-4">
-          {/* Live consumption */}
-          <div className="text-right">
+          {/* Live consumption - moved to top right corner */}
+          <div className="absolute top-16 right-4 text-right bg-white p-2 rounded border border-gray-200">
             <div className="text-sm text-gray-500 mb-1">
               Live <span className="text-xs">{formatTime(currentTime.getTime())}</span>
             </div>
-            <div className="text-lg font-semibold text-gray-900 mb-2">
+            <div className="text-sm font-semibold text-gray-900 mb-1">
               Verbrauch
             </div>
-            <div className="text-2xl font-bold text-gray-900">
+            <div className="text-lg font-bold text-gray-900">
               {formatConsumption(totalConsumption)} <span className="text-sm font-normal">kW</span>
             </div>
           </div>
+        </div>
 
+        {/* Statistics Section - moved below chart */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {/* Statistics Overview */}
           <div className="bg-gray-50 rounded-lg p-4">
             <h3 className="font-semibold text-gray-900 mb-3">Statusübersicht</h3>
