@@ -204,10 +204,10 @@ export const devices: Device[] = [
     energyEfficiencyRating: 'A+'
   },
   {
-    id: 'kitchen-oven',
-    name: 'Herd/Ofen',
+    id: 'kitchen-stove',
+    name: 'Herd',
     icon: 'ChefHat',
-    wattage: 2500,
+    wattage: 2000,
     standbyWattage: 0,
     status: 'off',
     category: 'cooking',
@@ -215,10 +215,28 @@ export const devices: Device[] = [
     tips: [
       'Nutzen Sie die Restwärme',
       'Verwenden Sie passende Topfgrößen',
-      'Heizen Sie nicht vor, wenn möglich'
+      'Nutzen Sie Deckel beim Kochen'
     ],
-    description: 'Elektrischer Herd mit Backofen.',
-    costPerHour: 0.75,
+    description: 'Elektrischer Herd zum Kochen.',
+    costPerHour: 0.60,
+    energyEfficiencyRating: 'A'
+  },
+  {
+    id: 'kitchen-oven',
+    name: 'Backofen',
+    icon: 'ChefHat',
+    wattage: 2200,
+    standbyWattage: 0,
+    status: 'off',
+    category: 'cooking',
+    hasStandby: false,
+    tips: [
+      'Nutzen Sie die Restwärme',
+      'Heizen Sie nicht vor, wenn möglich',
+      'Nutzen Sie die Umluft-Funktion für niedrigere Temperaturen'
+    ],
+    description: 'Elektrischer Backofen zum Backen und Braten.',
+    costPerHour: 0.66,
     energyEfficiencyRating: 'A'
   },
   {
