@@ -177,107 +177,112 @@ export const EnergyChart: React.FC<EnergyChartProps> = ({
       {/* Main Content Grid */}
       <div className="space-y-4">
         {/* Chart Section */}
-        <div>
+        <div className="grid grid-cols-4 gap-4">
           {/* Time Range Selector - moved to left */}
-          <div className="flex justify-start mb-4">
-            <div className="flex bg-gray-100 rounded-lg p-1">
-              {[
-                { key: '1min' as TimeRange, label: '1 Min' },
-                { key: '5min' as TimeRange, label: '5 Min' },
-                { key: '30min' as TimeRange, label: '30 Min' }
-              ].map(({ key, label }) => (
-                <button
-                  key={key}
-                  onClick={() => setSelectedTimeRange(key)}
-                  className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
-                    selectedTimeRange === key
-                      ? 'bg-red-600 text-white'
-                      : 'text-gray-600 hover:text-gray-900'
-                  }`}
-                >
-                  {label}
-                </button>
-              ))}
-            </div>
-          </div>
-
-          {/* Chart Container - reduced height */}
-          <div className="relative">
-            {/* Chart */}
-            <div className="h-48 relative bg-white border border-gray-200 rounded">
-              {/* Y-axis labels */}
-              <div className="absolute left-0 top-0 h-full flex flex-col justify-between text-xs text-gray-500 pr-2 py-4">
-                {yAxisLabels.map((label, index) => (
-                  <div key={index} className="text-right">
-                    {label} kW
-                  </div>
+          <div className="col-span-3">
+            <div className="flex justify-start mb-4">
+              <div className="flex bg-gray-100 rounded-lg p-1">
+                {[
+                  { key: '1min' as TimeRange, label: '1 Min' },
+                  { key: '5min' as TimeRange, label: '5 Min' },
+                  { key: '30min' as TimeRange, label: '30 Min' }
+                ].map(({ key, label }) => (
+                  <button
+                    key={key}
+                    onClick={() => setSelectedTimeRange(key)}
+                    className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
+                      selectedTimeRange === key
+                        ? 'bg-red-600 text-white'
+                        : 'text-gray-600 hover:text-gray-900'
+                    }`}
+                  >
+                    {label}
+                  </button>
                 ))}
               </div>
+            </div>
 
-              {/* Chart Area */}
-              <div className="absolute inset-0 ml-12">
-                {liveData.length > 1 && (
-                  <svg className="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
-                    {/* Area fill */}
-                    <path
-                      d={generateAreaPath()}
-                      fill="rgba(59, 130, 246, 0.1)"
-                      stroke="none"
-                    />
-                    {/* Line */}
-                    <path
-                      d={generateLinePath()}
-                      fill="none"
-                      stroke="#3b82f6"
-                      strokeWidth="1"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
+            {/* Chart Container */}
+            <div className="relative">
+              {/* Chart */}
+              <div className="h-48 relative bg-white border border-gray-200 rounded">
+                {/* Y-axis labels */}
+                <div className="absolute left-0 top-0 h-full flex flex-col justify-between text-xs text-gray-500 pr-2 py-4">
+                  {yAxisLabels.map((label, index) => (
+                    <div key={index} className="text-right">
+                      {label} kW
+                    </div>
+                  ))}
+                </div>
+
+                {/* Chart Area */}
+                <div className="absolute inset-0 ml-12">
+                  {liveData.length > 1 && (
+                    <svg className="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
+                      {/* Area fill */}
+                      <path
+                        d={generateAreaPath()}
+                        fill="rgba(59, 130, 246, 0.1)"
+                        stroke="none"
+                      />
+                      {/* Line */}
+                      <path
+                        d={generateLinePath()}
+                        fill="none"
+                        stroke="#3b82f6"
+                        strokeWidth="1"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+                  )}
+                </div>
+              </div>
+
+              {/* X-axis time labels */}
+              <div className="flex justify-between text-xs text-gray-500 mt-2 ml-12">
+                {liveData.length > 0 && (
+                  <>
+                    <span>{formatTime(liveData[0]?.timestamp || Date.now())}</span>
+                    <span>{formatTime(liveData[Math.floor(liveData.length / 2)]?.timestamp || Date.now())}</span>
+                    <span>{formatTime(liveData[liveData.length - 1]?.timestamp || Date.now())}</span>
+                  </>
                 )}
               </div>
             </div>
 
-            {/* X-axis time labels */}
-            <div className="flex justify-between text-xs text-gray-500 mt-2 ml-12">
-              {liveData.length > 0 && (
-                <>
-                  <span>{formatTime(liveData[0]?.timestamp || Date.now())}</span>
-                  <span>{formatTime(liveData[Math.floor(liveData.length / 2)]?.timestamp || Date.now())}</span>
-                  <span>{formatTime(liveData[liveData.length - 1]?.timestamp || Date.now())}</span>
-                </>
-              )}
+            {/* Legend */}
+            <div className="flex items-center justify-center mt-3 pt-3 border-t border-gray-100">
+              <div className="flex items-center space-x-2">
+                <div className="w-4 h-3 bg-blue-400 rounded-sm"></div>
+                <span className="text-sm text-gray-600">Verbrauch in kW</span>
+              </div>
             </div>
           </div>
 
-          {/* Legend */}
-          <div className="flex items-center justify-center mt-3 pt-3 border-t border-gray-100">
-            <div className="flex items-center space-x-2">
-              <div className="w-4 h-3 bg-blue-400 rounded-sm"></div>
-              <span className="text-sm text-gray-600">Verbrauch in kW</span>
-            </div>
-          </div>
-
-          {/* Live consumption - moved to top right corner */}
-          <div className="absolute top-16 right-4 text-right bg-white p-2 rounded border border-gray-200">
-            <div className="text-sm text-gray-500 mb-1">
-              Live <span className="text-xs">{formatTime(currentTime.getTime())}</span>
-            </div>
-            <div className="text-sm font-semibold text-gray-900 mb-1">
-              Verbrauch
-            </div>
-            <div className="text-lg font-bold text-gray-900">
-              {formatConsumption(totalConsumption)} <span className="text-sm font-normal">kW</span>
+          {/* Live consumption - beside chart */}
+          <div className="col-span-1 flex flex-col justify-center">
+            <div className="bg-gray-50 rounded-lg p-4 text-center">
+              <div className="text-sm text-gray-500 mb-1">
+                Live <span className="text-xs">{formatTime(currentTime.getTime())}</span>
+              </div>
+              <div className="text-sm font-semibold text-gray-900 mb-1">
+                Verbrauch
+              </div>
+              <div className="text-2xl font-bold text-gray-900">
+                {formatConsumption(totalConsumption)} <span className="text-sm font-normal">kW</span>
+              </div>
             </div>
           </div>
         </div>
 
-        {/* Statistics Section - moved below chart */}
+        {/* Statistics Section - below chart */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {/* Statistics Overview */}
           <div className="bg-gray-50 rounded-lg p-4">
             <h3 className="font-semibold text-gray-900 mb-3">Statusübersicht</h3>
             
+            <div className="flex bg-gray-100 rounded-lg p-1">
             <div className="space-y-2">
               <div className="flex justify-between items-center p-2 bg-green-50 rounded">
                 <span className="text-sm text-gray-700">Aktive Geräte</span>
