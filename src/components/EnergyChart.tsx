@@ -190,10 +190,10 @@ export const EnergyChart: React.FC<EnergyChartProps> = ({
                   <button
                     key={key}
                     onClick={() => setSelectedTimeRange(key)}
-                    className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
+                    className={`px-4 py-2 rounded-md text-sm font-medium transition-all duration-200 hover:scale-105 ${
                       selectedTimeRange === key
-                        ? 'bg-red-600 text-white'
-                        : 'text-gray-600 hover:text-gray-900'
+                        ? 'bg-green-600 text-white shadow-md'
+                        : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
                     }`}
                   >
                     {label}

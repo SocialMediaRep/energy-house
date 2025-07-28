@@ -62,7 +62,7 @@ export const DeviceCard: React.FC<DeviceCardProps> = ({
 
   return (
     <div 
-      className={`p-4 rounded-2xl border transition-all duration-200 cursor-pointer hover:shadow-md ${getStatusColor()}`}
+      className={`p-4 rounded-2xl border transition-all duration-300 cursor-pointer hover:shadow-lg hover:scale-[1.02] hover:-translate-y-1 ${getStatusColor()}`}
       onClick={() => onToggle(device.id)}
       role="button"
       tabIndex={0}
@@ -84,10 +84,15 @@ export const DeviceCard: React.FC<DeviceCardProps> = ({
           </div>
           
           {/* Power Status Indicator */}
-          <div className={`absolute -top-1 -right-1 w-4 h-4 rounded-full border-2 transition-all duration-200 ${getStatusIndicator()}`}>
-            {device.status !== 'off' && (
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onShowDetails(device);
+                }}
+                className={`p-3 rounded-xl transition-all duration-300 hover:scale-110 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 ${getInfoButtonColor()}`}
+                aria-label={`Details für ${device.name} anzeigen`}
+                title="Geräte-Details anzeigen"
               <div className={`w-full h-full rounded-full animate-pulse ${
-                device.status === 'on' ? 'bg-red-400' : 'bg-orange-400'
+                <Icons.Info size={18} />
               }`}></div>
             )}
           </div>
