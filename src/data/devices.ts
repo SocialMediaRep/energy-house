@@ -20,42 +20,6 @@ export const devices: Device[] = [
     costPerHour: 0.54,
     energyEfficiencyRating: 'C'
   },
-  {
-    id: 'bathroom-shower',
-    name: 'Dusche/Bad',
-    icon: 'Droplets',
-    wattage: 3000,
-    standbyWattage: 0,
-    status: 'off',
-    category: 'heating',
-    hasStandby: false,
-    tips: [
-      'Kürzen Sie die Duschzeit',
-      'Nutzen Sie eine wassersparende Duschbrause',
-      'Duschen Sie bei niedrigerer Temperatur'
-    ],
-    description: 'Warmwasser für Dusche und Bad verbraucht viel Energie.',
-    costPerHour: 0.90,
-    energyEfficiencyRating: 'D'
-  },
-  {
-    id: 'bathroom-ventilation',
-    name: 'Föhn',
-    icon: 'Fan',
-    wattage: 25,
-    standbyWattage: 0,
-    status: 'off',
-    category: 'ventilation',
-    hasStandby: false,
-    tips: [
-      'Schalten Sie den Ventilator nach dem Duschen ein',
-      'Lassen Sie ihn nur 15-30 Minuten laufen',
-      'Reinigen Sie die Filter regelmäßig'
-    ],
-    description: 'Badezimmerventilator für Luftzirkulation.',
-    costPerHour: 0.008,
-    energyEfficiencyRating: 'A'
-  },
   // Schlafzimmer
   {
     id: 'bedroom-fan',
