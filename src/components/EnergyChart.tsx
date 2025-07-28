@@ -11,32 +11,48 @@ interface DataPoint {
   consumption: number;
 }
 
+type TimeRange = '1min' | '5min' | '30min';
+
 export const EnergyChart: React.FC<EnergyChartProps> = ({
   totalConsumption,
   activeConsumption,
   standbyConsumption
 }) => {
   const [liveData, setLiveData] = useState<DataPoint[]>([]);
+  const [selectedTimeRange, setSelectedTimeRange] = useState<TimeRange>('30min');
 
-  // Initialize with some historical data points
+  // Get data points and intervals based on selected time range
+  const getTimeRangeConfig = (range: TimeRange) => {
+    switch (range) {
+      case '1min':
+        return { points: 12, intervalMs: 5000, totalMs: 60000 }; // 12 points, 5s intervals, 1 minute
+      case '5min':
+        return { points: 30, intervalMs: 10000, totalMs: 300000 }; // 30 points, 10s intervals, 5 minutes
+      case '30min':
+        return { points: 30, intervalMs: 60000, totalMs: 1800000 }; // 30 points, 1min intervals, 30 minutes
+    }
+  };
+
+  // Initialize with historical data points based on selected time range
   useEffect(() => {
+    const config = getTimeRangeConfig(selectedTimeRange);
     const now = Date.now();
     const initialData: DataPoint[] = [];
     
-    // Create 30 data points for the last 5 minutes (10-second intervals)
-    for (let i = 29; i >= 0; i--) {
-      const baseConsumption = Math.max(50, totalConsumption * 0.7);
+    for (let i = config.points - 1; i >= 0; i--) {
+      const baseConsumption = Math.max(50, totalConsumption * 0.8);
       initialData.push({
-        timestamp: now - (i * 10000), // 10 seconds apart
-        consumption: baseConsumption + Math.sin(i * 0.3) * 50 + Math.random() * 30
+        timestamp: now - (i * config.intervalMs),
+        consumption: baseConsumption + Math.sin(i * 0.3) * 30 + Math.random() * 20
       });
     }
     
     setLiveData(initialData);
-  }, []);
+  }, [selectedTimeRange, totalConsumption]);
 
   // Update chart when consumption changes
   useEffect(() => {
+    const config = getTimeRangeConfig(selectedTimeRange);
     const now = Date.now();
     setLiveData(prev => {
       const newData = [...prev, {
@@ -44,45 +60,86 @@ export const EnergyChart: React.FC<EnergyChartProps> = ({
         consumption: totalConsumption
       }];
       
-      // Keep only last 30 data points (5 minutes)
-      return newData.slice(-30);
+      return newData.slice(-config.points);
     });
-  }, [totalConsumption]);
+  }, [totalConsumption, selectedTimeRange]);
 
-  // Add new data point every 10 seconds
+  // Add new data point based on selected interval
   useEffect(() => {
+    const config = getTimeRangeConfig(selectedTimeRange);
     const interval = setInterval(() => {
       const now = Date.now();
       setLiveData(prev => {
         const newData = [...prev, {
           timestamp: now,
-          consumption: totalConsumption + (Math.random() - 0.5) * 20 // Small variation
+          consumption: totalConsumption + (Math.random() - 0.5) * 15
         }];
         
-        // Keep only last 30 data points (5 minutes)
-        return newData.slice(-30);
+        return newData.slice(-config.points);
       });
-    }, 10000); // Update every 10 seconds
+    }, config.intervalMs);
 
     return () => clearInterval(interval);
-  }, [totalConsumption]);
+  }, [totalConsumption, selectedTimeRange]);
 
   const maxConsumption = useMemo(() => {
     if (liveData.length === 0) return Math.max(totalConsumption, 100);
-    return Math.max(...liveData.map(d => d.consumption), totalConsumption, 100);
+    const maxFromData = Math.max(...liveData.map(d => d.consumption));
+    // Round up to next 0.05 kW for cleaner y-axis
+    return Math.ceil(maxFromData / 50) * 50;
   }, [liveData, totalConsumption]);
 
   const formatTime = (timestamp: number) => {
     const date = new Date(timestamp);
-    return `${date.getMinutes().toString().padStart(2, '0')}:${date.getSeconds().toString().padStart(2, '0')}`;
+    return `${date.getHours().toString().padStart(2, '0')}:${date.getMinutes().toString().padStart(2, '0')}`;
+  };
+
+  const formatConsumption = (watts: number) => {
+    return (watts / 1000).toFixed(3);
+  };
+
+  // Generate Y-axis labels (simplified)
+  const getYAxisLabels = () => {
+    const labels = [];
+    const step = maxConsumption / 5; // 5 horizontal lines
+    for (let i = 0; i <= 5; i++) {
+      labels.push((step * i / 1000).toFixed(2));
+    }
+    return labels.reverse(); // Top to bottom
+  };
+
+  // Generate SVG path for the area chart
+  const generateAreaPath = () => {
+    if (liveData.length < 2) return '';
+    
+    const width = 100;
+    const height = 100;
+    const stepX = width / (liveData.length - 1);
+    
+    let path = `M 0 ${height}`; // Start at bottom left
+    
+    liveData.forEach((point, index) => {
+      const x = index * stepX;
+      const y = height - (point.consumption / maxConsumption) * height;
+      
+      if (index === 0) {
+        path += ` L ${x} ${y}`;
+      } else {
+        path += ` L ${x} ${y}`;
+      }
+    });
+    
+    path += ` L ${width} ${height} Z`; // Close the path at bottom right
+    
+    return path;
   };
 
   // Generate SVG path for the line
-  const generatePath = () => {
+  const generateLinePath = () => {
     if (liveData.length < 2) return '';
     
-    const width = 100; // percentage
-    const height = 100; // percentage
+    const width = 100;
+    const height = 100;
     const stepX = width / (liveData.length - 1);
     
     let path = '';
@@ -102,132 +159,139 @@ export const EnergyChart: React.FC<EnergyChartProps> = ({
   };
 
   const currentTime = new Date();
-  const timeRange = `${formatTime(currentTime.getTime() - 5 * 60 * 1000)} - ${formatTime(currentTime.getTime())}`;
+  const yAxisLabels = getYAxisLabels();
 
   return (
-    <div className="bg-white rounded-2xl p-8 shadow-sm border border-gray-200">
-      <div className="flex items-center justify-between mb-4">
-        <div>
-          <h3 className="text-2xl font-bold text-gray-900">Live Energieverbrauch</h3>
-          <div className="flex items-baseline space-x-2 mt-1">
-            <span className="text-3xl font-bold text-red-600">{totalConsumption}W</span>
-            <span className="text-sm text-gray-500">aktuell</span>
-          </div>
-        </div>
-        <div className="text-right">
-          <div className="text-sm text-gray-500">Letzte 5 Min</div>
-          <div className="text-sm font-medium text-gray-700">
-            {timeRange}
-          </div>
-        </div>
-      </div>
-
-      {/* Consumption breakdown */}
-      <div className="grid grid-cols-2 gap-4 mb-4">
-        <div className="bg-red-50 p-6 rounded-xl border border-red-200">
-          <div className="flex items-center space-x-2">
-            <div className="w-3 h-3 bg-red-500 rounded-full animate-pulse"></div>
-            <span className="text-sm font-semibold text-gray-700">Aktiv</span>
-          </div>
-          <div className="text-2xl font-bold text-red-600 mt-2">
-            {activeConsumption}W
-          </div>
-        </div>
-        <div className="bg-orange-50 p-6 rounded-xl border border-orange-200">
-          <div className="flex items-center space-x-2">
-            <div className="w-3 h-3 bg-orange-500 rounded-full"></div>
-            <span className="text-sm font-semibold text-gray-700">Standby</span>
-          </div>
-          <div className="text-2xl font-bold text-orange-600 mt-2">
-            {standbyConsumption}W
-          </div>
-        </div>
-      </div>
-
-      {/* Live Chart with Line and Bars */}
-      <div className="h-48 relative bg-gradient-to-br from-gray-50 to-gray-100 rounded-xl p-4 overflow-hidden border border-gray-200">
-        {/* Background grid */}
-        <div className="absolute inset-4 opacity-20">
-          <div className="w-full h-full grid grid-cols-6 grid-rows-4 gap-0">
-            {Array.from({ length: 24 }).map((_, i) => (
-              <div key={i} className="border-r border-b border-gray-300 last:border-r-0"></div>
-            ))}
-          </div>
-        </div>
-
-        {/* Bar Chart */}
-        <div className="absolute inset-4 flex items-end justify-between">
-          {liveData.map((data, index) => (
-            <div
-              key={data.timestamp}
-              className="flex-1 flex flex-col items-center justify-end mr-1 last:mr-0"
+    <div className="bg-white rounded-lg border border-gray-200 p-6">
+      {/* Header */}
+      <div className="flex items-center justify-between mb-6">
+        <h2 className="text-lg font-semibold text-gray-900 flex items-center">
+          <div className="w-2 h-2 bg-green-500 rounded-full mr-2"></div>
+          Aktueller Stromverbrauch
+        </h2>
+        
+        {/* Time Range Selector */}
+        <div className="flex bg-gray-100 rounded-lg p-1">
+          {[
+            { key: '1min' as TimeRange, label: '1 Min' },
+            { key: '5min' as TimeRange, label: '5 Min' },
+            { key: '30min' as TimeRange, label: '30 Min' }
+          ].map(({ key, label }) => (
+            <button
+              key={key}
+              onClick={() => setSelectedTimeRange(key)}
+              className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
+                selectedTimeRange === key
+                  ? 'bg-red-600 text-white'
+                  : 'text-gray-600 hover:text-gray-900'
+              }`}
             >
-              <div
-                className={`w-full rounded-t-sm transition-all duration-500 ${
-                  index === liveData.length - 1
-                    ? 'bg-red-400 shadow-sm' 
-                    : 'bg-red-300'
-                }`}
-                style={{
-                  height: `${Math.max(2, (data.consumption / maxConsumption) * 100)}%`,
-                }}
-              />
-            </div>
+              {label}
+            </button>
           ))}
         </div>
+      </div>
 
-        {/* Line Chart Overlay */}
-        {liveData.length > 1 && (
-          <div className="absolute inset-4">
+      {/* Chart Container */}
+      <div className="relative">
+        {/* Chart */}
+        <div className="h-64 relative bg-white border border-gray-200 rounded">
+          {/* Y-axis labels */}
+          <div className="absolute left-0 top-0 h-full flex flex-col justify-between text-xs text-gray-500 pr-2 py-2">
+            {yAxisLabels.map((label, index) => (
+              <div key={index} className="text-right">
+                {label} kW
+              </div>
+            ))}
+          </div>
+
+          {/* Grid lines */}
+          <div className="absolute inset-0 ml-12">
             <svg className="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
-              <defs>
-                <linearGradient id="lineGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                  <stop offset="0%" stopColor="#dc2626" stopOpacity="0.8" />
-                  <stop offset="100%" stopColor="#b91c1c" stopOpacity="1" />
-                </linearGradient>
-              </defs>
-              <path
-                d={generatePath()}
-                fill="none"
-                stroke="url(#lineGradient)"
-                strokeWidth="1.2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className="drop-shadow-sm"
-              />
-              {/* Current point indicator */}
-              {liveData.length > 0 && (
-                <circle
-                  cx={((liveData.length - 1) / (liveData.length - 1)) * 100}
-                  cy={100 - (liveData[liveData.length - 1].consumption / maxConsumption) * 100}
-                  r="1.5"
-                  fill="#b91c1c"
-                  className="animate-pulse"
+              {/* Horizontal grid lines */}
+              {Array.from({ length: 6 }).map((_, i) => (
+                <line
+                  key={`h-${i}`}
+                  x1="0"
+                  y1={i * 20}
+                  x2="100"
+                  y2={i * 20}
+                  stroke="#f3f4f6"
+                  strokeWidth="0.5"
                 />
-              )}
+              ))}
+              {/* Vertical grid lines */}
+              {Array.from({ length: 11 }).map((_, i) => (
+                <line
+                  key={`v-${i}`}
+                  x1={i * 10}
+                  y1="0"
+                  x2={i * 10}
+                  y2="100"
+                  stroke="#f3f4f6"
+                  strokeWidth="0.5"
+                />
+              ))}
             </svg>
           </div>
-        )}
-        
-        {/* Current value indicator */}
-        <div className="absolute top-3 right-4 bg-red-600 text-white px-3 py-1.5 rounded-lg text-sm font-semibold shadow-lg">
-          <div className="flex items-center space-x-1">
-            <div className="w-2 h-2 bg-white rounded-full animate-pulse"></div>
-            <span>{totalConsumption}W</span>
+
+          {/* Chart Area */}
+          <div className="absolute inset-0 ml-12">
+            {liveData.length > 1 && (
+              <svg className="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
+                {/* Area fill */}
+                <path
+                  d={generateAreaPath()}
+                  fill="rgba(59, 130, 246, 0.1)"
+                  stroke="none"
+                />
+                {/* Line */}
+                <path
+                  d={generateLinePath()}
+                  fill="none"
+                  stroke="#3b82f6"
+                  strokeWidth="1"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            )}
           </div>
         </div>
 
-        {/* Max value indicator */}
-        <div className="absolute top-3 left-4 text-xs text-gray-600 bg-white px-2 py-1 rounded border shadow-sm">
-          Max: {Math.round(maxConsumption)}W
+        {/* X-axis time labels */}
+        <div className="flex justify-between text-xs text-gray-500 mt-2 ml-12">
+          {liveData.length > 0 && (
+            <>
+              <span>{formatTime(liveData[0]?.timestamp || Date.now())}</span>
+              <span>{formatTime(liveData[Math.floor(liveData.length / 2)]?.timestamp || Date.now())}</span>
+              <span>{formatTime(liveData[liveData.length - 1]?.timestamp || Date.now())}</span>
+            </>
+          )}
         </div>
       </div>
 
-      {/* Time labels */}
-      <div className="flex justify-between text-sm text-gray-500 mt-3 px-4">
-        <span>-5 Min</span>
-        <span>-2.5 Min</span>
-        <span>Jetzt</span>
+      {/* Right side info panel */}
+      <div className="flex justify-end mt-4">
+        <div className="text-right">
+          <div className="text-sm text-gray-500 mb-1">
+            Live <span className="text-xs">{formatTime(currentTime.getTime())}</span>
+          </div>
+          <div className="text-lg font-semibold text-gray-900 mb-2">
+            Verbrauch
+          </div>
+          <div className="text-2xl font-bold text-gray-900">
+            {formatConsumption(totalConsumption)} <span className="text-sm font-normal">kW</span>
+          </div>
+        </div>
+      </div>
+
+      {/* Legend */}
+      <div className="flex items-center justify-center mt-4 pt-4 border-t border-gray-100">
+        <div className="flex items-center space-x-2">
+          <div className="w-4 h-3 bg-blue-400 rounded-sm"></div>
+          <span className="text-sm text-gray-600">Verbrauch in kW</span>
+        </div>
       </div>
     </div>
   );
