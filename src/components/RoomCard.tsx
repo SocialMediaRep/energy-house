@@ -25,7 +25,7 @@ export const RoomCard: React.FC<RoomCardProps> = ({
     <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-200">
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h3 className="h3 mb-2 text-balance">{room.name}</h3>
+          <h2 className="h2 mb-2 text-balance">{room.name}</h2>
           <div className="flex items-center space-x-4 text-body-sm text-medium-contrast">
             <span>{room.devices.length} Geräte</span>
             <span>{activeDevices} aktiv</span>
