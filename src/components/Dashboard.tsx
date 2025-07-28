@@ -38,8 +38,18 @@ export const Dashboard: React.FC = () => {
           </div>
           <h2 className="text-xl font-semibold text-gray-900 mb-2">Fehler beim Laden</h2>
           <p className="text-gray-600 mb-4">{error}</p>
+          <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
+            <h3 className="font-semibold text-blue-900 mb-2">So richten Sie Supabase ein:</h3>
+            <ol className="text-sm text-blue-800 text-left space-y-1">
+              <li>1. Gehen Sie zu <a href="https://supabase.com" target="_blank" rel="noopener noreferrer" className="underline">supabase.com</a></li>
+              <li>2. Erstellen Sie ein kostenloses Konto</li>
+              <li>3. Erstellen Sie ein neues Projekt</li>
+              <li>4. Kopieren Sie die URL und den API-Key aus den Projekteinstellungen</li>
+              <li>5. Die Datenbank wird automatisch eingerichtet</li>
+            </ol>
+          </div>
           <p className="text-sm text-gray-500">
-            Bitte klicken Sie auf "Connect to Supabase" oben rechts, um die Datenbank zu verbinden.
+            Nach der Einrichtung können Sie Ihre Geräte direkt im Supabase Dashboard verwalten.
           </p>
         </div>
       </div>
