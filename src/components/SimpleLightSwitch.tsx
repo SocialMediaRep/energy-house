@@ -13,7 +13,7 @@ export const SimpleLightSwitch: React.FC<SimpleLightSwitchProps> = ({
   disabled = false 
 }) => {
   return (
-    <div className="flex items-center space-x-4 bg-white rounded-2xl p-8 border border-repower-gray-200 shadow-sm">
+    <div className="flex items-center space-x-4 bg-white rounded-2xl p-4 md:p-8 border border-repower-gray-200 shadow-sm">
       {/* Label */}
       <div className="flex items-center space-x-3">
         <Lightbulb 
@@ -22,7 +22,7 @@ export const SimpleLightSwitch: React.FC<SimpleLightSwitchProps> = ({
             isOn ? 'text-repower-orange-500' : 'text-repower-gray-400'
           }`}
         />
-        <span className="text-body-sm font-medium text-medium-contrast">
+        <span className="text-sm md:text-base font-medium text-medium-contrast">
           Licht (Alle Räume)
         </span>
       </div>
@@ -46,14 +46,14 @@ export const SimpleLightSwitch: React.FC<SimpleLightSwitchProps> = ({
       </button>
 
       {/* Status */}
-      <span className={`text-body-sm font-medium transition-colors duration-300 ${
+      <span className={`text-sm md:text-base font-medium transition-colors duration-300 ${
         isOn ? 'text-repower-orange-600' : 'text-low-contrast'
       }`}>
         {isOn ? 'Ein' : 'Aus'}
       </span>
 
       {/* LED Energy Saving Tip */}
-      <div className="text-caption text-low-contrast ml-auto bg-repower-gray-50 px-3 py-2 rounded-md">
+      <div className="hidden md:block text-caption text-low-contrast ml-auto bg-repower-gray-50 px-3 py-2 rounded-md">
         💡 <span className="font-medium">Tipp:</span> LED sparen 80% Energie
       </div>
     </div>

@@ -11,6 +11,18 @@ import { Zap, ArrowRight, Play } from 'lucide-react';
 export const Dashboard: React.FC = () => {
   const { devices, loading, error, toggleDevice, getCurrentConsumption, getActiveConsumption, getStandbyConsumption } = useDevices();
   const [selectedDevice, setSelectedDevice] = useState<Device | null>(null);
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  // Track scroll position for mobile header
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollTop = window.scrollY;
+      setIsScrolled(scrollTop > 100); // Show compact header after 100px scroll
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const roomsWithDevices = rooms.map(room => ({
     ...room,
@@ -119,8 +131,8 @@ INSERT INTO devices (id, name, icon, wattage, standby_wattage, status, category,
   return (
     <div className="min-h-screen bg-white">
 
-      {/* Fixed Energy Chart Section */}
-      <section className="sticky top-0 z-40 bg-gray-50 py-12 border-b border-gray-200 shadow-sm">
+      {/* Desktop: Fixed Energy Chart Section */}
+      <section className="hidden md:block sticky top-0 z-40 bg-gray-50 py-12 border-b border-gray-200 shadow-sm">
         <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
           <EnergyChart 
             totalConsumption={getCurrentConsumption()}
@@ -130,11 +142,48 @@ INSERT INTO devices (id, name, icon, wattage, standby_wattage, status, category,
         </div>
       </section>
 
+      {/* Mobile: Energy Chart (not sticky) */}
+      <section className="md:hidden bg-gray-50 py-8 border-b border-gray-200">
+        <div className="px-4">
+          <EnergyChart 
+            totalConsumption={getCurrentConsumption()}
+            activeConsumption={getActiveConsumption()}
+            standbyConsumption={getStandbyConsumption()}
+          />
+        </div>
+      </section>
+
+      {/* Mobile: Sticky Compact Header */}
+      <div className={`md:hidden sticky top-0 z-40 bg-white border-b border-gray-200 transition-all duration-300 ${
+        isScrolled ? 'shadow-md' : 'shadow-none'
+      }`}>
+        <div className="px-4 py-3">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center space-x-4">
+              <div className="text-center">
+                <div className="text-lg font-medium text-repower-dark">
+                  {(getCurrentConsumption() / 1000).toFixed(2)} kW
+                </div>
+                <div className="text-xs text-repower-gray-600">Verbrauch</div>
+              </div>
+              <div className="w-px h-8 bg-gray-300"></div>
+              <div className="text-center">
+                <div className="text-lg font-medium text-repower-dark">
+                  {((getCurrentConsumption() / 1000) * 24 * 0.30).toFixed(2)} CHF
+                </div>
+                <div className="text-xs text-repower-gray-600">Täglich</div>
+              </div>
+            </div>
+            <div className={`w-2 h-2 rounded-full ${getCurrentConsumption() > 0 ? 'bg-green-500' : 'bg-gray-300'}`}></div>
+          </div>
+        </div>
+      </div>
+
       {/* Main Content */}
-      <main className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-16">
+      <main className="max-w-7xl mx-auto px-4 md:px-6 lg:px-12 py-8 md:py-16">
         {/* Simple Light Switch */}
         {globalLights && (
-          <div className="mb-12">
+          <div className="mb-8 md:mb-12">
             <SimpleLightSwitch 
               isOn={globalLights.status === 'on'}
               onToggle={() => toggleDevice('global-lights')}
