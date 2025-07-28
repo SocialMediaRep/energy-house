@@ -251,13 +251,6 @@ export const EnergyChart: React.FC<EnergyChartProps> = ({
               </div>
             </div>
 
-            {/* Legend */}
-            <div className="flex items-center justify-center mt-3 pt-3 border-t border-gray-100">
-              <div className="flex items-center space-x-2">
-                <div className="w-4 h-3 bg-blue-400 rounded-sm"></div>
-                <span className="text-body-sm text-medium-contrast">Verbrauch in kW</span>
-              </div>
-            </div>
           </div>
 
           {/* Live consumption - beside chart */}
@@ -266,7 +259,7 @@ export const EnergyChart: React.FC<EnergyChartProps> = ({
               <div className="text-body-sm text-low-contrast mb-1">
                 Live <span className="text-caption">{formatTime(currentTime.getTime())}</span>
               </div>
-              <div className="text-body-sm font-medium text-high-contrast mb-1">
+              <div className="text-base font-medium text-high-contrast mb-1">
                 Verbrauch
               </div>
               <div className="text-2xl font-light text-high-contrast">
