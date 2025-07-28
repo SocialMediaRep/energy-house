@@ -115,12 +115,12 @@ export default {
       borderRadius: {
         'none': '0',
         'sm': '0.25rem',    // 4px
-        'DEFAULT': '0.5rem', // 8px
-        'md': '0.75rem',    // 12px
-        'lg': '1rem',       // 16px
-        'xl': '1.5rem',     // 24px
-        '2xl': '2rem',      // 32px
-        '3xl': '3rem',      // 48px
+        'DEFAULT': '8px', // 8px
+        'md': '8px',    // 12px
+        'lg': '8px',       // 16px
+        'xl': '8px',     // 24px
+        '2xl': '16px',      // 32px
+        '3xl': '24px',      // 48px
         'full': '9999px',
       },
       boxShadow: {
