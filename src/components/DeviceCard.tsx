@@ -133,12 +133,12 @@ export const DeviceCard: React.FC<DeviceCardProps> = ({
         
         <div className="flex-1 min-w-0">
           <div className="flex items-center justify-between mb-2">
-            <h4 className={`font-medium text-sm truncate ${
+            <h4 className={`font-medium text-small truncate ${
               device.status === 'on' ? 'text-white' : 'text-gray-900'
             }`}>
               {device.name}
             </h4>
-            <span className={`text-xs font-medium ${
+            <span className={`text-tiny font-normal ${
               device.status === 'on' ? 'text-gray-300' : 'text-gray-500'
             }`}>
               {currentWattage}W
@@ -147,7 +147,7 @@ export const DeviceCard: React.FC<DeviceCardProps> = ({
           
           <div className="flex items-center justify-between">
             {/* Power Status Badge */}
-            <div className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all duration-200 ${statusBadge.bg} ${statusBadge.text}`}>
+            <div className={`px-3 py-1.5 rounded-lg text-tiny font-medium transition-all duration-200 ${statusBadge.bg} ${statusBadge.text}`}>
               <div className="flex items-center space-x-1">
                 <div className={`w-2 h-2 rounded-full ${statusBadge.dot}`}></div>
                 <span>{statusBadge.label}</span>

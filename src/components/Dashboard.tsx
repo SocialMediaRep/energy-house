@@ -40,16 +40,16 @@ export const Dashboard: React.FC = () => {
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z" />
             </svg>
           </div>
-          <h2 className="text-xl font-semibold text-gray-900 mb-2">Fehler beim Laden</h2>
-          <p className="text-gray-600 mb-4">{error}</p>
+          <h2 className="text-2xl font-medium text-gray-900 mb-2">Fehler beim Laden</h2>
+          <p className="text-base text-gray-600 mb-4">{error}</p>
           <div className="bg-red-50 border border-red-200 rounded-lg p-4 mb-4 max-w-md mx-auto">
-            <h3 className="font-semibold text-red-900 mb-2">Datenbank-Problem</h3>
-            <p className="text-sm text-red-800 mb-3">
+            <h3 className="font-medium text-red-900 mb-2">Datenbank-Problem</h3>
+            <p className="text-small text-red-800 mb-3">
               Die Geräte-Tabelle existiert noch nicht in Ihrer Supabase-Datenbank.
             </p>
             <div className="text-left">
-              <p className="text-sm font-medium text-red-900 mb-2">Lösung:</p>
-              <ol className="text-sm text-red-800 space-y-1">
+              <p className="text-small font-medium text-red-900 mb-2">Lösung:</p>
+              <ol className="text-small text-red-800 space-y-1">
                 <li>1. Gehen Sie zu Ihrem <a href="https://supabase.com/dashboard" target="_blank" rel="noopener noreferrer" className="underline font-medium">Supabase Dashboard</a></li>
                 <li>2. Wählen Sie Ihr Projekt aus</li>
                 <li>3. Klicken Sie auf "SQL Editor"</li>
@@ -65,11 +65,11 @@ export const Dashboard: React.FC = () => {
                 alert('SQL-Code wurde in die Zwischenablage kopiert!');
               }
             }}
-            className="mb-4 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+            className="mb-4 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors btn-text"
           >
             SQL-Code kopieren
           </button>
-          <div className="bg-gray-900 text-green-400 p-4 rounded-lg text-left text-xs font-mono max-w-4xl mx-auto max-h-64 overflow-y-auto">
+          <div className="bg-gray-900 text-green-400 p-4 rounded-lg text-left text-tiny font-mono max-w-4xl mx-auto max-h-64 overflow-y-auto">
             <pre id="migration-sql">{`-- Geräte-Tabelle erstellen
 CREATE TABLE IF NOT EXISTS devices (
   id text PRIMARY KEY,

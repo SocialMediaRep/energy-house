@@ -2,6 +2,50 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Typography Scale - Repower Style */
+@layer base {
+  /* Headings */
+  h1 {
+    @apply text-3xl font-light leading-tight tracking-tight;
+  }
+  
+  h2 {
+    @apply text-2xl font-light leading-tight;
+  }
+  
+  h3 {
+    @apply text-xl font-medium leading-snug;
+  }
+  
+  h4 {
+    @apply text-lg font-medium leading-snug;
+  }
+  
+  /* Body text */
+  body {
+    @apply text-base font-normal leading-relaxed;
+  }
+  
+  /* Small text */
+  .text-small {
+    @apply text-sm font-normal leading-normal;
+  }
+  
+  .text-tiny {
+    @apply text-xs font-normal leading-normal;
+  }
+  
+  /* Button text */
+  .btn-text {
+    @apply text-sm font-medium leading-none;
+  }
+  
+  /* Caption text */
+  .caption {
+    @apply text-xs font-normal leading-tight text-gray-600;
+  }
+}
+
 @layer utilities {
   .line-clamp-2 {
     display: -webkit-box;
