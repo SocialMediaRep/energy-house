@@ -120,41 +120,43 @@ INSERT INTO devices (id, name, icon, wattage, standby_wattage, status, category,
     <div className="min-h-screen bg-white">
 
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
- <div class="bg-white rounded-2xl shadow-md p-5 w-full max-w-md">
-  <!-- Titel + Status -->
-  <div class="flex items-center justify-between mb-4">
-    <div>
-      <h2 class="text-xl font-semibold text-gray-800">Küche</h2>
-      <p class="text-sm text-gray-500">5 Geräte · 1 aktiv · <span class="text-red-600 font-medium">150 W</span></p>
-    </div>
-    <div class="w-3 h-3 bg-green-500 rounded-full"></div>
-  </div>
+         <div class="bg-white rounded-2xl shadow-md p-5 w-full max-w-md">
 
-  <!-- Geräte-Liste -->
-  <ul class="space-y-2">
-    <li class="flex items-center justify-between bg-gray-50 px-3 py-2 rounded-lg">
-      <span class="text-gray-700">Mikrowelle</span>
-      <span class="text-sm text-gray-400">Aus</span>
-    </li>
-    <li class="flex items-center justify-between bg-green-50 px-3 py-2 rounded-lg border border-green-200">
-      <span class="text-gray-700 font-medium">Kühlschrank</span>
-      <span class="text-sm text-green-600 font-semibold">150 W</span>
-    </li>
-    <li class="flex items-center justify-between bg-gray-50 px-3 py-2 rounded-lg">
-      <span class="text-gray-700">Spülmaschine</span>
-      <span class="text-sm text-gray-400">Aus</span>
-    </li>
-    <li class="flex items-center justify-between bg-gray-50 px-3 py-2 rounded-lg">
-      <span class="text-gray-700">Herd</span>
-      <span class="text-sm text-gray-400">Aus</span>
-    </li>
-    <li class="flex items-center justify-between bg-gray-50 px-3 py-2 rounded-lg">
-      <span class="text-gray-700">Backofen</span>
-      <span class="text-sm text-gray-400">Aus</span>
-    </li>
-  </ul>
-</div>
-</div>
+          <div class="flex items-center justify-between mb-4">
+            <div>
+              <h2 class="text-xl font-semibold text-gray-800">Küche</h2>
+              <p class="text-sm text-gray-500">5 Geräte · 1 aktiv · <span class="text-red-600 font-medium">150 W</span></p>
+            </div>
+            <div class="w-3 h-3 bg-green-500 rounded-full"></div>
+          </div>
+        
+          <!-- Geräte-Liste -->
+          <ul class="space-y-2">
+            <li class="flex items-center justify-between bg-gray-50 px-3 py-2 rounded-lg">
+              <span class="text-gray-700">Mikrowelle</span>
+              <span class="text-sm text-gray-400">Aus</span>
+            </li>
+            <li class="flex items-center justify-between bg-green-50 px-3 py-2 rounded-lg border border-green-200">
+              <span class="text-gray-700 font-medium">Kühlschrank</span>
+              <span class="text-sm text-green-600 font-semibold">150 W</span>
+            </li>
+            <li class="flex items-center justify-between bg-gray-50 px-3 py-2 rounded-lg">
+              <span class="text-gray-700">Spülmaschine</span>
+              <span class="text-sm text-gray-400">Aus</span>
+            </li>
+            <li class="flex items-center justify-between bg-gray-50 px-3 py-2 rounded-lg">
+              <span class="text-gray-700">Herd</span>
+              <span class="text-sm text-gray-400">Aus</span>
+            </li>
+            <li class="flex items-center justify-between bg-gray-50 px-3 py-2 rounded-lg">
+              <span class="text-gray-700">Backofen</span>
+              <span class="text-sm text-gray-400">Aus</span>
+            </li>
+          </ul>
+        </div>
+        </div>
+
+           
       {/* Fixed Energy Chart Section */}
       <section className="sticky top-0 z-40 bg-gray-50 py-8 border-b border-gray-200 shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
