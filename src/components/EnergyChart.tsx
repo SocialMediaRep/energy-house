@@ -261,7 +261,7 @@ export const EnergyChart: React.FC<EnergyChartProps> = ({
           </div>
 
           {/* Live consumption - beside chart */}
-          <div className="col-span-1 flex flex-col justify-center">
+          <div className="col-span-1 flex flex-col justify-center space-y-3">
             <div className="bg-gray-50 rounded-lg p-4 text-center">
               <div className="text-sm text-gray-500 mb-1">
                 Live <span className="text-xs">{formatTime(currentTime.getTime())}</span>
@@ -273,44 +273,21 @@ export const EnergyChart: React.FC<EnergyChartProps> = ({
                 {formatConsumption(totalConsumption)} <span className="text-sm font-normal">kW</span>
               </div>
             </div>
-          </div>
-        </div>
-
-        {/* Statistics Section - below chart */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {/* Statistics Overview */}
-          <div className="bg-gray-50 rounded-lg p-4">
-            <h3 className="font-semibold text-gray-900 mb-3">Statusübersicht</h3>
             
-            <div className="space-y-2">
-              <div className="flex justify-between items-center p-2 bg-green-50 rounded">
-                <span className="text-sm text-gray-700">Aktive Geräte</span>
-                <span className="font-bold text-green-600">{activeDevices}</span>
+            <div className="bg-red-50 rounded-lg p-4 text-center border border-red-100">
+              <div className="text-sm text-gray-500 mb-1">
+                Tägliche Kosten
               </div>
-              
-              <div className="flex justify-between items-center p-2 bg-yellow-50 rounded">
-                <span className="text-sm text-gray-700">Standby</span>
-                <span className="font-bold text-yellow-600">{standbyDevices}</span>
+              <div className="text-2xl font-bold text-red-600">
+                {dailyCost.toFixed(2)} <span className="text-sm font-normal">CHF</span>
               </div>
-              
-              <div className="flex justify-between items-center p-2 bg-gray-50 rounded">
-                <span className="text-sm text-gray-700">Ausgeschaltet</span>
-                <span className="font-bold text-gray-600">{offDevices}</span>
+              <div className="text-xs text-gray-600 mt-1">
+                bei aktuellem Verbrauch
               </div>
-            </div>
-          </div>
-
-          {/* Daily costs */}
-          <div className="bg-red-50 rounded-lg p-4 border border-red-100">
-            <h3 className="font-semibold text-gray-900 mb-2">Tägliche Kosten</h3>
-            <div className="text-2xl font-bold text-red-600">
-              {dailyCost.toFixed(2)} CHF
-            </div>
-            <div className="text-sm text-gray-600 mt-1">
-              bei aktuellem Verbrauch
             </div>
           </div>
         </div>
+
       </div>
     </div>
   );
