@@ -53,8 +53,8 @@ export const SimpleLightSwitch: React.FC<SimpleLightSwitchProps> = ({
       </span>
 
       {/* LED Energy Saving Tip */}
-      <div className="text-xs text-gray-600 ml-auto">
-        💡 LED sparen 80% Energie
+      <div className="text-xs text-gray-500 ml-auto bg-gray-50 px-2 py-1 rounded-md">
+        💡 <span className="font-medium">Tipp:</span> LED sparen 80% Energie
       </div>
     </div>
   );
