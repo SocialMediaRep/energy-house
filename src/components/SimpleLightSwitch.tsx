@@ -51,10 +51,11 @@ export const SimpleLightSwitch: React.FC<SimpleLightSwitchProps> = ({
       }`}>
         {isOn ? 'Ein' : 'Aus'}
       </span>
-    </div>
+
       {/* LED Energy Saving Tip */}
       <div className="text-xs text-gray-600 ml-auto">
         💡 LED sparen 80% Energie
       </div>
+    </div>
   );
 };
