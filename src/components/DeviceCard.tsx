@@ -133,7 +133,7 @@ export const DeviceCard: React.FC<DeviceCardProps> = ({
         
         <div className="flex-1 min-w-0">
           <div className="flex items-center justify-between mb-2">
-            <h4 className={`font-medium text-body-sm truncate ${
+            <h4 className={`font-medium text-base truncate ${
               device.status === 'on' ? 'text-white' : 'text-high-contrast'
             }`}>
               {device.name}
