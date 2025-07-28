@@ -4,7 +4,7 @@ export const devices: Device[] = [
   // Badezimmer
   {
     id: 'bathroom-hairdryer',
-    name: 'Haartrockner',
+    name: 'Föhn',
     icon: 'Wind',
     wattage: 1800,
     standbyWattage: 0,
@@ -12,11 +12,11 @@ export const devices: Device[] = [
     category: 'personal-care',
     hasStandby: false,
     tips: [
-      'Nutzen Sie den Haartrockner nur bei Bedarf',
+      'Nutzen Sie den Föhn nur bei Bedarf',
       'Verwenden Sie die niedrigste Temperaturstufe',
       'Trocknen Sie Ihre Haare vorher mit einem Handtuch'
     ],
-    description: 'Haartrockner verbrauchen viel Energie während des Betriebs.',
+    description: 'Föhn verbraucht viel Energie während des Betriebs.',
     costPerHour: 0.54,
     energyEfficiencyRating: 'C'
   },
