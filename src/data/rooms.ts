@@ -1,43 +1,40 @@
 import { Room } from '../types';
-import { devices } from './devices';
 
-// Globale Geräte (für alle Räume)
-const globalDevices = devices.filter(d => d.id.startsWith('global-'));
 export const rooms: Room[] = [
   {
     id: 'bathroom',
     name: 'Badezimmer',
-    devices: [...devices.filter(d => d.id.startsWith('bathroom-')), ...globalDevices],
+    devices: [],
     gridArea: 'bathroom'
   },
   {
     id: 'bedroom',
     name: 'Schlafzimmer',
-    devices: [...devices.filter(d => d.id.startsWith('bedroom-')), ...globalDevices],
+    devices: [],
     gridArea: 'bedroom'
   },
   {
     id: 'living',
     name: 'Wohnzimmer',
-    devices: [...devices.filter(d => d.id.startsWith('living-')), ...globalDevices],
+    devices: [],
     gridArea: 'living'
   },
   {
     id: 'kitchen',
     name: 'Küche',
-    devices: [...devices.filter(d => d.id.startsWith('kitchen-')), ...globalDevices],
+    devices: [],
     gridArea: 'kitchen'
   },
   {
     id: 'garage',
     name: 'Garage',
-    devices: [...devices.filter(d => d.id.startsWith('garage-')), ...globalDevices],
+    devices: [],
     gridArea: 'garage'
   },
   {
     id: 'basement',
     name: 'Keller',
-    devices: [...devices.filter(d => d.id.startsWith('basement-')), ...globalDevices],
+    devices: [],
     gridArea: 'basement'
   }
 ];
