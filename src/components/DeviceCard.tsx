@@ -19,6 +19,15 @@ export const DeviceCard: React.FC<DeviceCardProps> = ({
                         device.status === 'standby' ? device.standbyWattage : 0;
   
   const getStatusColor = () => {
+    // Special styling for global devices
+    if (device.id.startsWith('global-')) {
+      switch (device.status) {
+        case 'on': return 'bg-yellow-500 border-yellow-400 text-white shadow-lg';
+        case 'standby': return 'bg-yellow-50 border-yellow-200 text-gray-900';
+        default: return 'bg-gray-50 border-gray-200 hover:shadow-md';
+      }
+    }
+    
     switch (device.status) {
       case 'on': return 'bg-green-600 border-green-500 text-white shadow-lg';
       case 'standby': return 'bg-orange-50 border-orange-200 text-gray-900';
@@ -26,17 +35,8 @@ export const DeviceCard: React.FC<DeviceCardProps> = ({
     }
   };
 
-  // Special styling for global devices
   const isGlobalDevice = device.id.startsWith('global-');
-  const getGlobalStatusColor = () => {
-    if (!isGlobalDevice) return getStatusColor();
-    
-    switch (device.status) {
-      case 'on': return 'bg-yellow-500 border-yellow-400 text-white shadow-lg';
-      case 'standby': return 'bg-yellow-50 border-yellow-200 text-gray-900';
-      default: return 'bg-gray-50 border-gray-200 hover:shadow-md';
-    }
-  };
+  
   const getIconColor = () => {
     if (isGlobalDevice && device.status === 'on') {
       return 'bg-yellow-500 text-white';
@@ -97,7 +97,7 @@ export const DeviceCard: React.FC<DeviceCardProps> = ({
 
   return (
     <div 
-      className={`p-4 rounded-2xl border transition-all duration-300 cursor-pointer hover:shadow-lg hover:scale-[1.02] hover:-translate-y-1 ${getGlobalStatusColor()} ${isGlobalDevice ? 'ring-2 ring-yellow-200' : ''}`}
+      className={`p-4 rounded-2xl border transition-all duration-300 cursor-pointer hover:shadow-lg hover:scale-[1.02] hover:-translate-y-1 ${getStatusColor()} ${isGlobalDevice ? 'ring-2 ring-yellow-200' : ''}`}
       onClick={() => onToggle(device.id)}
       role="button"
       tabIndex={0}
