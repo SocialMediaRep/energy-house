@@ -2,6 +2,13 @@ import { useState, useCallback, useEffect } from 'react';
 import { Device } from '../types';
 import { supabase } from '../lib/supabase';
 
+interface DeviceTip {
+  id: string;
+  tip_text: string;
+  category: string;
+  priority: number;
+}
+
 export const useDevices = () => {
   const [devices, setDevices] = useState<Device[]>([]);
   const [loading, setLoading] = useState(true);
@@ -11,15 +18,34 @@ export const useDevices = () => {
   const loadDevices = useCallback(async () => {
     try {
       setLoading(true);
-      const { data, error } = await supabase
+      
+      // Load devices with their tips
+      const { data: devicesData, error: devicesError } = await supabase
         .from('devices')
         .select('*')
         .order('room_id', { ascending: true });
 
-      if (error) throw error;
+      if (devicesError) throw devicesError;
+
+      // Load all tips
+      const { data: tipsData, error: tipsError } = await supabase
+        .from('device_tips')
+        .select('*')
+        .order('device_id, priority', { ascending: true });
+
+      if (tipsError) throw tipsError;
+
+      // Group tips by device_id
+      const tipsByDevice = (tipsData || []).reduce((acc, tip) => {
+        if (!acc[tip.device_id]) {
+          acc[tip.device_id] = [];
+        }
+        acc[tip.device_id].push(tip.tip_text);
+        return acc;
+      }, {} as Record<string, string[]>);
 
       // Transform database data to match Device interface
-      const transformedDevices: Device[] = data.map(device => ({
+      const transformedDevices: Device[] = (devicesData || []).map(device => ({
         id: device.id,
         name: device.name,
         icon: device.icon,
@@ -27,7 +53,7 @@ export const useDevices = () => {
         standbyWattage: device.standby_wattage,
         status: device.status,
         category: device.category,
-        tips: device.tips,
+        tips: tipsByDevice[device.id] || [],
         description: device.description,
         costPerHour: device.cost_per_hour,
         energyEfficiencyRating: device.energy_efficiency_rating,

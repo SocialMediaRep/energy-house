@@ -23,7 +23,6 @@ export type Database = {
           category: string;
           room_id: string;
           has_standby: boolean;
-          tips: string[];
           description: string;
           cost_per_hour: number;
           energy_efficiency_rating: string;
@@ -40,7 +39,6 @@ export type Database = {
           category: string;
           room_id: string;
           has_standby?: boolean;
-          tips?: string[];
           description?: string;
           cost_per_hour?: number;
           energy_efficiency_rating?: string;
@@ -55,10 +53,32 @@ export type Database = {
           category?: string;
           room_id?: string;
           has_standby?: boolean;
-          tips?: string[];
           description?: string;
           cost_per_hour?: number;
           energy_efficiency_rating?: string;
+        };
+      };
+      device_tips: {
+        Row: {
+          id: string;
+          device_id: string;
+          tip_text: string;
+          category: string;
+          priority: number;
+          created_at: string;
+          updated_at: string;
+        };
+        Insert: {
+          device_id: string;
+          tip_text: string;
+          category?: string;
+          priority?: number;
+        };
+        Update: {
+          device_id?: string;
+          tip_text?: string;
+          category?: string;
+          priority?: number;
         };
       };
     };
