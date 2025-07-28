@@ -22,7 +22,7 @@ export const DeviceCard: React.FC<DeviceCardProps> = ({
     switch (device.status) {
       case 'on': return 'bg-green-600 border-green-500 text-white shadow-lg';
       case 'standby': return 'bg-orange-50 border-orange-200 text-gray-900';
-      default: return 'bg-gray-50 border-gray-200 hover:border-green-300 hover:shadow-md';
+      default: return 'bg-gray-50 border-gray-200 hover:shadow-md';
     }
   };
 
