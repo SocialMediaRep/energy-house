@@ -130,7 +130,6 @@ INSERT INTO devices (id, name, icon, wattage, standby_wattage, status, category,
             <div class="w-3 h-3 bg-green-500 rounded-full"></div>
           </div>
         
-          <!-- Geräte-Liste -->
           <ul class="space-y-2">
             <li class="flex items-center justify-between bg-gray-50 px-3 py-2 rounded-lg">
               <span class="text-gray-700">Mikrowelle</span>
