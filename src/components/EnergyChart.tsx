@@ -100,12 +100,9 @@ export const EnergyChart: React.FC<EnergyChartProps> = ({
 
   // Generate Y-axis labels (simplified)
   const getYAxisLabels = () => {
-    const labels = [];
-    const step = maxConsumption / 5; // 5 horizontal lines
-    for (let i = 0; i <= 5; i++) {
-      labels.push((step * i / 1000).toFixed(2));
-    }
-    return labels.reverse(); // Top to bottom
+    const max = (maxConsumption / 1000).toFixed(2);
+    const mid = (maxConsumption / 2000).toFixed(2);
+    return [max, mid, '0.00']; // Top to bottom: Max, Middle, 0
   };
 
   // Generate SVG path for the area chart
@@ -197,42 +194,12 @@ export const EnergyChart: React.FC<EnergyChartProps> = ({
         {/* Chart */}
         <div className="h-64 relative bg-white border border-gray-200 rounded">
           {/* Y-axis labels */}
-          <div className="absolute left-0 top-0 h-full flex flex-col justify-between text-xs text-gray-500 pr-2 py-2">
+          <div className="absolute left-0 top-0 h-full flex flex-col justify-between text-xs text-gray-500 pr-2 py-4">
             {yAxisLabels.map((label, index) => (
               <div key={index} className="text-right">
                 {label} kW
               </div>
             ))}
-          </div>
-
-          {/* Grid lines */}
-          <div className="absolute inset-0 ml-12">
-            <svg className="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
-              {/* Horizontal grid lines */}
-              {Array.from({ length: 6 }).map((_, i) => (
-                <line
-                  key={`h-${i}`}
-                  x1="0"
-                  y1={i * 20}
-                  x2="100"
-                  y2={i * 20}
-                  stroke="#f3f4f6"
-                  strokeWidth="0.5"
-                />
-              ))}
-              {/* Vertical grid lines */}
-              {Array.from({ length: 11 }).map((_, i) => (
-                <line
-                  key={`v-${i}`}
-                  x1={i * 10}
-                  y1="0"
-                  x2={i * 10}
-                  y2="100"
-                  stroke="#f3f4f6"
-                  strokeWidth="0.5"
-                />
-              ))}
-            </svg>
           </div>
 
           {/* Chart Area */}
