@@ -18,8 +18,8 @@ export const Dashboard: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-white">
-      {/* Energy Chart Section */}
-      <section className="bg-gray-50 py-16">
+      {/* Fixed Energy Chart Section */}
+      <section className="sticky top-0 z-40 bg-gray-50 py-8 border-b border-gray-200 shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <EnergyChart 
             totalConsumption={getCurrentConsumption()}
@@ -30,16 +30,7 @@ export const Dashboard: React.FC = () => {
       </section>
 
       {/* Main Content */}
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-        {/* Section Header */}
-        <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold text-gray-900 mb-6">Ihre Geräte im Überblick</h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-            Verwalten Sie alle Ihre Smart Home Geräte zentral und behalten Sie den Überblick 
-            über Ihren Energieverbrauch in jedem Raum.
-          </p>
-        </div>
-        
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* House Layout */}
         <HouseLayout 
           rooms={roomsWithDevices}
