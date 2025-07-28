@@ -22,82 +22,64 @@ export const DeviceCard: React.FC<DeviceCardProps> = ({
     // Special styling for global devices
     if (device.id.startsWith('global-')) {
       switch (device.status) {
-        case 'on': return 'bg-yellow-500 border-yellow-400 text-white shadow-lg';
-        case 'standby': return 'bg-yellow-50 border-yellow-200 text-gray-900';
-        default: return 'bg-gray-50 border-gray-200 hover:shadow-md';
+        case 'on': return 'bg-yellow-50 border-yellow-200';
+        case 'standby': return 'bg-yellow-50 border-yellow-200';
+        default: return 'bg-white border-gray-200';
       }
     }
     
     switch (device.status) {
-      case 'on': return 'bg-green-600 border-green-500 text-white shadow-lg';
-      case 'standby': return 'bg-orange-50 border-orange-200 text-gray-900';
-      default: return 'bg-gray-50 border-gray-200 hover:shadow-md';
+      case 'on': return 'bg-green-50 border-green-200';
+      case 'standby': return 'bg-orange-50 border-orange-200';
+      default: return 'bg-white border-gray-200';
+    }
+  };
+
+  const getStatusText = () => {
+    switch (device.status) {
+      case 'on': return currentWattage > 0 ? `${currentWattage}W` : 'Ein';
+      case 'standby': return 'Standby';
+      default: return 'Aus';
+    }
+  };
+
+  const getStatusTextColor = () => {
+    if (device.id.startsWith('global-')) {
+      switch (device.status) {
+        case 'on': return 'text-yellow-600 font-medium';
+        case 'standby': return 'text-yellow-600';
+        default: return 'text-gray-500';
+      }
+    }
+    
+    switch (device.status) {
+      case 'on': return 'text-green-600 font-medium';
+      case 'standby': return 'text-orange-600';
+      default: return 'text-gray-500';
+    }
+  };
+
+  const getStatusDot = () => {
+    if (device.id.startsWith('global-')) {
+      switch (device.status) {
+        case 'on': return 'bg-yellow-500';
+        case 'standby': return 'bg-yellow-400';
+        default: return 'bg-gray-300';
+      }
+    }
+    
+    switch (device.status) {
+      case 'on': return 'bg-green-500';
+      case 'standby': return 'bg-orange-400';
+      default: return 'bg-gray-300';
     }
   };
 
   const isGlobalDevice = device.id.startsWith('global-');
-  
-  const getIconColor = () => {
-    if (isGlobalDevice && device.status === 'on') {
-      return 'bg-yellow-500 text-white';
-    }
-    
-    switch (device.status) {
-      case 'on': return 'bg-green-500 text-white';
-      case 'standby': return 'bg-orange-100 text-orange-600';
-      default: return 'bg-gray-100 text-gray-600';
-    }
-  };
-
-  const getStatusIndicator = () => {
-    if (isGlobalDevice && device.status === 'on') {
-      return 'bg-yellow-400 border-yellow-600';
-    }
-    
-    switch (device.status) {
-      case 'on': return 'bg-green-400 border-green-600';
-      case 'standby': return 'bg-orange-400 border-orange-50';
-      default: return 'bg-gray-300 border-gray-50';
-    }
-  };
-
-  const getStatusBadge = () => {
-    if (isGlobalDevice) {
-      switch (device.status) {
-        case 'on': return { bg: 'bg-yellow-500', text: 'text-white', label: 'Ein', dot: 'bg-white' };
-        case 'standby': return { bg: 'bg-yellow-400', text: 'text-white', label: 'Standby', dot: 'bg-white' };
-        default: return { bg: 'bg-gray-100', text: 'text-gray-700', label: 'Aus', dot: 'bg-gray-400' };
-      }
-    }
-    
-    switch (device.status) {
-      case 'on': return { bg: 'bg-green-600', text: 'text-white', label: 'Ein', dot: 'bg-white' };
-      case 'standby': return { bg: 'bg-orange-500', text: 'text-white', label: 'Standby', dot: 'bg-white' };
-      default: return { bg: 'bg-gray-100', text: 'text-gray-700', label: 'Aus', dot: 'bg-gray-400' };
-    }
-  };
-
-  const getInfoButtonColor = () => {
-    if (isGlobalDevice) {
-      switch (device.status) {
-        case 'on': return 'bg-yellow-500 text-white hover:bg-yellow-400 focus:ring-yellow-300';
-        case 'standby': return 'bg-yellow-100 text-yellow-600 hover:bg-yellow-200 hover:text-yellow-800 focus:ring-yellow-300';
-        default: return 'bg-gray-100 text-gray-600 hover:bg-gray-200 hover:text-gray-800 focus:ring-gray-300';
-      }
-    }
-    
-    switch (device.status) {
-      case 'on': return 'bg-green-500 text-white hover:bg-green-400 focus:ring-green-300';
-      case 'standby': return 'bg-orange-100 text-orange-600 hover:bg-orange-200 hover:text-orange-800 focus:ring-orange-300';
-      default: return 'bg-gray-100 text-gray-600 hover:bg-gray-200 hover:text-gray-800 focus:ring-gray-300';
-    }
-  };
-
-  const statusBadge = getStatusBadge();
 
   return (
     <div 
-      className={`p-4 rounded-xl border transition-all duration-300 cursor-pointer hover:shadow-lg hover:-translate-y-1 ${getStatusColor()} ${isGlobalDevice && device.status === 'on' ? 'ring-2 ring-yellow-200' : ''}`}
+      className={`flex items-center justify-between p-3 rounded-lg border transition-all duration-200 cursor-pointer hover:shadow-md hover:-translate-y-0.5 ${getStatusColor()}`}
       onClick={() => onToggle(device.id)}
       role="button"
       tabIndex={0}
@@ -107,74 +89,43 @@ export const DeviceCard: React.FC<DeviceCardProps> = ({
           onToggle(device.id);
         }
       }}
-      aria-label={`${device.name} Status: ${statusBadge.label}`}
+      aria-label={`${device.name} Status: ${getStatusText()}`}
     >
-      <div className="flex items-center space-x-4">
-        {/* Device Icon with Status Indicator */}
-        <div className="relative">
-          {isGlobalDevice && (
-            <div className="absolute -top-1 -left-1 w-4 h-4 bg-yellow-400 rounded-full flex items-center justify-center">
-              <div className="w-2 h-2 bg-white rounded-full"></div>
-            </div>
-          )}
-          <div className={`w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 transition-all duration-200 ${
-            getIconColor()
-          }`}>
-            <IconComponent size={20} />
-          </div>
-          
-          {/* Power Status Indicator */}
-          <div className={`absolute -bottom-1 -right-1 w-4 h-4 rounded-full border-2 ${getStatusIndicator()}`}>
-            {device.status === 'on' && (
-              <div className="w-full h-full rounded-full animate-pulse bg-green-300"></div>
-            )}
-          </div>
-        </div>
+      {/* Device Name */}
+      <div className="flex items-center space-x-3 flex-1 min-w-0">
+        {/* Status Dot */}
+        <div className={`w-2 h-2 rounded-full flex-shrink-0 ${getStatusDot()}`}></div>
         
-        <div className="flex-1 min-w-0">
-          <div className="flex items-center justify-between mb-2">
-            <h4 className={`font-medium text-base truncate ${
-              device.status === 'on' ? 'text-white' : 'text-high-contrast'
-            }`}>
-              {device.name}
-            </h4>
-            <span className={`text-caption font-normal ${
-              device.status === 'on' ? 'text-gray-300' : 'text-low-contrast'
-            }`}>
-              {currentWattage}W
-            </span>
-          </div>
-          
-          <div className="flex items-center justify-between">
-            {/* Power Status Badge */}
-            <div className={`px-3 py-1.5 rounded-lg text-caption font-medium transition-all duration-200 ${statusBadge.bg} ${statusBadge.text}`}>
-              <div className="flex items-center space-x-1">
-                <div className={`w-2 h-2 rounded-full ${statusBadge.dot}`}></div>
-                <span>{statusBadge.label}</span>
-              </div>
-            </div>
+        <span className="text-sm font-normal text-gray-800 truncate">
+          {device.name}
+        </span>
+      </div>
 
-            {/* Info Button */}
-            <button
-              onClick={(e) => {
-                e.stopPropagation();
-                onShowDetails(device);
-              }}
-              onKeyDown={(e) => {
-                if (e.key === 'Enter' || e.key === ' ') {
-                  e.preventDefault();
-                  e.stopPropagation();
-                  onShowDetails(device);
-                }
-              }}
-              className={`p-3 rounded-xl transition-all duration-200 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-offset-2 ${getInfoButtonColor()}`}
-              aria-label={`Details für ${device.name} anzeigen`}
-              title="Geräte-Details anzeigen"
-            >
-              <Icons.Info size={18} />
-            </button>
-          </div>
-        </div>
+      {/* Status/Wattage Display */}
+      <div className="flex items-center space-x-2">
+        <span className={`text-sm ${getStatusTextColor()}`}>
+          {getStatusText()}
+        </span>
+        
+        {/* Info Button */}
+        <button
+          onClick={(e) => {
+            e.stopPropagation();
+            onShowDetails(device);
+          }}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault();
+              e.stopPropagation();
+              onShowDetails(device);
+            }
+          }}
+          className="p-1 rounded-md text-gray-400 hover:text-gray-600 hover:bg-gray-100 transition-colors duration-200"
+          aria-label={`Details für ${device.name} anzeigen`}
+          title="Geräte-Details anzeigen"
+        >
+          <Icons.Info size={14} />
+        </button>
       </div>
     </div>
   );

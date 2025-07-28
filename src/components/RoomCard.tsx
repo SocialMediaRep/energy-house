@@ -26,18 +26,22 @@ export const RoomCard: React.FC<RoomCardProps> = ({
       <div className="flex items-center justify-between mb-6">
         <div>
           <h2 className="h3 mb-2 text-balance">{room.name}</h2>
-          <div className="flex items-center space-x-4 text-body-sm text-medium-contrast">
+          <div className="flex items-center space-x-2 text-body-sm text-medium-contrast">
             <span>{room.devices.length} Geräte</span>
+            <span>•</span>
             <span>{activeDevices} aktiv</span>
-            <span className="font-medium text-high-contrast">{totalConsumption}W</span>
+            <span>•</span>
+            <span className={`font-medium ${totalConsumption > 0 ? 'text-green-600' : 'text-gray-500'}`}>
+              {totalConsumption}W
+            </span>
           </div>
         </div>
         <div className={`w-3 h-3 rounded-full ${
-          totalConsumption > 0 ? 'bg-repower-green-500' : 'bg-repower-gray-300'
+          totalConsumption > 0 ? 'bg-green-500' : 'bg-gray-300'
         }`}></div>
       </div>
       
-      <div className="space-y-3">
+      <div className="space-y-2">
         {room.devices.map(device => (
           <DeviceCard
             key={device.id}
