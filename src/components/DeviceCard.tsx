@@ -136,7 +136,6 @@ export const DeviceCard: React.FC<DeviceCardProps> = ({
             </button>
           </div>
         </div>
-      </div>
     </div>
   );
 };
