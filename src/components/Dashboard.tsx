@@ -119,50 +119,6 @@ export const Dashboard: React.FC = () => {
         />
       </main>
 
-      {/* Features Section */}
-      <section className="bg-gray-50 py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-900 mb-6">Warum Repower Smart Energy?</h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Profitieren Sie von unserer langjährigen Erfahrung im Energiebereich
-            </p>
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="bg-white p-8 rounded-2xl shadow-sm border border-gray-200 text-center">
-              <div className="w-16 h-16 bg-red-100 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                <Zap className="text-red-600" size={32} />
-              </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-4">Echtzeit-Monitoring</h3>
-              <p className="text-gray-600">
-                Überwachen Sie Ihren Energieverbrauch in Echtzeit und erkennen Sie Einsparpotentiale sofort.
-              </p>
-            </div>
-            
-            <div className="bg-white p-8 rounded-2xl shadow-sm border border-gray-200 text-center">
-              <div className="w-16 h-16 bg-green-100 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                <MapPin className="text-green-600" size={32} />
-              </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-4">Lokaler Partner</h3>
-              <p className="text-gray-600">
-                Als regionaler Energieversorger kennen wir die Bedürfnisse unserer Kunden vor Ort.
-              </p>
-            </div>
-            
-            <div className="bg-white p-8 rounded-2xl shadow-sm border border-gray-200 text-center">
-              <div className="w-16 h-16 bg-blue-100 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                <User className="text-blue-600" size={32} />
-              </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-4">Persönlicher Service</h3>
-              <p className="text-gray-600">
-                Unser Kundenservice steht Ihnen bei Fragen rund um Ihre Energielösung zur Verfügung.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* CTA Section */}
       <section className="bg-gradient-to-r from-red-600 to-red-700 py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
