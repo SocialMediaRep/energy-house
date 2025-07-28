@@ -22,7 +22,7 @@ export const RoomCard: React.FC<RoomCardProps> = ({
   const activeDevices = room.devices.filter(device => device.status !== 'off').length;
 
   return (
-    <div className="bg-white rounded-2xl p-6 border border-repower-gray-200 shadow-sm hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
+    <div className="bg-white rounded-2xl p-6 border border-repower-gray-200 shadow-sm">
       <div className="flex items-center justify-between mb-6">
         <div>
           <h2 className="h3 mb-2 text-balance">{room.name}</h2>
