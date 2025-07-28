@@ -62,36 +62,41 @@
     font-feature-settings: 'kern' 1, 'liga' 1, 'calt' 1;
   }
 
-  /* Heading Hierarchy - From Figma Design Basics */
-  h1, .h1 {
-    @apply font-light text-display-lg leading-none tracking-tighter text-repower-dark;
-    /* 64px, Light, -0.025em */
-  }
-  
-  h2, .h2 {
-    @apply font-light text-display-md leading-tight tracking-tighter text-repower-dark;
-    /* 48px, Light, -0.025em */
-  }
-  
-  h3, .h3 {
-    @apply font-medium text-display-sm leading-tight tracking-tight text-repower-dark;
-    /* 36px, Medium, -0.025em */
-  }
-  
-  h4, .h4 {
-    @apply font-medium text-3xl leading-tight tracking-tight text-repower-dark;
-    /* 32px, Medium, -0.025em */
-  }
-  
-  h5, .h5 {
-    @apply font-medium text-2xl leading-snug tracking-tight text-repower-gray-800;
-    /* 24px, Medium, -0.025em */
-  }
-  
-  h6, .h6 {
-    @apply font-medium text-xl leading-snug text-repower-gray-800;
-    /* 20px, Medium */
-  }
+  .h1,h1 {
+    font-size: 2.5rem
+}
+
+.h1,.h2,h1,h2 {
+    line-height: 1.2
+}
+
+.h2,h2 {
+    font-size: 2rem
+}
+
+.h3,h3 {
+    font-size: 1.5rem;
+    line-height: 1.3
+}
+
+.h3,.h4,h3,h4 {
+    padding-top: .5rem
+}
+
+.h4,h4 {
+    font-size: 1.25rem;
+    line-height: 1.75
+}
+
+.h5,h5 {
+    font-size: 1.125rem;
+    line-height: 1.3
+}
+
+.h6,h6 {
+    font-size: .875rem;
+    line-height: 1.75
+}
 
   /* Body Text Styles */
   .text-body-lg {
