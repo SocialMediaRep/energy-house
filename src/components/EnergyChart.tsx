@@ -21,6 +21,12 @@ export const EnergyChart: React.FC<EnergyChartProps> = ({
   const [liveData, setLiveData] = useState<DataPoint[]>([]);
   const [selectedTimeRange, setSelectedTimeRange] = useState<TimeRange>('30min');
 
+  // Calculate device statistics
+  const activeDevices = Math.floor(activeConsumption / 100) || 1; // Rough estimate
+  const standbyDevices = Math.floor(standbyConsumption / 10) || 0;
+  const offDevices = 18 - activeDevices - standbyDevices; // Total assumed devices
+  const dailyCost = (totalConsumption / 1000) * 24 * 0.30; // CHF per kWh estimate
+
   // Get data points and intervals based on selected time range
   const getTimeRangeConfig = (range: TimeRange) => {
     switch (range) {
@@ -159,14 +165,152 @@ export const EnergyChart: React.FC<EnergyChartProps> = ({
   const yAxisLabels = getYAxisLabels();
 
   return (
-    <div className="bg-white rounded-lg border border-gray-200 p-6">
+    <div className="bg-white rounded-lg border border-gray-200 p-4">
       {/* Header */}
-      <div className="flex items-center justify-between mb-6">
+      <div className="flex items-center justify-between mb-4">
         <h2 className="text-lg font-semibold text-gray-900 flex items-center">
           <div className="w-2 h-2 bg-green-500 rounded-full mr-2"></div>
           Aktueller Stromverbrauch
         </h2>
-        
+      </div>
+
+      {/* Main Content Grid */}
+      <div className="grid grid-cols-1 lg:grid-cols-4 gap-4">
+        {/* Left side: Time selector and Chart */}
+        <div className="lg:col-span-3">
+          {/* Time Range Selector - moved to left */}
+          <div className="flex justify-start mb-4">
+            <div className="flex bg-gray-100 rounded-lg p-1">
+              {[
+                { key: '1min' as TimeRange, label: '1 Min' },
+                { key: '5min' as TimeRange, label: '5 Min' },
+                { key: '30min' as TimeRange, label: '30 Min' }
+              ].map(({ key, label }) => (
+                <button
+                  key={key}
+                  onClick={() => setSelectedTimeRange(key)}
+                  className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
+                    selectedTimeRange === key
+                      ? 'bg-red-600 text-white'
+                      : 'text-gray-600 hover:text-gray-900'
+                  }`}
+                >
+                  {label}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Chart Container - reduced height */}
+          <div className="relative">
+            {/* Chart */}
+            <div className="h-40 relative bg-white border border-gray-200 rounded">
+              {/* Y-axis labels */}
+              <div className="absolute left-0 top-0 h-full flex flex-col justify-between text-xs text-gray-500 pr-2 py-4">
+                {yAxisLabels.map((label, index) => (
+                  <div key={index} className="text-right">
+                    {label} kW
+                  </div>
+                ))}
+              </div>
+
+              {/* Chart Area */}
+              <div className="absolute inset-0 ml-12">
+                {liveData.length > 1 && (
+                  <svg className="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
+                    {/* Area fill */}
+                    <path
+                      d={generateAreaPath()}
+                      fill="rgba(59, 130, 246, 0.1)"
+                      stroke="none"
+                    />
+                    {/* Line */}
+                    <path
+                      d={generateLinePath()}
+                      fill="none"
+                      stroke="#3b82f6"
+                      strokeWidth="1"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                )}
+              </div>
+            </div>
+
+            {/* X-axis time labels */}
+            <div className="flex justify-between text-xs text-gray-500 mt-2 ml-12">
+              {liveData.length > 0 && (
+                <>
+                  <span>{formatTime(liveData[0]?.timestamp || Date.now())}</span>
+                  <span>{formatTime(liveData[Math.floor(liveData.length / 2)]?.timestamp || Date.now())}</span>
+                  <span>{formatTime(liveData[liveData.length - 1]?.timestamp || Date.now())}</span>
+                </>
+              )}
+            </div>
+          </div>
+
+          {/* Legend */}
+          <div className="flex items-center justify-center mt-3 pt-3 border-t border-gray-100">
+            <div className="flex items-center space-x-2">
+              <div className="w-4 h-3 bg-blue-400 rounded-sm"></div>
+              <span className="text-sm text-gray-600">Verbrauch in kW</span>
+            </div>
+          </div>
+        </div>
+
+        {/* Right side: Statistics and Live data */}
+        <div className="lg:col-span-1 space-y-4">
+          {/* Live consumption */}
+          <div className="text-right">
+            <div className="text-sm text-gray-500 mb-1">
+              Live <span className="text-xs">{formatTime(currentTime.getTime())}</span>
+            </div>
+            <div className="text-lg font-semibold text-gray-900 mb-2">
+              Verbrauch
+            </div>
+            <div className="text-2xl font-bold text-gray-900">
+              {formatConsumption(totalConsumption)} <span className="text-sm font-normal">kW</span>
+            </div>
+          </div>
+
+          {/* Statistics Overview */}
+          <div className="bg-gray-50 rounded-lg p-4">
+            <h3 className="font-semibold text-gray-900 mb-3">Statusübersicht</h3>
+            
+            <div className="space-y-2">
+              <div className="flex justify-between items-center p-2 bg-green-50 rounded">
+                <span className="text-sm text-gray-700">Aktive Geräte</span>
+                <span className="font-bold text-green-600">{activeDevices}</span>
+              </div>
+              
+              <div className="flex justify-between items-center p-2 bg-yellow-50 rounded">
+                <span className="text-sm text-gray-700">Standby</span>
+                <span className="font-bold text-yellow-600">{standbyDevices}</span>
+              </div>
+              
+              <div className="flex justify-between items-center p-2 bg-gray-50 rounded">
+                <span className="text-sm text-gray-700">Ausgeschaltet</span>
+                <span className="font-bold text-gray-600">{offDevices}</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Daily costs */}
+          <div className="bg-red-50 rounded-lg p-4 border border-red-100">
+            <h3 className="font-semibold text-gray-900 mb-2">Tägliche Kosten</h3>
+            <div className="text-2xl font-bold text-red-600">
+              {dailyCost.toFixed(2)} CHF
+            </div>
+            <div className="text-sm text-gray-600 mt-1">
+              bei aktuellem Verbrauch
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
         {/* Time Range Selector */}
         <div className="flex bg-gray-100 rounded-lg p-1">
           {[
