@@ -22,10 +22,10 @@ export const RoomCard: React.FC<RoomCardProps> = ({
   const activeDevices = room.devices.filter(device => device.status !== 'off').length;
 
   return (
-    <div className="bg-white rounded-2xl p-6 border border-repower-gray-200 shadow-sm">
-      <div className="flex items-center justify-between mb-6">
+    <div className="bg-white rounded-2xl p-8 border border-repower-gray-200 shadow-sm">
+      <div className="flex items-center justify-between mb-8">
         <div>
-          <h2 className="h3 mb-2 text-balance">{room.name}</h2>
+          <h2 className="h3 mb-3 text-balance">{room.name}</h2>
           <div className="flex items-center space-x-2 text-body-sm text-medium-contrast">
             <span>{room.devices.length} Geräte</span>
             <span>•</span>
@@ -41,7 +41,7 @@ export const RoomCard: React.FC<RoomCardProps> = ({
         }`}></div>
       </div>
       
-      <div className="space-y-2">
+      <div className="space-y-3">
         {room.devices.map(device => (
           <DeviceCard
             key={device.id}

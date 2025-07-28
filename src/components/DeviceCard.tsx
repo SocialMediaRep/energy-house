@@ -79,7 +79,7 @@ export const DeviceCard: React.FC<DeviceCardProps> = ({
 
   return (
     <div 
-      className={`flex items-center justify-between p-3 rounded-lg border transition-all duration-200 cursor-pointer hover:shadow-md hover:-translate-y-0.5 ${getStatusColor()}`}
+      className={`flex items-center justify-between p-4 rounded-lg border transition-all duration-200 cursor-pointer hover:shadow-md hover:-translate-y-0.5 ${getStatusColor()}`}
       onClick={() => onToggle(device.id)}
       role="button"
       tabIndex={0}
@@ -92,18 +92,18 @@ export const DeviceCard: React.FC<DeviceCardProps> = ({
       aria-label={`${device.name} Status: ${getStatusText()}`}
     >
       {/* Device Name */}
-      <div className="flex items-center space-x-3 flex-1 min-w-0">
+      <div className="flex items-center space-x-4 flex-1 min-w-0">
         {/* Status Dot */}
         <div className={`w-2 h-2 rounded-full flex-shrink-0 ${getStatusDot()}`}></div>
         
-        <span className="text-sm font-normal text-gray-800 truncate">
+        <span className="text-body font-normal text-gray-800 truncate">
           {device.name}
         </span>
       </div>
 
       {/* Status/Wattage Display */}
-      <div className="flex items-center space-x-2">
-        <span className={`text-sm ${getStatusTextColor()}`}>
+      <div className="flex items-center space-x-3">
+        <span className={`text-body-sm ${getStatusTextColor()}`}>
           {getStatusText()}
         </span>
         
@@ -120,7 +120,7 @@ export const DeviceCard: React.FC<DeviceCardProps> = ({
               onShowDetails(device);
             }
           }}
-          className="p-1 rounded-md text-gray-400 hover:text-gray-600 hover:bg-gray-100 transition-colors duration-200"
+          className="p-1.5 rounded-md text-gray-400 hover:text-gray-600 hover:bg-gray-100 transition-colors duration-200"
           aria-label={`Details für ${device.name} anzeigen`}
           title="Geräte-Details anzeigen"
         >

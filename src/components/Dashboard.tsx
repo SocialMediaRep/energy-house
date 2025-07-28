@@ -120,8 +120,8 @@ INSERT INTO devices (id, name, icon, wattage, standby_wattage, status, category,
     <div className="min-h-screen bg-white">
 
       {/* Fixed Energy Chart Section */}
-      <section className="sticky top-0 z-40 bg-gray-50 py-8 border-b border-gray-200 shadow-sm">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="sticky top-0 z-40 bg-gray-50 py-12 border-b border-gray-200 shadow-sm">
+        <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
           <EnergyChart 
             totalConsumption={getCurrentConsumption()}
             activeConsumption={getActiveConsumption()}
@@ -131,10 +131,10 @@ INSERT INTO devices (id, name, icon, wattage, standby_wattage, status, category,
       </section>
 
       {/* Main Content */}
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <main className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-16">
         {/* Simple Light Switch */}
         {globalLights && (
-          <div className="mb-6">
+          <div className="mb-12">
             <SimpleLightSwitch 
               isOn={globalLights.status === 'on'}
               onToggle={() => toggleDevice('global-lights')}

@@ -13,9 +13,9 @@ export const SimpleLightSwitch: React.FC<SimpleLightSwitchProps> = ({
   disabled = false 
 }) => {
   return (
-    <div className="flex items-center space-x-3 bg-white rounded-2xl p-6 border border-repower-gray-200 shadow-sm hover:shadow-lg transition-all duration-300">
+    <div className="flex items-center space-x-4 bg-white rounded-2xl p-8 border border-repower-gray-200 shadow-sm">
       {/* Label */}
-      <div className="flex items-center space-x-2">
+      <div className="flex items-center space-x-3">
         <Lightbulb 
           size={20} 
           className={`transition-colors duration-300 ${
@@ -46,14 +46,14 @@ export const SimpleLightSwitch: React.FC<SimpleLightSwitchProps> = ({
       </button>
 
       {/* Status */}
-      <span className={`text-caption font-medium transition-colors duration-300 ${
+      <span className={`text-body-sm font-medium transition-colors duration-300 ${
         isOn ? 'text-repower-orange-600' : 'text-low-contrast'
       }`}>
         {isOn ? 'Ein' : 'Aus'}
       </span>
 
       {/* LED Energy Saving Tip */}
-      <div className="text-caption text-low-contrast ml-auto bg-repower-gray-50 px-2 py-1 rounded-md">
+      <div className="text-caption text-low-contrast ml-auto bg-repower-gray-50 px-3 py-2 rounded-md">
         💡 <span className="font-medium">Tipp:</span> LED sparen 80% Energie
       </div>
     </div>

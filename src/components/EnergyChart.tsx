@@ -165,22 +165,22 @@ export const EnergyChart: React.FC<EnergyChartProps> = ({
   const yAxisLabels = getYAxisLabels();
 
   return (
-    <div className="bg-white rounded-2xl border border-repower-gray-200 p-6 shadow-sm hover:shadow-lg transition-all duration-300">
+    <div className="bg-white rounded-2xl border border-repower-gray-200 p-8 shadow-sm">
       {/* Header */}
-      <div className="flex items-center justify-between mb-4">
+      <div className="flex items-center justify-between mb-8">
         <h2 className="h3 flex items-center">
-          <div className="w-2 h-2 bg-repower-green-500 rounded-full mr-3"></div>
+          <div className="w-2 h-2 bg-repower-green-500 rounded-full mr-4"></div>
           Aktueller Stromverbrauch
         </h2>
       </div>
 
       {/* Main Content Grid */}
-      <div className="space-y-4">
+      <div className="space-y-8">
         {/* Chart Section */}
-        <div className="grid grid-cols-4 gap-4">
+        <div className="grid grid-cols-4 gap-8">
           {/* Time Range Selector - moved to left */}
           <div className="col-span-3">
-            <div className="flex justify-start mb-4">
+            <div className="flex justify-start mb-6">
               <div className="flex bg-repower-gray-100 rounded-lg p-1">
                 {[
                   { key: '1min' as TimeRange, label: '1 Min' },
@@ -240,7 +240,7 @@ export const EnergyChart: React.FC<EnergyChartProps> = ({
               </div>
 
               {/* X-axis time labels */}
-              <div className="flex justify-between text-caption text-low-contrast mt-2 ml-12">
+              <div className="flex justify-between text-caption text-low-contrast mt-4 ml-12">
                 {liveData.length > 0 && (
                   <>
                     <span>{formatTime(liveData[0]?.timestamp || Date.now())}</span>
@@ -254,8 +254,8 @@ export const EnergyChart: React.FC<EnergyChartProps> = ({
           </div>
 
           {/* Live consumption - beside chart */}
-          <div className="col-span-1 flex flex-col justify-center space-y-3">
-            <div className="bg-repower-gray-50 rounded-lg p-4 text-center">
+          <div className="col-span-1 flex flex-col justify-center space-y-4">
+            <div className="bg-repower-gray-50 rounded-lg p-6 text-center">
               <div className="text-body-sm text-low-contrast mb-1">
                 Live <span className="text-caption">{formatTime(currentTime.getTime())}</span>
               </div>
@@ -267,7 +267,7 @@ export const EnergyChart: React.FC<EnergyChartProps> = ({
               </div>
             </div>
             
-            <div className="bg-repower-gray-50 rounded-lg p-4 text-center">
+            <div className="bg-repower-gray-50 rounded-lg p-6 text-center">
               <div className="text-body-sm text-low-contrast mb-1">
                 Tägliche Kosten
               </div>
