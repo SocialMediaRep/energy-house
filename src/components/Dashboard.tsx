@@ -5,6 +5,7 @@ import { rooms } from '../data/rooms';
 import { HouseLayout } from './HouseLayout';
 import { DeviceModal } from './DeviceModal';
 import { EnergyChart } from './EnergyChart';
+import { GlobalLightControl } from './GlobalLightControl';
 import { Zap, ArrowRight, Play } from 'lucide-react';
 
 export const Dashboard: React.FC = () => {
@@ -15,6 +16,9 @@ export const Dashboard: React.FC = () => {
     ...room,
     devices: devices.filter(device => device.id.startsWith(room.id.replace(/([A-Z])/g, '-$1').toLowerCase() + '-'))
   }));
+
+  // Find global lights device
+  const globalLights = devices.find(device => device.id === 'global-lights');
 
   if (loading) {
     return (
@@ -127,6 +131,17 @@ INSERT INTO devices (id, name, icon, wattage, standby_wattage, status, category,
 
       {/* Main Content */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        {/* Global Light Control */}
+        {globalLights && (
+          <div className="mb-8">
+            <GlobalLightControl 
+              isOn={globalLights.status === 'on'}
+              onToggle={() => toggleDevice('global-lights')}
+              totalRooms={6}
+            />
+          </div>
+        )}
+
         {/* House Layout */}
         <HouseLayout 
           rooms={roomsWithDevices}
