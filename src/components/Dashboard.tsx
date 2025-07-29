@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Device } from '../types';
 import { useDevices } from '../hooks/useDevices';
 import { rooms } from '../data/rooms';
