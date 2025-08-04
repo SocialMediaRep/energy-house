@@ -199,8 +199,8 @@ INSERT INTO devices (id, name, icon, wattage, standby_wattage, status, category,
       {/* Main Content */}
       <main className="max-w-7xl mx-auto px-4 md:px-6 lg:px-12 py-4 md:py-16">
         {/* Simple Light Switch */}
-        {globalLights && (
-          <div className="mb-6 md:mb-12">
+        {globalLights && showStickyHeader && (
+          <div className="mb-6 md:mb-12 animate-slide-up">
             <SimpleLightSwitch 
               isOn={globalLights.status === 'on'}
               onToggle={() => toggleDevice('global-lights')}
