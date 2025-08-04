@@ -1,4 +1,5 @@
 import { Wind, Droplets, Fan, Smartphone, Monitor, Tv, Speaker, Gamepad2, Router, Microwave, Refrigerator, ChefHat, Waves, Bike, Car, NotebookIcon as Scooter, WashingMachine, GalleryThumbnails as TumbleDryer, Flame, Snowflake, Power, Thermometer, Timer, Sun, Plug, CheckCircle, X, Lightbulb, Zap, Settings, ThermometerSun, Info } from 'lucide-react';
+import { Bot } from 'lucide-react';
 
 export const iconMap = {
   // Device icons
@@ -22,6 +23,7 @@ export const iconMap = {
   TumbleDryer,
   Flame,
   Snowflake,
+  Bot,
   // Challenge icons
   Power,
   Thermometer,
