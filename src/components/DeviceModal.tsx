@@ -226,12 +226,15 @@ export const DeviceModal: React.FC<DeviceModalProps> = ({ device, onClose }) => 
             <div className="mb-6">
               <details className="group bg-white border border-gray-200 rounded-lg overflow-hidden">
                 <summary className="flex items-center justify-between cursor-pointer list-none py-4 px-6 hover:bg-gray-50 transition-colors">
-                  <span className="text-base font-medium text-gray-800">Kostenaufschlüsselung</span>
-                  <svg className="w-4 h-4 text-gray-500 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 9l-7 7-7-7" />
+                  <span className="h5 group-open:font-bold text-gray-800 transition-all">Kostenaufschlüsselung</span>
+                  <div className="w-6 h-6 rounded-full border border-gray-300 flex items-center justify-center transition-transform group-open:rotate-180">
+                    <svg className="w-3 h-3 text-red-500" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M7 10l5 5 5-5z"/>
+                    </svg>
+                  </div>
                   </svg>
                 </summary>
-                <div className="px-6 pb-6 bg-white border-t border-gray-200">
+                <div className="px-6 pb-6 bg-white">
                 {(() => {
                   // Calculate usage hours per year (same logic as above)
                   let hoursPerYear = 0;
