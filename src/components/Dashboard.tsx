@@ -149,7 +149,7 @@ INSERT INTO devices (id, name, icon, wattage, standby_wattage, status, category,
       </section>
 
       {/* Mobile: Energy Chart (not sticky) */}
-      <section className="md:hidden bg-gray-50 py-8 border-b border-gray-200 energy-chart-section">
+      <section className="md:hidden bg-gray-50 py-6 border-b border-gray-200 energy-chart-section">
         <div className="px-4">
           <EnergyChart 
             totalConsumption={getCurrentConsumption()}
@@ -197,10 +197,10 @@ INSERT INTO devices (id, name, icon, wattage, standby_wattage, status, category,
       </div>
 
       {/* Main Content */}
-      <main className="max-w-7xl mx-auto px-4 md:px-6 lg:px-12 py-8 md:py-16">
+      <main className="max-w-7xl mx-auto px-4 md:px-6 lg:px-12 py-6 md:py-16">
         {/* Simple Light Switch */}
         {globalLights && (
-          <div className="mb-8 md:mb-12">
+          <div className="mb-6 md:mb-12">
             <SimpleLightSwitch 
               isOn={globalLights.status === 'on'}
               onToggle={() => toggleDevice('global-lights')}
@@ -209,11 +209,13 @@ INSERT INTO devices (id, name, icon, wattage, standby_wattage, status, category,
         )}
 
         {/* House Layout */}
-        <HouseLayout 
+        <div className="mt-6 md:mt-0">
+          <HouseLayout 
           rooms={roomsWithDevices}
           onToggleDevice={toggleDevice}
           onShowDeviceDetails={setSelectedDevice}
-        />
+          />
+        </div>
       </main>
 
       {/* Device Modal */}
