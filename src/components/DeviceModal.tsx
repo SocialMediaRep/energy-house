@@ -280,7 +280,7 @@ export const DeviceModal: React.FC<DeviceModalProps> = ({ device, onClose }) => 
                     case 'personal-care':
                       if (device.name.includes('Haartrockner') || device.name.includes('Föhn')) {
                         hoursPerYear = 146;
-                        usageDescription = '0.4 Stunden täglich (4 Personen, nicht täglich alle)';
+                        usageDescription = '0.4 Stunden täglich (4 Personen, abwechselnd)';
                       } else {
                         hoursPerYear = 80;
                         usageDescription = 'Durchschnittliche Nutzung';
