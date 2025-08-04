@@ -333,7 +333,7 @@ export const DeviceChart: React.FC<DeviceChartProps> = ({ device }) => {
       <div className="h-40 relative bg-white rounded-xl p-3 overflow-hidden border border-gray-200">
         {/* Background grid */}
         <div className="absolute inset-3 opacity-10">
-          <div className="w-full height={100} grid grid-cols-6 grid-rows-4 gap-0">
+          <div className="w-full h-full grid grid-cols-6 grid-rows-4 gap-0">
             {Array.from({ length: 24 }).map((_, i) => (
               <div key={i} className="border-r border-b border-gray-400 last:border-r-0"></div>
             ))}
