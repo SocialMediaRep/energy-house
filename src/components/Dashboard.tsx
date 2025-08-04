@@ -11,13 +11,19 @@ import { Zap, ArrowRight, Play } from 'lucide-react';
 export const Dashboard: React.FC = () => {
   const { devices, loading, error, toggleDevice, getCurrentConsumption, getActiveConsumption, getStandbyConsumption } = useDevices();
   const [selectedDevice, setSelectedDevice] = useState<Device | null>(null);
-  const [isScrolled, setIsScrolled] = useState(false);
+  const [showStickyHeader, setShowStickyHeader] = useState(false);
 
-  // Track scroll position for mobile header
+  // Track scroll position to show sticky header only when chart is not visible
   useEffect(() => {
     const handleScroll = () => {
       const scrollTop = window.scrollY;
-      setIsScrolled(scrollTop > 100); // Show compact header after 100px scroll
+      const chartSection = document.querySelector('.energy-chart-section');
+      
+      if (chartSection) {
+        const chartBottom = chartSection.offsetTop + chartSection.offsetHeight;
+        // Show sticky header when chart is completely out of view (with small buffer)
+        setShowStickyHeader(scrollTop > chartBottom - 50);
+      }
     };
 
     window.addEventListener('scroll', handleScroll);
@@ -143,7 +149,7 @@ INSERT INTO devices (id, name, icon, wattage, standby_wattage, status, category,
       </section>
 
       {/* Mobile: Energy Chart (not sticky) */}
-      <section className="md:hidden bg-gray-50 py-8 border-b border-gray-200">
+      <section className="md:hidden bg-gray-50 py-8 border-b border-gray-200 energy-chart-section">
         <div className="px-4">
           <EnergyChart 
             totalConsumption={getCurrentConsumption()}
@@ -154,27 +160,38 @@ INSERT INTO devices (id, name, icon, wattage, standby_wattage, status, category,
       </section>
 
       {/* Mobile: Sticky Compact Header */}
-      <div className={`md:hidden sticky top-0 z-40 bg-white border-b border-gray-200 transition-all duration-300 ${
-        isScrolled ? 'shadow-md' : 'shadow-none'
+      <div className={`md:hidden sticky top-0 z-40 transition-all duration-300 ${
+        showStickyHeader 
+          ? 'translate-y-0 opacity-100 shadow-lg bg-white border-b border-gray-200' 
+          : '-translate-y-full opacity-0 pointer-events-none'
       }`}>
-        <div className="px-4 py-3">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-4">
-              <div className="text-center">
-                <div className="text-lg font-medium text-repower-dark">
+        <div className="px-6 py-4">
+          <div className="flex items-center justify-between bg-gradient-to-r from-slate-50 to-white rounded-2xl p-4 shadow-sm border border-gray-100">
+            <div className="flex items-center space-x-6">
+              {/* Current Consumption */}
+              <div className="text-center bg-white rounded-xl p-3 shadow-sm border border-gray-100">
+                <div className="text-xl font-bold text-repower-dark">
                   {(getCurrentConsumption() / 1000).toFixed(2)} kW
                 </div>
-                <div className="text-xs text-repower-gray-600">Verbrauch</div>
+                <div className="text-xs font-medium text-repower-gray-600 mt-1">Verbrauch</div>
               </div>
-              <div className="w-px h-8 bg-gray-300"></div>
-              <div className="text-center">
-                <div className="text-lg font-medium text-repower-dark">
+              
+              {/* Daily Cost */}
+              <div className="text-center bg-white rounded-xl p-3 shadow-sm border border-gray-100">
+                <div className="text-xl font-bold text-repower-green-500">
                   {((getCurrentConsumption() / 1000) * 24 * 0.30).toFixed(2)} CHF
                 </div>
-                <div className="text-xs text-repower-gray-600">Täglich</div>
+                <div className="text-xs font-medium text-repower-gray-600 mt-1">Täglich</div>
               </div>
             </div>
-            <div className={`w-2 h-2 rounded-full ${getCurrentConsumption() > 0 ? 'bg-green-500' : 'bg-gray-300'}`}></div>
+            
+            {/* Status Indicator */}
+            <div className="flex items-center space-x-2">
+              <div className={`w-3 h-3 rounded-full ${getCurrentConsumption() > 0 ? 'bg-green-500' : 'bg-gray-300'} animate-pulse`}></div>
+              <span className="text-xs font-medium text-repower-gray-600">
+                {getCurrentConsumption() > 0 ? 'Aktiv' : 'Inaktiv'}
+              </span>
+            </div>
           </div>
         </div>
       </div>
