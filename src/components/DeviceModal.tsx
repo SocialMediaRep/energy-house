@@ -224,14 +224,14 @@ export const DeviceModal: React.FC<DeviceModalProps> = ({ device, onClose }) => 
           {/* Cost Breakdown Section - especially for high-consumption devices */}
           {device.wattage > 1000 && (
             <div className="mb-6">
-              <details className="group">
-                <summary className="flex items-center justify-between cursor-pointer list-none py-4 hover:bg-repower-gray-50 transition-colors rounded-lg">
-                  <span className="h5">Kostenaufschlüsselung</span>
-                  <svg className="w-4 h-4 text-repower-gray-600 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 9l6 6 6-6" />
+              <details className="group border-b border-repower-gray-200">
+                <summary className="flex items-center justify-between cursor-pointer list-none py-4 hover:bg-repower-gray-50 transition-colors">
+                  <h5 className="h5 text-repower-dark">Kostenaufschlüsselung</h5>
+                  <svg className="w-5 h-5 text-repower-gray-600 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 9l-7 7-7-7" />
                   </svg>
                 </summary>
-                <div className="pb-4">
+                <div className="pb-6">
                 {(() => {
                   // Calculate usage hours per year (same logic as above)
                   let hoursPerYear = 0;
@@ -318,49 +318,49 @@ export const DeviceModal: React.FC<DeviceModalProps> = ({ device, onClose }) => 
                           <tbody className="divide-y divide-gray-100">
                             <tr className="hover:bg-repower-gray-50">
                               <td className="py-3 text-repower-gray-700 font-medium">Leistung</td>
-                              <td className="py-3 text-right">
+                              <td className="py-3 text-left">
                                 <span className="font-semibold text-repower-dark">{actualWattage.toLocaleString()}</span>
                                 <span className="text-repower-gray-500 ml-1">W</span>
                               </td>
                             </tr>
                             <tr className="hover:bg-repower-gray-50">
                               <td className="py-3 text-repower-gray-700 font-medium">Nutzung pro Jahr</td>
-                              <td className="py-3 text-right">
+                              <td className="py-3 text-left">
                                 <span className="font-semibold text-repower-dark">{hoursPerYear.toLocaleString()}</span>
                                 <span className="text-repower-gray-500 ml-1">h</span>
                               </td>
                             </tr>
                             <tr className="hover:bg-repower-gray-50">
                               <td className="py-3 text-repower-gray-700 font-medium">Verbrauch pro Jahr</td>
-                              <td className="py-3 text-right">
+                              <td className="py-3 text-left">
                                 <span className="font-semibold text-repower-dark">{yearlyConsumption.toFixed(0)}</span>
                                 <span className="text-repower-gray-500 ml-1">kWh</span>
                               </td>
                             </tr>
                             <tr className="hover:bg-repower-gray-50">
                               <td className="py-3 text-repower-gray-700 font-medium">Strompreis</td>
-                              <td className="py-3 text-right">
+                              <td className="py-3 text-left">
                                 <span className="font-semibold text-repower-dark">0.30</span>
                                 <span className="text-repower-gray-500 ml-1">CHF/kWh</span>
                               </td>
                             </tr>
                             <tr className="hover:bg-repower-gray-50">
                               <td className="py-3 text-repower-gray-700 font-medium">Kosten pro Tag</td>
-                              <td className="py-3 text-right">
+                              <td className="py-3 text-left">
                                 <span className="font-semibold text-repower-dark">{dailyCost.toFixed(2)}</span>
                                 <span className="text-repower-gray-500 ml-1">CHF</span>
                               </td>
                             </tr>
                             <tr className="hover:bg-repower-gray-50">
                               <td className="py-3 text-repower-gray-700 font-medium">Kosten pro Monat</td>
-                              <td className="py-3 text-right">
+                              <td className="py-3 text-left">
                                 <span className="font-semibold text-repower-dark">{monthlyCost.toFixed(2)}</span>
                                 <span className="text-repower-gray-500 ml-1">CHF</span>
                               </td>
                             </tr>
                             <tr className="bg-repower-gray-50 border-t-2 border-repower-gray-200">
                               <td className="py-4 text-repower-dark font-bold">Kosten pro Jahr</td>
-                              <td className="py-4 text-right">
+                              <td className="py-4 text-left">
                                 <span className="font-bold text-repower-dark text-lg">{yearlyCost.toFixed(2)}</span>
                                 <span className="text-repower-gray-500 ml-1">CHF</span>
                               </td>
