@@ -224,14 +224,14 @@ export const DeviceModal: React.FC<DeviceModalProps> = ({ device, onClose }) => 
           {/* Cost Breakdown Section - especially for high-consumption devices */}
           {device.wattage > 1000 && (
             <div className="mb-6">
-              <details className="group">
-                <summary className="flex items-center justify-between cursor-pointer list-none py-4 px-6 bg-white border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
+              <details className="group bg-white border border-gray-200 rounded-lg overflow-hidden">
+                <summary className="flex items-center justify-between cursor-pointer list-none py-4 px-6 hover:bg-gray-50 transition-colors">
                   <span className="text-base font-medium text-gray-800">Kostenaufschlüsselung</span>
                   <svg className="w-4 h-4 text-gray-500 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 9l-7 7-7-7" />
                   </svg>
                 </summary>
-                <div className="px-6 pb-6 bg-white border-l border-r border-b border-gray-200 rounded-b-lg">
+                <div className="px-6 pb-6 bg-white border-t border-gray-200">
                 {(() => {
                   // Calculate usage hours per year (same logic as above)
                   let hoursPerYear = 0;
