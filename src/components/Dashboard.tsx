@@ -197,10 +197,10 @@ INSERT INTO devices (id, name, icon, wattage, standby_wattage, status, category,
       </div>
 
       {/* Main Content */}
-      <main className="max-w-7xl mx-auto px-4 md:px-6 lg:px-12 py-2 md:py-16">
+      <main className="max-w-7xl mx-auto px-4 md:px-6 lg:px-12 pt-0 pb-2 md:py-16">
         {/* Simple Light Switch */}
         {globalLights && (
-          <div className="mb-4 md:mb-12">
+          <div className="mb-2 md:mb-12">
             <SimpleLightSwitch 
               isOn={globalLights.status === 'on'}
               onToggle={() => toggleDevice('global-lights')}
@@ -209,7 +209,7 @@ INSERT INTO devices (id, name, icon, wattage, standby_wattage, status, category,
         )}
 
         {/* House Layout */}
-        <div className="mt-4 md:mt-0">
+        <div className="mt-2 md:mt-0">
           <HouseLayout 
           rooms={roomsWithDevices}
           onToggleDevice={toggleDevice}
