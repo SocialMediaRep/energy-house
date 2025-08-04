@@ -98,73 +98,121 @@ export const DeviceModal: React.FC<DeviceModalProps> = ({ device, onClose }) => 
             <div className="bg-orange-50 p-4 rounded-2xl border border-orange-100">
               <div className="text-2xl font-bold text-orange-600">
                 {(() => {
-                  // Realistische jährliche Nutzung für 4-köpfige Familie
+                  // Realistische jährliche Nutzung für 4-köpfige Familie - Neu berechnet
                   let hoursPerYear = 0;
                   
                   switch (device.category) {
                     case 'entertainment': // TV, Konsole, Soundbar
-                      hoursPerYear = device.name.includes('Fernseher') ? 2000 : // 5.5h/Tag
-                                   device.name.includes('Konsole') ? 730 : // 2h/Tag
-                                   1460; // Soundbar: 4h/Tag
+                      if (device.name.includes('Fernseher')) {
+                        hoursPerYear = 2190; // 6h/Tag (Familie schaut abends zusammen)
+                      } else if (device.name.includes('Konsole') || device.name.includes('Videokonsole')) {
+                        hoursPerYear = 912; // 2.5h/Tag (Kinder + Eltern)
+                      } else if (device.name.includes('Sound')) {
+                        hoursPerYear = 1825; // 5h/Tag (läuft mit TV mit)
+                      } else {
+                        hoursPerYear = 1460; // Standard Entertainment
+                      }
                       break;
                     case 'cooling': // Kühlschrank, Gefrierschrank
                       hoursPerYear = 8760; // 24h/Tag (immer an)
                       break;
                     case 'heating': // Boiler, Dusche
-                      hoursPerYear = device.name.includes('Boiler') ? 6570 : // 18h/Tag
-                                   device.name.includes('Dusche') ? 365 : // 1h/Tag
-                                   4380; // 12h/Tag
+                      if (device.name.includes('Boiler')) {
+                        hoursPerYear = 6570; // 18h/Tag (Warmwasser bereithalten)
+                      } else if (device.name.includes('Dusche') || device.name.includes('Bad')) {
+                        hoursPerYear = 548; // 1.5h/Tag (4 Personen à 20min)
+                      } else {
+                        hoursPerYear = 4380; // 12h/Tag Standard
+                      }
                       break;
                     case 'cleaning': // Waschmaschine, Tumbler, Spülmaschine
-                      hoursPerYear = device.name.includes('Waschmaschine') ? 156 : // 3h/Woche
-                                   device.name.includes('Tumbler') ? 104 : // 2h/Woche
-                                   device.name.includes('Spülmaschine') ? 182 : // 0.5h/Tag
-                                   device.name.includes('Staubsaugroboter') ? 365 : // 1h/Tag
-                                   200;
+                      if (device.name.includes('Waschmaschine')) {
+                        hoursPerYear = 208; // 4h/Woche (4-köpfige Familie)
+                      } else if (device.name.includes('Tumbler')) {
+                        hoursPerYear = 156; // 3h/Woche (nicht immer genutzt)
+                      } else if (device.name.includes('Spülmaschine')) {
+                        hoursPerYear = 365; // 1h/Tag (täglich bei 4 Personen)
+                      } else if (device.name.includes('Staubsaugroboter') || device.name.includes('roboter')) {
+                        hoursPerYear = 182; // 0.5h/Tag (täglich kurz)
+                      } else {
+                        hoursPerYear = 200; // Standard Reinigung
+                      }
                       break;
                     case 'cooking': // Herd, Ofen, Mikrowelle
-                      hoursPerYear = device.name.includes('Herd') ? 365 : // 1h/Tag
-                                   device.name.includes('Backofen') ? 104 : // 2h/Woche
-                                   device.name.includes('Mikrowelle') ? 73 : // 0.2h/Tag
-                                   200;
+                      if (device.name.includes('Herd')) {
+                        hoursPerYear = 547; // 1.5h/Tag (Familie kocht mehr)
+                      } else if (device.name.includes('Backofen') || device.name.includes('Ofen')) {
+                        hoursPerYear = 156; // 3h/Woche (Wochenende backen)
+                      } else if (device.name.includes('Mikrowelle')) {
+                        hoursPerYear = 146; // 0.4h/Tag (häufiger bei Familie)
+                      } else {
+                        hoursPerYear = 300; // Standard Kochen
+                      }
                       break;
                     case 'network': // Router
                       hoursPerYear = 8760; // 24h/Tag (immer an)
                       break;
                     case 'electronics': // PC, Smartphone
-                      hoursPerYear = device.name.includes('PC') ? 1460 : // 4h/Tag
-                                   device.name.includes('Smartphone') ? 730 : // 2h/Tag Laden
-                                   1000;
+                      if (device.name.includes('PC')) {
+                        hoursPerYear = 1825; // 5h/Tag (Homeoffice + Kinder)
+                      } else if (device.name.includes('Smartphone')) {
+                        hoursPerYear = 1460; // 4h/Tag Laden (4 Geräte)
+                      } else {
+                        hoursPerYear = 1200; // Standard Elektronik
+                      }
                       break;
                     case 'personal-care': // Haartrockner, Zahnbürste
-                      hoursPerYear = device.name.includes('Haartrockner') ? 73 : // 0.2h/Tag
-                                   device.name.includes('Zahnbürste') ? 24 : // 0.07h/Tag
-                                   device.name.includes('Glätteisen') ? 36 : // 0.1h/Tag
-                                   device.name.includes('Lockenstab') ? 36 : // 0.1h/Tag
-                                   50;
+                      if (device.name.includes('Haartrockner') || device.name.includes('Föhn')) {
+                        hoursPerYear = 146; // 0.4h/Tag (4 Personen, nicht täglich alle)
+                      } else if (device.name.includes('Zahnbürste')) {
+                        hoursPerYear = 49; // 0.13h/Tag (4 Personen à 2min)
+                      } else if (device.name.includes('Glätteisen')) {
+                        hoursPerYear = 73; // 0.2h/Tag (nicht täglich)
+                      } else if (device.name.includes('Lockenstab')) {
+                        hoursPerYear = 52; // 0.14h/Tag (weniger häufig)
+                      } else {
+                        hoursPerYear = 80; // Standard Körperpflege
+                      }
                       break;
                     case 'comfort': // Ventilator, Luftbefeuchter
-                      hoursPerYear = device.name.includes('Ventilator') ? 1095 : // 3h/Tag (Sommer)
-                                   device.name.includes('Luftbefeuchter') ? 2190 : // 6h/Tag (Winter)
-                                   1000;
+                      if (device.name.includes('Ventilator')) {
+                        hoursPerYear = 1460; // 4h/Tag (Sommer, mehrere Räume)
+                      } else if (device.name.includes('Luftbefeuchter')) {
+                        hoursPerYear = 2920; // 8h/Tag (Winter, nachts)
+                      } else {
+                        hoursPerYear = 1200; // Standard Komfort
+                      }
                       break;
                     case 'mobility': // E-Auto, E-Bike, E-Scooter
-                      hoursPerYear = device.name.includes('E-Auto') ? 365 : // 1h/Tag Laden
-                                   device.name.includes('E-Bike') ? 104 : // 2h/Woche Laden
-                                   device.name.includes('E-Scooter') ? 52 : // 1h/Woche Laden
-                                   200;
+                      if (device.name.includes('E-Auto') || device.name.includes('Auto')) {
+                        hoursPerYear = 547; // 1.5h/Tag Laden (Familie fährt mehr)
+                      } else if (device.name.includes('E-Bike') || device.name.includes('Bike')) {
+                        hoursPerYear = 156; // 3h/Woche Laden (2 Bikes)
+                      } else if (device.name.includes('E-Scooter') || device.name.includes('Scooter')) {
+                        hoursPerYear = 104; // 2h/Woche Laden (Kinder nutzen)
+                      } else {
+                        hoursPerYear = 250; // Standard Mobilität
+                      }
                       break;
                     case 'lighting': // Beleuchtung
-                      hoursPerYear = 1825; // 5h/Tag
+                      hoursPerYear = 2190; // 6h/Tag (Familie ist abends länger wach)
                       break;
                     case 'ventilation': // Badlüfter
-                      hoursPerYear = 365; // 1h/Tag
+                      hoursPerYear = 547; // 1.5h/Tag (nach Duschen)
+                      break;
+                    case 'network': // Router
+                      hoursPerYear = 8760; // 24h/Tag (immer an)
                       break;
                     default:
-                      hoursPerYear = 1000; // Fallback
+                      hoursPerYear = 1200; // Fallback erhöht
                   }
                   
-                  const yearlyConsumption = (device.wattage / 1000) * hoursPerYear;
+                  // Berechnung der jährlichen Kosten
+                  const actualWattage = device.status === 'on' ? device.wattage : 
+                                       device.status === 'standby' ? device.standbyWattage : 
+                                       device.wattage; // Potentieller Verbrauch wenn aus
+                  
+                  const yearlyConsumption = (actualWattage / 1000) * hoursPerYear;
                   const yearlyCost = yearlyConsumption * 0.30; // 0.30 CHF/kWh
                   return yearlyCost.toFixed(0);
                 })()} CHF
