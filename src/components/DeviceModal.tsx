@@ -69,16 +69,24 @@ export const DeviceModal: React.FC<DeviceModalProps> = ({ device, onClose }) => 
                 {device.status === 'on' ? device.wattage : 
                  device.status === 'standby' ? device.standbyWattage : 0}W
               </div>
-              <div className="text-sm text-gray-600">Verbrauch/Stunde</div>
+              <div className="text-sm text-gray-600">Aktueller Verbrauch</div>
             </div>
             <div className="bg-blue-50 p-4 rounded-2xl border border-blue-100">
               <div className="text-2xl font-bold text-blue-600">
-                {device.costPerHour.toFixed(2)} CHF
+                {device.status === 'on' ? device.costPerHour.toFixed(3) : 
+                 device.status === 'standby' ? (device.standbyWattage * 0.30 / 1000).toFixed(3) : '0.000'} CHF
               </div>
               <div className="text-sm text-gray-600">Kosten/Stunde</div>
             </div>
             <div className="bg-green-50 p-4 rounded-2xl border border-green-100">
-              <div className="text-2xl font-bold text-green-600">15%</div>
+              <div className="text-2xl font-bold text-green-600">
+                {device.hasStandby && device.standbyWattage > 0 ? 
+                  Math.round((device.standbyWattage / device.wattage) * 100) : 
+                  device.energyEfficiencyRating === 'A+' ? '20' :
+                  device.energyEfficiencyRating === 'A' ? '15' :
+                  device.energyEfficiencyRating === 'B' ? '10' :
+                  device.energyEfficiencyRating === 'C' ? '5' : '0'}%
+              </div>
               <div className="text-sm text-gray-600">Einsparpotential</div>
             </div>
             <div className="bg-orange-50 p-4 rounded-2xl border border-orange-100">
