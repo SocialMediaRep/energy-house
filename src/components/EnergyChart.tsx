@@ -208,7 +208,7 @@ export const EnergyChart: React.FC<EnergyChartProps> = ({
               {/* Chart */}
               <div className="h-32 md:h-48 relative bg-white border border-gray-200 rounded">
                 {/* Y-axis labels */}
-                <div className="absolute left-0 top-0 h-full flex flex-col justify-between text-xs text-low-contrast pr-2 py-2 md:py-4">
+                <div className="absolute left-0 top-0 h-full flex flex-col gap-4 text-xs text-low-contrast pr-2 py-2 md:py-4">
                   {yAxisLabels.map((label, index) => (
                     <div key={index} className="text-right">
                       {label} kW
