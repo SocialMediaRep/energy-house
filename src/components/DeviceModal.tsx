@@ -96,15 +96,15 @@ export const DeviceModal: React.FC<DeviceModalProps> = ({ device, onClose }) => 
             </h4>
             <div className="space-y-4">
               {device.tips
-                .sort((a, b) => a.length - b.length) // Sortiere nach Länge (kurze zuerst)
+                .slice(0, 3)
                 .map((tip, index) => (
-              .slice(0, 3) // Nur die ersten 3 Tipps anzeigen
-                  <div className="w-6 h-6 bg-green-600 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
-                    <Icons.Lightbulb size={14} className="text-white" />
-                <div className="w-6 h-6 bg-repower-red rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
-                  <p className="text-body text-medium-contrast">{tip}</p>
-                </div>
-              ))}
+                  <div key={index} className="flex items-start space-x-3">
+                    <div className="w-6 h-6 bg-repower-red rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                      <Icons.Lightbulb size={14} className="text-white" />
+                    </div>
+                    <p className="text-body text-medium-contrast">{tip}</p>
+                  </div>
+                ))}
             </div>
           </div>
 
