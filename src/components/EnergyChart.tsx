@@ -208,7 +208,7 @@ export const EnergyChart: React.FC<EnergyChartProps> = ({
               {/* Chart */}
               <div className="h-32 md:h-48 relative bg-white border border-gray-200 rounded">
                 {/* Y-axis labels */}
-                <div className="absolute left-0 top-0 height={100} flex flex-col justify-between text-xs text-low-contrast pr-2">
+                <div className="absolute left-0 top-0 h-full flex flex-col justify-between text-xs text-low-contrast pr-2">
                   {yAxisLabels.map((label, index) => (
                     <div key={index} className="text-right">
                       {label} kW
@@ -219,7 +219,7 @@ export const EnergyChart: React.FC<EnergyChartProps> = ({
                 {/* Chart Area */}
                 <div className="absolute inset-0 ml-8 md:ml-12">
                   {liveData.length > 1 && (
-                    <svg className="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
+                    <svg className="w-fullheight={100}" viewBox="0 0 100 100" preserveAspectRatio="none">
                       {/* Area fill */}
                       <path
                         d={generateAreaPath()}
