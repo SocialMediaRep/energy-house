@@ -219,7 +219,7 @@ export const EnergyChart: React.FC<EnergyChartProps> = ({
                 {/* Chart Area */}
                 <div className="absolute inset-0 ml-8 md:ml-12">
                   {liveData.length > 1 && (
-                    <svg className="w-fullheight={100}" viewBox="0 0 100 100" preserveAspectRatio="none">
+                    <svg className="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
                       {/* Area fill */}
                       <path
                         d={generateAreaPath()}
