@@ -135,7 +135,7 @@ INSERT INTO devices (id, name, icon, wattage, standby_wattage, status, category,
     );
   }
   return (
-    <div className="min-h-[calc(100vh-80px)] bg-white">
+    <div className="min-h-screen bg-white">
 
       {/* Desktop: Fixed Energy Chart Section */}
       <section className="hidden md:block sticky top-0 z-40 bg-gray-50 py-12 border-b border-gray-200 shadow-sm">
@@ -197,10 +197,10 @@ INSERT INTO devices (id, name, icon, wattage, standby_wattage, status, category,
       </div>
 
       {/* Main Content */}
-      <main className="max-w-7xl mx-auto px-4 md:px-6 lg:px-12 py-2 md:py-16">
+      <main className="border border-red-500 max-w-7xl mx-auto px-4 md:px-6 lg:px-12 py-2 md:py-16">
         {/* Simple Light Switch */}
         {globalLights && (
-          <div className="mb-4 md:mb-12">
+          <div className="border border-green-500 mb-4 md:mb-12">
             <SimpleLightSwitch 
               isOn={globalLights.status === 'on'}
               onToggle={() => toggleDevice('global-lights')}
