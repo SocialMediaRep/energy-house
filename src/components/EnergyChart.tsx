@@ -254,6 +254,21 @@ export const EnergyChart: React.FC<EnergyChartProps> = ({
 
           </div>
 
+          {/* Horizontal Legend */}
+          <div className="flex items-center justify-center space-x-6 mt-4 pt-4 border-t border-gray-100">
+            <div className="flex items-center space-x-2">
+              <div className="w-4 h-3 bg-blue-200 border border-blue-300 rounded-sm"></div>
+              <span className="text-xs text-gray-600">Verbrauch in kW</span>
+            </div>
+            <div className="flex items-center space-x-2">
+              <div className="w-4 h-3 bg-yellow-200 border border-yellow-300 rounded-sm"></div>
+              <span className="text-xs text-gray-600">Produktion in kW</span>
+            </div>
+            <div className="flex items-center space-x-2">
+              <div className="w-4 h-3 bg-red-200 border border-red-300 rounded-sm"></div>
+              <span className="text-xs text-gray-600 line-through">Leistungsgrenze Paket L (7 kW)</span>
+            </div>
+          </div>
           {/* Live consumption - beside chart */}
           <div className="md:col-span-1 grid grid-cols-2 md:grid-cols-1 gap-4 md:flex md:flex-col md:justify-center md:space-y-4">
             <div className="bg-repower-gray-50 rounded-lg p-4 md:p-6 text-center">
