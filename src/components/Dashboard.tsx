@@ -149,7 +149,7 @@ INSERT INTO devices (id, name, icon, wattage, standby_wattage, status, category,
       </section>
 
       {/* Mobile: Energy Chart (not sticky) */}
-      <section className="md:hidden bg-gray-50 border-b border-gray-200 energy-chart-section">
+      <section className="md:hidden bg-gray-50 py-6 border-b border-gray-200 energy-chart-section">
         <div className="px-4">
           <EnergyChart 
             totalConsumption={getCurrentConsumption()}
@@ -166,7 +166,7 @@ INSERT INTO devices (id, name, icon, wattage, standby_wattage, status, category,
           : '-translate-y-full opacity-0 pointer-events-none absolute'
       }`}>
         <div className="px-6 py-4">
-          <div className="flex items-center justify-between bg-gradient-to-r from-slate-50 to-white rounded-2xl p-4 shadow-sm border border-gray-100">
+          <div className="flex items-center gap-4 bg-gradient-to-r from-slate-50 to-white rounded-2xl p-4 shadow-sm border border-gray-100">
             <div className="flex items-center space-x-6">
               {/* Current Consumption */}
               <div className="text-center bg-white rounded-xl p-3 shadow-sm border border-gray-100">
