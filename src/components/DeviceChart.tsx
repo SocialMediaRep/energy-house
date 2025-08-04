@@ -351,8 +351,7 @@ export const DeviceChart: React.FC<DeviceChartProps> = ({ device }) => {
               <div
                 className="w-full rounded-t-sm transition-all duration-300"
                 style={{
-                 // height: `${Math.max(2, (data.consumption / maxConsumption) * 100)}%`,
-                  heigt: '10px',
+                  height: `${Math.max(2, (data.consumption / maxConsumption) * 100)}%`,
                   backgroundColor: getStatusColor(data.phase),
                   opacity: 0.8
                 }}
