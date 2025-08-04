@@ -341,7 +341,7 @@ export const DeviceChart: React.FC<DeviceChartProps> = ({ device }) => {
         </div>
 
         {/* Bar Chart with phase colors */}
-        <div className="absolute inset-3 flex items-end justify-between">
+        <div className="absolute inset-3 flex items-end justify-between" >
           {exemplaryData.map((data, index) => (
             <div
               key={data.timestamp}
