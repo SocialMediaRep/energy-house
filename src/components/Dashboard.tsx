@@ -22,7 +22,7 @@ export const Dashboard: React.FC = () => {
       if (chartSection) {
         const chartBottom = chartSection.offsetTop + chartSection.offsetHeight;
         // Show sticky header when chart is completely out of view (with small buffer)
-        setShowStickyHeader(scrollTop > chartBottom - 50);
+        setShowStickyHeader(scrollTop > chartBottom - 5000);
       }
     };
 
