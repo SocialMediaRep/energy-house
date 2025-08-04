@@ -139,7 +139,7 @@ INSERT INTO devices (id, name, icon, wattage, standby_wattage, status, category,
 
       {/* Desktop: Fixed Energy Chart Section */}
       <section className="hidden md:block sticky top-0 z-40 bg-gray-50 py-12 border-b border-gray-200 shadow-sm">
-        <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
+        <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 outline outline-4 outline-blue-500">
           <EnergyChart 
             totalConsumption={getCurrentConsumption()}
             activeConsumption={getActiveConsumption()}
