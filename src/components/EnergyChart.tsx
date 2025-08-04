@@ -165,9 +165,9 @@ export const EnergyChart: React.FC<EnergyChartProps> = ({
   const yAxisLabels = getYAxisLabels();
 
   return (
-    <div className="bg-white rounded-2xl border border-repower-gray-200 p-4 md:p-8 shadow-sm">
+    <div className="bg-white rounded-2xl border border-repower-gray-200 p-6 md:p-8 shadow-sm">
       {/* Header */}
-      <div className="flex items-center justify-between mb-4 md:mb-8">
+      <div className="flex items-center justify-between mb-6 md:mb-8">
         <h2 className="text-lg md:text-2xl font-bold flex items-center">
           <div className="w-2 h-2 bg-repower-green-500 rounded-full mr-4"></div>
           <span className="hidden md:inline">Aktueller Stromverbrauch</span>
@@ -176,12 +176,12 @@ export const EnergyChart: React.FC<EnergyChartProps> = ({
       </div>
 
       {/* Main Content Grid */}
-      <div className="space-y-4 md:space-y-8">
+      <div className="space-y-6 md:space-y-8">
         {/* Chart Section */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4 md:gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 md:gap-8">
           {/* Time Range Selector - moved to left */}
           <div className="md:col-span-3">
-            <div className="flex justify-start mb-4 md:mb-6">
+            <div className="flex justify-start mb-6 md:mb-6">
               <div className="flex bg-repower-gray-100 rounded-lg p-1">
                 {[
                   { key: '1min' as TimeRange, label: '1 Min' },
@@ -206,9 +206,9 @@ export const EnergyChart: React.FC<EnergyChartProps> = ({
             {/* Chart Container */}
             <div className="relative">
               {/* Chart */}
-              <div className="h-32 md:h-48 relative bg-white border border-gray-200 rounded">
+              <div className="h-40 md:h-48 relative bg-white border border-gray-200 rounded-xl">
                 {/* Y-axis labels */}
-                <div className="absolute left-0 top-0 h-full flex flex-col justify-between text-xs text-low-contrast pr-2 py-2 md:py-4">
+                <div className="absolute left-0 top-0 h-full flex flex-col justify-between text-xs text-low-contrast pr-3 py-3 md:py-4">
                   {yAxisLabels.map((label, index) => (
                     <div key={index} className="text-right">
                       {label} kW
@@ -217,7 +217,7 @@ export const EnergyChart: React.FC<EnergyChartProps> = ({
                 </div>
 
                 {/* Chart Area */}
-                <div className="absolute inset-0 ml-8 md:ml-12">
+                <div className="absolute inset-0 ml-10 md:ml-12">
                   {liveData.length > 1 && (
                     <svg className="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
                       {/* Area fill */}
@@ -241,7 +241,7 @@ export const EnergyChart: React.FC<EnergyChartProps> = ({
               </div>
 
               {/* X-axis time labels */}
-              <div className="flex justify-between text-xs text-low-contrast mt-2 md:mt-4 ml-8 md:ml-12">
+              <div className="flex justify-between text-xs text-low-contrast mt-3 md:mt-4 ml-10 md:ml-12">
                 {liveData.length > 0 && (
                   <>
                     <span>{formatTime(liveData[0]?.timestamp || Date.now())}</span>
@@ -256,7 +256,7 @@ export const EnergyChart: React.FC<EnergyChartProps> = ({
 
           {/* Live consumption - beside chart */}
           <div className="md:col-span-1 grid grid-cols-2 md:grid-cols-1 gap-4 md:flex md:flex-col md:justify-center md:space-y-4">
-            <div className="bg-repower-gray-50 rounded-lg p-4 md:p-6 text-center">
+            <div className="bg-repower-gray-50 rounded-xl p-5 md:p-6 text-center">
               <div className="text-body-sm text-low-contrast mb-1">
                 Live <span className="text-caption">{formatTime(currentTime.getTime())}</span>
               </div>
@@ -268,13 +268,13 @@ export const EnergyChart: React.FC<EnergyChartProps> = ({
               </div>
             </div>
             
-            <div className="bg-repower-gray-50 rounded-lg p-4 md:p-6 text-center">
+            <div className="bg-repower-gray-50 rounded-xl p-5 md:p-6 text-center">
               <div className="text-body-sm text-low-contrast mb-1">
                 Tägliche Kosten
               </div>
               <div className="text-2xl font-light text-high-contrast">
-                {dailyCost.toFixed(2)} <span className="text-sm font-normal">CHF</span>
-              </div>
+      <section className="md:hidden bg-gray-50 py-12 border-b border-gray-200 energy-chart-section">
+        <div className="px-6">
               <div className="text-caption text-medium-contrast mt-1">
                 bei aktuellem Verbrauch
               </div>
