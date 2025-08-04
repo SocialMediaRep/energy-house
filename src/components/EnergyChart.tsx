@@ -178,9 +178,9 @@ export const EnergyChart: React.FC<EnergyChartProps> = ({
       {/* Main Content Grid */}
       <div className="space-y-4 md:space-y-8">
         {/* Chart Section */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-8">
-          {/* Time Range Selector - moved to left */}
-          <div className="md:col-span-2">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-4 md:gap-8">
+          {/* Chart and Time Range Selector */}
+          <div className="md:col-span-3">
             <div className="flex justify-start mb-4 md:mb-6">
               <div className="flex bg-repower-gray-100 rounded-lg p-1">
                 {[
@@ -281,7 +281,7 @@ export const EnergyChart: React.FC<EnergyChartProps> = ({
               <span className="text-xs text-gray-600">Produktion</span>
             </div>
           </div>
-          {/* Live Data - Right side */}
+          {/* Live Data Boxes - Right side */}
           <div className="md:col-span-1 grid grid-cols-2 md:grid-cols-1 gap-4 md:space-y-4">
             <div className="bg-repower-gray-50 rounded-lg p-4 md:p-6 text-center">
               <div className="text-body-sm text-low-contrast mb-1">
