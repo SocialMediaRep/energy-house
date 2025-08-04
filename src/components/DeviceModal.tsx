@@ -118,7 +118,7 @@ export const DeviceModal: React.FC<DeviceModalProps> = ({ device, onClose }) => 
                       break;
                     case 'heating': // Boiler, Dusche
                       if (device.name.includes('Boiler')) {
-                        hoursPerYear = 6570; // 18h/Tag (Warmwasser bereithalten)
+                        hoursPerYear = 2190; // 6h/Tag (tatsächliches Heizen, nicht Bereitschaft)
                       } else if (device.name.includes('Dusche') || device.name.includes('Bad')) {
                         hoursPerYear = 548; // 1.5h/Tag (4 Personen à 20min)
                       } else {
