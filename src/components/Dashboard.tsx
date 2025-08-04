@@ -149,7 +149,7 @@ INSERT INTO devices (id, name, icon, wattage, standby_wattage, status, category,
       </section>
 
       {/* Mobile: Energy Chart (not sticky) */}
-      <section className="md:hidden bg-gray-50 py-6 border-b border-gray-200 energy-chart-section">
+      <section className="md:hidden bg-gray-50 py-6 border-b border-gray-200 energy-chart-section ">
         <div className="px-4">
           <EnergyChart 
             totalConsumption={getCurrentConsumption()}
@@ -162,8 +162,8 @@ INSERT INTO devices (id, name, icon, wattage, standby_wattage, status, category,
       {/* Mobile: Sticky Compact Header */}
       <div className={`md:hidden sticky top-0 z-40 transition-all duration-300 ${
         showStickyHeader 
-          ? 'translate-y-0 opacity-100 shadow-lg bg-white border-b border-gray-200' 
-          : '-translate-y-full opacity-0 pointer-events-none absolute'
+          ? 'translate-y-0 opacity-100 shadow-lg bg-white border-b border-gray-200 visible pointer-events-auto' 
+          : '-translate-y-[-100%] opacity-0 pointer-events-none invisible'
       }`}>
         <div className="px-6 py-4">
           <div className="flex items-center gap-4 bg-gradient-to-r from-slate-50 to-white rounded-2xl p-4 shadow-sm border border-gray-100">
