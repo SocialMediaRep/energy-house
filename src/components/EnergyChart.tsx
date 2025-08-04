@@ -208,7 +208,7 @@ export const EnergyChart: React.FC<EnergyChartProps> = ({
               {/* Chart */}
               <div className="h-32 md:h-48 relative bg-white border border-gray-200 rounded">
                 {/* Y-axis labels */}
-                <div className="absolute left-0 top-0 h-full flex flex-col justify-between text-xs text-low-contrast pr-2 py-2 md:py-4">
+                <div className="absolute left-0 top-0 h-full flex flex-col justify-between text-xs text-low-contrast pr-3 py-2 md:pr-4 md:py-4 w-12 md:w-16">
                   {yAxisLabels.map((label, index) => (
                     <div key={index} className="text-right">
                       {label} kW
@@ -217,7 +217,7 @@ export const EnergyChart: React.FC<EnergyChartProps> = ({
                 </div>
 
                 {/* Chart Area */}
-                <div className="absolute inset-0 ml-8 md:ml-12">
+                <div className="absolute inset-0 ml-12 md:ml-16">
                   {liveData.length > 1 && (
                     <svg className="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
                       {/* Area fill */}
@@ -241,7 +241,7 @@ export const EnergyChart: React.FC<EnergyChartProps> = ({
               </div>
 
               {/* X-axis time labels */}
-              <div className="flex justify-between text-xs text-low-contrast mt-2 md:mt-4 ml-8 md:ml-12">
+              <div className="flex justify-between text-xs text-low-contrast mt-3 md:mt-4 ml-12 md:ml-16">
                 {liveData.length > 0 && (
                   <>
                     <span>{formatTime(liveData[0]?.timestamp || Date.now())}</span>
