@@ -94,11 +94,11 @@ export const DeviceModal: React.FC<DeviceModalProps> = ({ device, onClose }) => 
             <h4 className="h5 mb-4">
               Stromspartipps
             </h4>
-            <div className="space-y-4">
+            <div className="space-y-3">
               {device.tips
                 .slice(0, 3)
                 .map((tip, index) => (
-                  <div key={index} className="flex items-start space-x-3">
+                  <div key={index} className="flex items-start space-x-3 p-4 rounded-lg border border-gray-200 bg-white">
                     <div className="w-6 h-6 bg-repower-red rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
                       <Icons.Lightbulb size={14} className="text-white" />
                     </div>
