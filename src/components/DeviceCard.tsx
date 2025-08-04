@@ -38,7 +38,7 @@ export const DeviceCard: React.FC<DeviceCardProps> = ({
   const getStatusText = () => {
     switch (device.status) {
       case 'on': return currentWattage > 0 ? `${currentWattage}W` : 'Ein';
-      case 'standby': return currentWattage > 0 ? `${currentWattage}W (Standby)` : '(Standby)';
+      case 'standby': return currentWattage > 0 ? `(${currentWattage}W)` : '(Standby)';
       default: return 'Aus';
     }
   };
