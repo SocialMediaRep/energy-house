@@ -161,7 +161,7 @@ export const DeviceModal: React.FC<DeviceModalProps> = ({ device, onClose }) => 
                   const yearlyConsumption = (device.wattage / 1000) * hoursPerYear;
                   const yearlyCost = yearlyConsumption * 0.30; // 0.30 CHF/kWh
                   return yearlyCost.toFixed(0);
-                })())} CHF
+                })()} CHF
               </div>
               <div className="text-sm text-gray-600">Jährliche Kosten</div>
             </div>
