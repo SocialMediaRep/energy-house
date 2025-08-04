@@ -71,7 +71,7 @@ export const DeviceModal: React.FC<DeviceModalProps> = ({ device, onClose }) => 
                  device.wattage}W
               </div>
               <div className="text-sm text-gray-600">
-                {device.status === 'off' ? 'Verbrauch wenn ein' : 'Verbrauch/Stunde'}
+                Verbrauch pro Stunde
               </div>
             </div>
             <div className="bg-blue-50 p-4 rounded-2xl border border-blue-100">
@@ -81,7 +81,7 @@ export const DeviceModal: React.FC<DeviceModalProps> = ({ device, onClose }) => 
                  device.costPerHour.toFixed(3)} CHF
               </div>
               <div className="text-sm text-gray-600">
-                {device.status === 'off' ? 'Kosten wenn ein' : 'Kosten/Stunde'}
+                Kosten pro Stunde
               </div>
             </div>
             <div className="bg-green-50 p-4 rounded-2xl border border-green-100">
