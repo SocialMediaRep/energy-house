@@ -51,7 +51,7 @@ export const Dashboard: React.FC = () => {
 
   if (error) {
     return (
-      <div className="bg-white flex items-center justify-center">
+      <div className="min-h-screen bg-white flex items-center justify-center">
         <div className="text-center">
           <div className="text-red-600 mb-4">
             <svg className="w-12 h-12 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -135,7 +135,7 @@ INSERT INTO devices (id, name, icon, wattage, standby_wattage, status, category,
     );
   }
   return (
-    <div className="bg-white">
+    <div className="min-h-[calc(100vh-80px)] bg-white">
 
       {/* Desktop: Fixed Energy Chart Section */}
       <section className="hidden md:block sticky top-0 z-40 bg-gray-50 py-12 border-b border-gray-200 shadow-sm">
