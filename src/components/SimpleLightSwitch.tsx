@@ -13,7 +13,7 @@ export const SimpleLightSwitch: React.FC<SimpleLightSwitchProps> = ({
   disabled = false 
 }) => {
   return (
-    <div className="flex items-center space-x-4 bg-white rounded-2xl p-2 md:p-8 border border-repower-gray-200 shadow-sm">
+    <div className="flex items-center space-x-4 bg-white rounded-2xl p-4 md:p-8 border border-repower-gray-200 shadow-sm">
       {/* Label */}
       <div className="flex items-center space-x-3">
         <Lightbulb 
