@@ -94,18 +94,44 @@ export const DeviceModal: React.FC<DeviceModalProps> = ({ device, onClose }) => 
             <h4 className="h5 mb-4">
               Stromspartipps
             </h4>
-            <div className="space-y-2">
+            <div className="space-y-4">
               {device.tips
-                .slice(0, 4) // Nur die ersten 4 Tips
+                .sort((a, b) => a.length - b.length) // Sortiere nach Länge (kurze zuerst)
                 .map((tip, index) => (
-                <div key={index} className="flex items-start space-x-3 py-2">
-                  <div className="w-1.5 h-1.5 bg-green-500 rounded-full flex-shrink-0 mt-2"></div>
-                  <p className="text-sm text-medium-contrast leading-relaxed">{tip}</p>
+                <div key={index} className="flex items-start space-x-3 p-3 bg-gray-50 rounded-xl">
+                  <div className="w-6 h-6 bg-green-600 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                    <Icons.Lightbulb size={14} className="text-white" />
+                  </div>
+                  <p className="text-body text-medium-contrast">{tip}</p>
                 </div>
               ))}
             </div>
           </div>
 
+          {/* Tips Categories */}
+          <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="text-center p-4 bg-blue-50 rounded-2xl border border-blue-100">
+              <div className="w-12 h-12 bg-green-600 rounded-2xl flex items-center justify-center mx-auto mb-2">
+                <Icons.Zap size={20} className="text-white" />
+              </div>
+              <h5 className="h6 mb-1">Energieeffiziente Nutzung</h5>
+              <p className="text-body-sm text-medium-contrast">Optimiere die Geräteeinstellungen</p>
+            </div>
+            <div className="text-center p-4 bg-green-50 rounded-2xl border border-green-100">
+              <div className="w-12 h-12 bg-green-600 rounded-2xl flex items-center justify-center mx-auto mb-2">
+                <Icons.Settings size={20} className="text-white" />
+              </div>
+              <h5 className="h6 mb-1">Regelmäßige Wartung</h5>
+              <p className="text-body-sm text-medium-contrast">Halte deine Geräte in Top-Zustand</p>
+            </div>
+            <div className="text-center p-4 bg-orange-50 rounded-2xl border border-orange-100">
+              <div className="w-12 h-12 bg-green-600 rounded-2xl flex items-center justify-center mx-auto mb-2">
+                <Icons.ThermometerSun size={20} className="text-white" />
+              </div>
+              <h5 className="h6 mb-1">Optimale Temperatur</h5>
+              <p className="text-body-sm text-medium-contrast">Verwende die richtige Temperatur</p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
