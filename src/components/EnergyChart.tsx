@@ -273,8 +273,8 @@ export const EnergyChart: React.FC<EnergyChartProps> = ({
                 Tägliche Kosten
               </div>
               <div className="text-2xl font-light text-high-contrast">
-      <section className="md:hidden bg-gray-50 py-12 border-b border-gray-200 energy-chart-section">
-        <div className="px-6">
+                {dailyCost.toFixed(2)} <span className="text-sm font-normal">CHF</span>
+              </div>
               <div className="text-caption text-medium-contrast mt-1">
                 bei aktuellem Verbrauch
               </div>
@@ -283,6 +283,10 @@ export const EnergyChart: React.FC<EnergyChartProps> = ({
         </div>
 
       </div>
+      <section className="md:hidden bg-gray-50 py-12 border-b border-gray-200 energy-chart-section">
+        <div className="px-6">
+        </div>
+      </section>
     </div>
   );
 };
