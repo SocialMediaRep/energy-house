@@ -225,7 +225,7 @@ export const DeviceModal: React.FC<DeviceModalProps> = ({ device, onClose }) => 
           {device.wattage > 1000 && (
             <div className="mb-6">
               <h4 className="h5 mb-4">Kostenaufschlüsselung</h4>
-              <div className="bg-blue-50 rounded-2xl p-4 border border-blue-100">
+              <div className="bg-white rounded-2xl p-4 border border-gray-200">
                 {(() => {
                   // Calculate usage hours per year (same logic as above)
                   let hoursPerYear = 0;
@@ -302,49 +302,49 @@ export const DeviceModal: React.FC<DeviceModalProps> = ({ device, onClose }) => 
                   
                   return (
                     <div className="space-y-3">
-                      <div className="text-sm text-blue-800">
+                      <div className="text-sm text-gray-700">
                         <strong>Geschätzte Nutzung:</strong> {usageDescription}
                       </div>
                       
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div className="space-y-2">
-                          <div className="flex justify-between">
-                            <span className="text-blue-700">Leistung:</span>
-                            <span className="font-medium">{actualWattage.toLocaleString()} W</span>
+                          <div className="flex justify-between text-sm">
+                            <span className="text-green-700">Leistung:</span>
+                            <span className="font-medium text-green-600">{actualWattage.toLocaleString()} W</span>
                           </div>
-                          <div className="flex justify-between">
-                            <span className="text-blue-700">Nutzung/Jahr:</span>
-                            <span className="font-medium">{hoursPerYear.toLocaleString()} h</span>
+                          <div className="flex justify-between text-sm">
+                            <span className="text-gray-700">Nutzung/Jahr:</span>
+                            <span className="font-medium text-gray-600">{hoursPerYear.toLocaleString()} h</span>
                           </div>
-                          <div className="flex justify-between">
-                            <span className="text-blue-700">Verbrauch/Jahr:</span>
-                            <span className="font-medium">{yearlyConsumption.toFixed(0)} kWh</span>
+                          <div className="flex justify-between text-sm">
+                            <span className="text-green-700">Verbrauch/Jahr:</span>
+                            <span className="font-medium text-green-600">{yearlyConsumption.toFixed(0)} kWh</span>
                           </div>
-                          <div className="flex justify-between">
-                            <span className="text-blue-700">Strompreis:</span>
-                            <span className="font-medium">0.30 CHF/kWh</span>
+                          <div className="flex justify-between text-sm">
+                            <span className="text-gray-700">Strompreis:</span>
+                            <span className="font-medium text-gray-600">0.30 CHF/kWh</span>
                           </div>
                         </div>
                         
                         <div className="space-y-2">
-                          <div className="flex justify-between">
+                          <div className="flex justify-between text-sm">
                             <span className="text-blue-700">Kosten/Tag:</span>
-                            <span className="font-medium">{dailyCost.toFixed(2)} CHF</span>
+                            <span className="font-medium text-blue-600">{dailyCost.toFixed(2)} CHF</span>
                           </div>
-                          <div className="flex justify-between">
+                          <div className="flex justify-between text-sm">
                             <span className="text-blue-700">Kosten/Monat:</span>
-                            <span className="font-medium">{monthlyCost.toFixed(2)} CHF</span>
+                            <span className="font-medium text-blue-600">{monthlyCost.toFixed(2)} CHF</span>
                           </div>
-                          <div className="flex justify-between border-t border-blue-200 pt-2">
-                            <span className="text-blue-700 font-semibold">Kosten/Jahr:</span>
-                            <span className="font-bold text-blue-800">{yearlyCost.toFixed(2)} CHF</span>
+                          <div className="flex justify-between border-t border-gray-200 pt-2 text-sm">
+                            <span className="text-orange-700 font-semibold">Kosten/Jahr:</span>
+                            <span className="font-bold text-orange-600">{yearlyCost.toFixed(2)} CHF</span>
                           </div>
                         </div>
                       </div>
                       
                       {device.name.includes('Boiler') && (
-                        <div className="mt-3 p-3 bg-blue-100 rounded-lg border border-blue-200">
-                          <div className="text-xs text-blue-800">
+                        <div className="mt-3 p-3 bg-gray-50 rounded-lg border border-gray-200">
+                          <div className="text-xs text-gray-700">
                             <strong>💡 Boiler-Tipp:</strong> Moderne Boiler sind gut isoliert und heizen nicht dauerhaft. 
                             Die 6h täglich entsprechen dem tatsächlichen Heizvorgang, nicht der Bereitschaftszeit.
                           </div>
@@ -352,8 +352,8 @@ export const DeviceModal: React.FC<DeviceModalProps> = ({ device, onClose }) => 
                       )}
                       
                       {device.name.includes('E-Auto') && (
-                        <div className="mt-3 p-3 bg-blue-100 rounded-lg border border-blue-200">
-                          <div className="text-xs text-blue-800">
+                        <div className="mt-3 p-3 bg-gray-50 rounded-lg border border-gray-200">
+                          <div className="text-xs text-gray-700">
                             <strong>🚗 E-Auto-Tipp:</strong> Laden Sie nachts mit günstigeren Tarifen. 
                             Viele Anbieter haben spezielle E-Auto-Tarife ab 0.20 CHF/kWh.
                           </div>
