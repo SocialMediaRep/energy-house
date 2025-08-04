@@ -149,7 +149,7 @@ INSERT INTO devices (id, name, icon, wattage, standby_wattage, status, category,
       </section>
 
       {/* Mobile: Energy Chart (not sticky) */}
-      <section className="md:hidden bg-gray-50 py-2 border-b border-gray-200 energy-chart-section">
+      <section className="md:hidden bg-gray-50 border-b border-gray-200 energy-chart-section">
         <div className="px-4">
           <EnergyChart 
             totalConsumption={getCurrentConsumption()}
