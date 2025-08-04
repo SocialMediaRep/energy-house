@@ -221,6 +221,151 @@ export const DeviceModal: React.FC<DeviceModalProps> = ({ device, onClose }) => 
             </div>
           </div>
 
+          {/* Cost Breakdown Section - especially for high-consumption devices */}
+          {device.wattage > 1000 && (
+            <div className="mb-6">
+              <h4 className="h5 mb-4">Kostenaufschlüsselung</h4>
+              <div className="bg-blue-50 rounded-2xl p-4 border border-blue-100">
+                {(() => {
+                  // Calculate usage hours per year (same logic as above)
+                  let hoursPerYear = 0;
+                  let usageDescription = '';
+                  
+                  switch (device.category) {
+                    case 'heating':
+                      if (device.name.includes('Boiler')) {
+                        hoursPerYear = 2190;
+                        usageDescription = '6 Stunden täglich (Morgens 2h, Abends 2h, Nachheizen 2h)';
+                      } else if (device.name.includes('Dusche') || device.name.includes('Bad')) {
+                        hoursPerYear = 548;
+                        usageDescription = '1.5 Stunden täglich (4 Personen à 20 Minuten)';
+                      } else {
+                        hoursPerYear = 4380;
+                        usageDescription = '12 Stunden täglich';
+                      }
+                      break;
+                    case 'cooking':
+                      if (device.name.includes('Herd')) {
+                        hoursPerYear = 547;
+                        usageDescription = '1.5 Stunden täglich (Familie kocht mehr)';
+                      } else if (device.name.includes('Backofen') || device.name.includes('Ofen')) {
+                        hoursPerYear = 156;
+                        usageDescription = '3 Stunden wöchentlich (Wochenende backen)';
+                      } else {
+                        hoursPerYear = 300;
+                        usageDescription = 'Durchschnittliche Nutzung';
+                      }
+                      break;
+                    case 'cleaning':
+                      if (device.name.includes('Waschmaschine')) {
+                        hoursPerYear = 208;
+                        usageDescription = '4 Stunden wöchentlich (4-köpfige Familie)';
+                      } else if (device.name.includes('Tumbler')) {
+                        hoursPerYear = 156;
+                        usageDescription = '3 Stunden wöchentlich';
+                      } else {
+                        hoursPerYear = 200;
+                        usageDescription = 'Durchschnittliche Nutzung';
+                      }
+                      break;
+                    case 'mobility':
+                      if (device.name.includes('E-Auto') || device.name.includes('Auto')) {
+                        hoursPerYear = 547;
+                        usageDescription = '1.5 Stunden täglich (Familie fährt mehr)';
+                      } else {
+                        hoursPerYear = 250;
+                        usageDescription = 'Durchschnittliche Nutzung';
+                      }
+                      break;
+                    case 'personal-care':
+                      if (device.name.includes('Haartrockner') || device.name.includes('Föhn')) {
+                        hoursPerYear = 146;
+                        usageDescription = '0.4 Stunden täglich (4 Personen, nicht täglich alle)';
+                      } else {
+                        hoursPerYear = 80;
+                        usageDescription = 'Durchschnittliche Nutzung';
+                      }
+                      break;
+                    default:
+                      hoursPerYear = 1200;
+                      usageDescription = 'Durchschnittliche Nutzung';
+                  }
+                  
+                  const actualWattage = device.status === 'on' ? device.wattage : 
+                                       device.status === 'standby' ? device.standbyWattage : 
+                                       device.wattage;
+                  
+                  const yearlyConsumption = (actualWattage / 1000) * hoursPerYear;
+                  const yearlyCost = yearlyConsumption * 0.30;
+                  const monthlyCost = yearlyCost / 12;
+                  const dailyCost = yearlyCost / 365;
+                  
+                  return (
+                    <div className="space-y-3">
+                      <div className="text-sm text-blue-800">
+                        <strong>Geschätzte Nutzung:</strong> {usageDescription}
+                      </div>
+                      
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+                        <div className="space-y-2">
+                          <div className="flex justify-between">
+                            <span className="text-blue-700">Leistung:</span>
+                            <span className="font-medium">{actualWattage.toLocaleString()} W</span>
+                          </div>
+                          <div className="flex justify-between">
+                            <span className="text-blue-700">Nutzung/Jahr:</span>
+                            <span className="font-medium">{hoursPerYear.toLocaleString()} h</span>
+                          </div>
+                          <div className="flex justify-between">
+                            <span className="text-blue-700">Verbrauch/Jahr:</span>
+                            <span className="font-medium">{yearlyConsumption.toFixed(0)} kWh</span>
+                          </div>
+                          <div className="flex justify-between">
+                            <span className="text-blue-700">Strompreis:</span>
+                            <span className="font-medium">0.30 CHF/kWh</span>
+                          </div>
+                        </div>
+                        
+                        <div className="space-y-2">
+                          <div className="flex justify-between">
+                            <span className="text-blue-700">Kosten/Tag:</span>
+                            <span className="font-medium">{dailyCost.toFixed(2)} CHF</span>
+                          </div>
+                          <div className="flex justify-between">
+                            <span className="text-blue-700">Kosten/Monat:</span>
+                            <span className="font-medium">{monthlyCost.toFixed(2)} CHF</span>
+                          </div>
+                          <div className="flex justify-between border-t border-blue-200 pt-2">
+                            <span className="text-blue-700 font-semibold">Kosten/Jahr:</span>
+                            <span className="font-bold text-blue-800">{yearlyCost.toFixed(2)} CHF</span>
+                          </div>
+                        </div>
+                      </div>
+                      
+                      {device.name.includes('Boiler') && (
+                        <div className="mt-3 p-3 bg-blue-100 rounded-lg border border-blue-200">
+                          <div className="text-xs text-blue-800">
+                            <strong>💡 Boiler-Tipp:</strong> Moderne Boiler sind gut isoliert und heizen nicht dauerhaft. 
+                            Die 6h täglich entsprechen dem tatsächlichen Heizvorgang, nicht der Bereitschaftszeit.
+                          </div>
+                        </div>
+                      )}
+                      
+                      {device.name.includes('E-Auto') && (
+                        <div className="mt-3 p-3 bg-blue-100 rounded-lg border border-blue-200">
+                          <div className="text-xs text-blue-800">
+                            <strong>🚗 E-Auto-Tipp:</strong> Laden Sie nachts mit günstigeren Tarifen. 
+                            Viele Anbieter haben spezielle E-Auto-Tarife ab 0.20 CHF/kWh.
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  );
+                })()}
+              </div>
+            </div>
+          )}
+
           {/* Energy Saving Tips */}
           <div>
             <h4 className="h5 mb-4">
