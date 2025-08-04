@@ -232,7 +232,6 @@ export const DeviceModal: React.FC<DeviceModalProps> = ({ device, onClose }) => 
                       <path d="M7 10l5 5 5-5z"/>
                     </svg>
                   </div>
-                  </svg>
                 </summary>
                 <div className="px-6 pb-6 bg-white">
                 {(() => {
