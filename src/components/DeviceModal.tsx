@@ -91,7 +91,77 @@ export const DeviceModal: React.FC<DeviceModalProps> = ({ device, onClose }) => 
             </div>
             <div className="bg-orange-50 p-4 rounded-2xl border border-orange-100">
               <div className="text-2xl font-bold text-orange-600">
-                {(device.costPerHour * 24 * 365).toFixed(0)} CHF
+                {(() => {
+                  // Realistische jährliche Nutzung für 4-köpfige Familie
+                  let hoursPerYear = 0;
+                  
+                  switch (device.category) {
+                    case 'entertainment': // TV, Konsole, Soundbar
+                      hoursPerYear = device.name.includes('Fernseher') ? 2000 : // 5.5h/Tag
+                                   device.name.includes('Konsole') ? 730 : // 2h/Tag
+                                   1460; // Soundbar: 4h/Tag
+                      break;
+                    case 'cooling': // Kühlschrank, Gefrierschrank
+                      hoursPerYear = 8760; // 24h/Tag (immer an)
+                      break;
+                    case 'heating': // Boiler, Dusche
+                      hoursPerYear = device.name.includes('Boiler') ? 6570 : // 18h/Tag
+                                   device.name.includes('Dusche') ? 365 : // 1h/Tag
+                                   4380; // 12h/Tag
+                      break;
+                    case 'cleaning': // Waschmaschine, Tumbler, Spülmaschine
+                      hoursPerYear = device.name.includes('Waschmaschine') ? 156 : // 3h/Woche
+                                   device.name.includes('Tumbler') ? 104 : // 2h/Woche
+                                   device.name.includes('Spülmaschine') ? 182 : // 0.5h/Tag
+                                   device.name.includes('Staubsaugroboter') ? 365 : // 1h/Tag
+                                   200;
+                      break;
+                    case 'cooking': // Herd, Ofen, Mikrowelle
+                      hoursPerYear = device.name.includes('Herd') ? 365 : // 1h/Tag
+                                   device.name.includes('Backofen') ? 104 : // 2h/Woche
+                                   device.name.includes('Mikrowelle') ? 73 : // 0.2h/Tag
+                                   200;
+                      break;
+                    case 'network': // Router
+                      hoursPerYear = 8760; // 24h/Tag (immer an)
+                      break;
+                    case 'electronics': // PC, Smartphone
+                      hoursPerYear = device.name.includes('PC') ? 1460 : // 4h/Tag
+                                   device.name.includes('Smartphone') ? 730 : // 2h/Tag Laden
+                                   1000;
+                      break;
+                    case 'personal-care': // Haartrockner, Zahnbürste
+                      hoursPerYear = device.name.includes('Haartrockner') ? 73 : // 0.2h/Tag
+                                   device.name.includes('Zahnbürste') ? 24 : // 0.07h/Tag
+                                   device.name.includes('Glätteisen') ? 36 : // 0.1h/Tag
+                                   device.name.includes('Lockenstab') ? 36 : // 0.1h/Tag
+                                   50;
+                      break;
+                    case 'comfort': // Ventilator, Luftbefeuchter
+                      hoursPerYear = device.name.includes('Ventilator') ? 1095 : // 3h/Tag (Sommer)
+                                   device.name.includes('Luftbefeuchter') ? 2190 : // 6h/Tag (Winter)
+                                   1000;
+                      break;
+                    case 'mobility': // E-Auto, E-Bike, E-Scooter
+                      hoursPerYear = device.name.includes('E-Auto') ? 365 : // 1h/Tag Laden
+                                   device.name.includes('E-Bike') ? 104 : // 2h/Woche Laden
+                                   device.name.includes('E-Scooter') ? 52 : // 1h/Woche Laden
+                                   200;
+                      break;
+                    case 'lighting': // Beleuchtung
+                      hoursPerYear = 1825; // 5h/Tag
+                      break;
+                    case 'ventilation': // Badlüfter
+                      hoursPerYear = 365; // 1h/Tag
+                      break;
+                    default:
+                      hoursPerYear = 1000; // Fallback
+                  }
+                  
+                  const yearlyConsumption = (device.wattage / 1000) * hoursPerYear;
+                  const yearlyCost = yearlyConsumption * 0.30; // 0.30 CHF/kWh
+                  return yearlyCost.toFixed(0);
+                })())} CHF
               </div>
               <div className="text-sm text-gray-600">Jährliche Kosten</div>
             </div>
