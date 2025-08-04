@@ -179,7 +179,7 @@ export const EnergyChart: React.FC<EnergyChartProps> = ({
       <div className="space-y-4 md:space-y-8">
         {/* Chart Section */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4 md:gap-8">
-          {/* Chart and Time Range Selector */}
+          {/* Time Range Selector - moved to left */}
           <div className="md:col-span-3">
             <div className="flex justify-start mb-4 md:mb-6">
               <div className="flex bg-repower-gray-100 rounded-lg p-1">
@@ -208,7 +208,7 @@ export const EnergyChart: React.FC<EnergyChartProps> = ({
               {/* Chart */}
               <div className="h-32 md:h-48 relative bg-white border border-gray-200 rounded">
                 {/* Y-axis labels */}
-                <div className="absolute left-0 top-0 h-full flex flex-col justify-between text-xs text-low-contrast pr-2 py-2 md:pr-4 md:py-4 w-10 md:w-16">
+                <div className="absolute left-0 top-0 h-full flex flex-col justify-between text-xs text-low-contrast pr-3 py-2 md:pr-4 md:py-4 w-12 md:w-16">
                   {yAxisLabels.map((label, index) => (
                     <div key={index} className="text-right">
                       {label} kW
@@ -217,7 +217,7 @@ export const EnergyChart: React.FC<EnergyChartProps> = ({
                 </div>
 
                 {/* Chart Area */}
-                <div className="absolute inset-0 ml-10 md:ml-16">
+                <div className="absolute inset-0 ml-12 md:ml-16">
                   {liveData.length > 1 && (
                     <svg className="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
                       {/* Area fill */}
@@ -241,7 +241,7 @@ export const EnergyChart: React.FC<EnergyChartProps> = ({
               </div>
 
               {/* X-axis time labels */}
-              <div className="flex justify-between text-xs text-low-contrast mt-3 md:mt-4 ml-10 md:ml-16">
+              <div className="flex justify-between text-xs text-low-contrast mt-3 md:mt-4 ml-12 md:ml-16">
                 {liveData.length > 0 && (
                   <>
                     <span>{formatTime(liveData[0]?.timestamp || Date.now())}</span>
@@ -254,8 +254,8 @@ export const EnergyChart: React.FC<EnergyChartProps> = ({
 
           </div>
 
-          {/* Mobile: Horizontal Legend */}
-          <div className="md:hidden flex items-center justify-center space-x-4 mt-4 pt-4 border-t border-gray-100">
+          {/* Horizontal Legend */}
+          <div className="flex items-center justify-center space-x-6 mt-4 pt-4 border-t border-gray-100">
             <div className="flex items-center space-x-2">
               <div className="w-4 h-3 bg-blue-200 border border-blue-300 rounded-sm"></div>
               <span className="text-xs text-gray-600">Verbrauch in kW</span>
@@ -269,20 +269,8 @@ export const EnergyChart: React.FC<EnergyChartProps> = ({
               <span className="text-xs text-gray-600 line-through">Leistungsgrenze Paket L (7 kW)</span>
             </div>
           </div>
-
-          {/* Desktop: Vertical Legend */}
-          <div className="hidden md:flex md:flex-col md:space-y-3 md:justify-center">
-            <div className="flex items-center space-x-2">
-              <div className="w-4 h-3 bg-blue-200 border border-blue-300 rounded-sm"></div>
-              <span className="text-xs text-gray-600">Verbrauch</span>
-            </div>
-            <div className="flex items-center space-x-2">
-              <div className="w-4 h-3 bg-yellow-200 border border-yellow-300 rounded-sm"></div>
-              <span className="text-xs text-gray-600">Produktion</span>
-            </div>
-          </div>
-          {/* Live Data Boxes - Right side */}
-          <div className="md:col-span-1 grid grid-cols-2 md:grid-cols-1 gap-4 md:space-y-4">
+          {/* Live consumption - beside chart */}
+          <div className="md:col-span-1 grid grid-cols-2 md:grid-cols-1 gap-4 md:flex md:flex-col md:justify-center md:space-y-4">
             <div className="bg-repower-gray-50 rounded-lg p-4 md:p-6 text-center">
               <div className="text-body-sm text-low-contrast mb-1">
                 Live <span className="text-caption">{formatTime(currentTime.getTime())}</span>
