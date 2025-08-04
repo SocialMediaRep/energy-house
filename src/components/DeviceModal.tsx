@@ -74,7 +74,8 @@ export const DeviceModal: React.FC<DeviceModalProps> = ({ device, onClose }) => 
             <div className="bg-blue-50 p-4 rounded-2xl border border-blue-100">
               <div className="text-2xl font-bold text-blue-600">
                 {device.status === 'on' ? device.costPerHour.toFixed(3) : 
-                 device.status === 'standby' ? (device.standbyWattage * 0.30 / 1000).toFixed(3) : '0.000'} CHF
+                 device.status === 'standby' ? (device.standbyWattage * 0.30 / 1000).toFixed(3) : 
+                 device.hasStandby ? '0.000' : device.costPerHour.toFixed(3)} CHF
               </div>
               <div className="text-sm text-gray-600">Kosten/Stunde</div>
             </div>
