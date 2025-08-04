@@ -194,7 +194,7 @@ INSERT INTO devices (id, name, icon, wattage, standby_wattage, status, category,
             </div>
           </div>
         </div>
-      </div>
+      {/*</div>*/}
 
       {/* Main Content */}
       <main className="max-w-7xl mx-auto px-4 md:px-6 lg:px-12 pt-0 pb-2 md:py-16">
