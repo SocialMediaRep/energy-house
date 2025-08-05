@@ -225,7 +225,7 @@ export const DeviceModal: React.FC<DeviceModalProps> = ({ device, onClose }) => 
           {(device.wattage > 1000 || device.name.includes('E-Auto') || device.name.includes('Boiler') || device.name.includes('Herd') || device.name.includes('Backofen') || device.name.includes('Waschmaschine') || device.name.includes('Tumbler') || device.name.includes('Spülmaschine')) && (
             <div className="mb-6">
               <details className="group bg-white rounded-lg border border-repower-gray-200 overflow-hidden shadow-sm">
-                <summary className="flex items-center justify-between cursor-pointer list-none py-6 px-6 hover:bg-repower-gray-50 transition-all duration-200">
+                <summary className="flex items-center justify-between cursor-pointer list-none py-6 px-6 transition-all duration-200 group-open:hover:bg-transparent">
                   <span className="text-lg font-medium group-open:font-bold text-repower-dark transition-all duration-200">Kostenaufschlüsselung</span>
                   <div className="w-8 h-8 rounded-full border border-repower-gray-300 bg-white flex items-center justify-center transition-all duration-200 group-open:rotate-180 hover:border-repower-gray-400 hover:bg-repower-gray-50">
                     <svg className="w-4 h-4 text-repower-red" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2">
@@ -409,7 +409,7 @@ export const DeviceModal: React.FC<DeviceModalProps> = ({ device, onClose }) => 
               {device.tips
                 .slice(0, 3)
                 .map((tip, index) => (
-                  <div key={index} className="flex items-start space-x-3 p-4 rounded-lg border border-repower-gray-200 bg-white hover:bg-repower-gray-50 transition-colors duration-150">
+                  <div key={index} className="flex items-start space-x-3 p-4 rounded-lg border border-repower-gray-200 bg-white">
                     <div className="w-6 h-6 bg-repower-red rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
                       <Icons.Lightbulb size={14} className="text-white" />
                     </div>
