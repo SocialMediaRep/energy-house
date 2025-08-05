@@ -222,18 +222,18 @@ export const DeviceModal: React.FC<DeviceModalProps> = ({ device, onClose }) => 
           </div>
 
           {/* Cost Breakdown Section - especially for high-consumption devices */}
-          {device.wattage > 1000 && (
+          {(device.wattage > 1000 || device.name.includes('E-Auto') || device.name.includes('Boiler') || device.name.includes('Herd') || device.name.includes('Backofen') || device.name.includes('Waschmaschine') || device.name.includes('Tumbler') || device.name.includes('Spülmaschine')) && (
             <div className="mb-6">
-              <details className="group bg-white border border-gray-200 rounded-lg overflow-hidden">
-                <summary className="flex items-center justify-between cursor-pointer list-none py-4 px-6 hover:bg-gray-50 transition-colors">
-                  <span className="h5 group-open:font-bold text-gray-800 transition-all">Kostenaufschlüsselung</span>
-                  <div className="w-6 h-6 rounded-full border border-gray-300 flex items-center justify-center transition-transform group-open:rotate-180">
-                    <svg className="w-3 h-3 text-red-500" fill="currentColor" viewBox="0 0 24 24">
-                      <path d="M7 10l5 5 5-5z"/>
+              <details className="group bg-white rounded-lg border border-repower-gray-200 overflow-hidden shadow-sm">
+                <summary className="flex items-center justify-between cursor-pointer list-none py-6 px-6 hover:bg-repower-gray-50 transition-all duration-200">
+                  <span className="text-lg font-medium group-open:font-bold text-repower-dark transition-all duration-200">Kostenaufschlüsselung</span>
+                  <div className="w-8 h-8 rounded-full border border-repower-gray-300 bg-white flex items-center justify-center transition-all duration-200 group-open:rotate-180 hover:border-repower-gray-400">
+                    <svg className="w-4 h-4 text-repower-red" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7"/>
                     </svg>
                   </div>
                 </summary>
-                <div className="px-6 pb-6 bg-white">
+                <div className="px-6 pb-6 bg-white border-t border-repower-gray-100">
                 {(() => {
                   // Calculate usage hours per year (same logic as above)
                   let hoursPerYear = 0;
@@ -310,63 +310,63 @@ export const DeviceModal: React.FC<DeviceModalProps> = ({ device, onClose }) => 
                   
                   return (
                     <div className="space-y-6">
-                      <div className="text-sm text-gray-700">
+                      <div className="text-sm text-repower-gray-700 bg-repower-gray-50 p-4 rounded-lg">
                         <strong>Geschätzte Nutzung:</strong> {usageDescription}
                       </div>
                       
                       {/* Table Layout */}
-                      <div className="overflow-hidden">
+                      <div className="bg-white rounded-lg border border-repower-gray-200 overflow-hidden">
                         <table className="w-full text-sm table-fixed">
                           <colgroup>
                             <col className="w-4/5" />
                             <col className="w-1/5" />
                           </colgroup>
-                          <tbody className="divide-y divide-gray-100">
-                            <tr className="hover:bg-repower-gray-50">
-                              <td className="py-3 text-repower-gray-700 font-medium w-4/5">Leistung</td>
-                              <td className="py-3 text-left">
+                          <tbody className="divide-y divide-repower-gray-100">
+                            <tr className="hover:bg-repower-gray-50 transition-colors duration-150">
+                              <td className="py-4 px-4 text-repower-gray-700 font-medium">Leistung</td>
+                              <td className="py-4 px-4 text-left">
                                 <span className="font-semibold text-repower-dark">{actualWattage.toLocaleString()}</span>
                                 <span className="text-repower-gray-500 ml-1">W</span>
                               </td>
                             </tr>
-                            <tr className="hover:bg-repower-gray-50">
-                              <td className="py-3 text-repower-gray-700 font-medium w-4/5">Nutzung pro Jahr</td>
-                              <td className="py-3 text-left">
+                            <tr className="hover:bg-repower-gray-50 transition-colors duration-150">
+                              <td className="py-4 px-4 text-repower-gray-700 font-medium">Nutzung pro Jahr</td>
+                              <td className="py-4 px-4 text-left">
                                 <span className="font-semibold text-repower-dark">{hoursPerYear.toLocaleString()}</span>
                                 <span className="text-repower-gray-500 ml-1">h</span>
                               </td>
                             </tr>
-                            <tr className="hover:bg-repower-gray-50">
-                              <td className="py-3 text-repower-gray-700 font-medium w-4/5">Verbrauch pro Jahr</td>
-                              <td className="py-3 text-left">
+                            <tr className="hover:bg-repower-gray-50 transition-colors duration-150">
+                              <td className="py-4 px-4 text-repower-gray-700 font-medium">Verbrauch pro Jahr</td>
+                              <td className="py-4 px-4 text-left">
                                 <span className="font-semibold text-repower-dark">{yearlyConsumption.toFixed(0)}</span>
                                 <span className="text-repower-gray-500 ml-1">kWh</span>
                               </td>
                             </tr>
-                            <tr className="hover:bg-repower-gray-50">
-                              <td className="py-3 text-repower-gray-700 font-medium w-4/5">Strompreis</td>
-                              <td className="py-3 text-left">
+                            <tr className="hover:bg-repower-gray-50 transition-colors duration-150">
+                              <td className="py-4 px-4 text-repower-gray-700 font-medium">Strompreis</td>
+                              <td className="py-4 px-4 text-left">
                                 <span className="font-semibold text-repower-dark">0.30</span>
                                 <span className="text-repower-gray-500 ml-1">CHF/kWh</span>
                               </td>
                             </tr>
-                            <tr className="hover:bg-repower-gray-50">
-                              <td className="py-3 text-repower-gray-700 font-medium w-4/5">Kosten pro Tag</td>
-                              <td className="py-3 text-left">
+                            <tr className="hover:bg-repower-gray-50 transition-colors duration-150">
+                              <td className="py-4 px-4 text-repower-gray-700 font-medium">Kosten pro Tag</td>
+                              <td className="py-4 px-4 text-left">
                                 <span className="font-semibold text-repower-dark">{dailyCost.toFixed(2)}</span>
                                 <span className="text-repower-gray-500 ml-1">CHF</span>
                               </td>
                             </tr>
-                            <tr className="hover:bg-repower-gray-50">
-                              <td className="py-3 text-repower-gray-700 font-medium w-4/5">Kosten pro Monat</td>
-                              <td className="py-3 text-left">
+                            <tr className="hover:bg-repower-gray-50 transition-colors duration-150">
+                              <td className="py-4 px-4 text-repower-gray-700 font-medium">Kosten pro Monat</td>
+                              <td className="py-4 px-4 text-left">
                                 <span className="font-semibold text-repower-dark">{monthlyCost.toFixed(2)}</span>
                                 <span className="text-repower-gray-500 ml-1">CHF</span>
                               </td>
                             </tr>
-                            <tr className="bg-gray-50 border-t-2 border-gray-200">
-                              <td className="py-4 text-repower-dark font-bold w-4/5">Kosten pro Jahr</td>
-                              <td className="py-4 text-left">
+                            <tr className="bg-repower-gray-50 border-t-2 border-repower-gray-200">
+                              <td className="py-5 px-4 text-repower-dark font-bold">Kosten pro Jahr</td>
+                              <td className="py-5 px-4 text-left">
                                 <span className="font-bold text-repower-dark text-lg">{yearlyCost.toFixed(2)}</span>
                                 <span className="text-repower-gray-500 ml-1">CHF</span>
                               </td>
@@ -376,8 +376,8 @@ export const DeviceModal: React.FC<DeviceModalProps> = ({ device, onClose }) => 
                       </div>
                       
                       {device.name.includes('Boiler') && (
-                        <div className="mt-6 p-4 bg-gray-50 rounded-lg border border-gray-200">
-                          <div className="text-xs text-gray-700">
+                        <div className="mt-6 p-4 bg-blue-50 rounded-lg border border-blue-200">
+                          <div className="text-sm text-blue-800">
                             <strong>💡 Boiler-Tipp:</strong> Moderne Boiler sind gut isoliert und heizen nicht dauerhaft. 
                             Die 6h täglich entsprechen dem tatsächlichen Heizvorgang, nicht der Bereitschaftszeit.
                           </div>
@@ -385,8 +385,8 @@ export const DeviceModal: React.FC<DeviceModalProps> = ({ device, onClose }) => 
                       )}
                       
                       {device.name.includes('E-Auto') && (
-                        <div className="mt-6 p-4 bg-gray-50 rounded-lg border border-gray-200">
-                          <div className="text-xs text-gray-700">
+                        <div className="mt-6 p-4 bg-green-50 rounded-lg border border-green-200">
+                          <div className="text-sm text-green-800">
                             <strong>🚗 E-Auto-Tipp:</strong> Laden Sie nachts mit günstigeren Tarifen. 
                             Viele Anbieter haben spezielle E-Auto-Tarife ab 0.20 CHF/kWh.
                           </div>
@@ -409,11 +409,11 @@ export const DeviceModal: React.FC<DeviceModalProps> = ({ device, onClose }) => 
               {device.tips
                 .slice(0, 3)
                 .map((tip, index) => (
-                  <div key={index} className="flex items-start space-x-3 p-4 rounded-lg border border-gray-200 bg-white">
+                  <div key={index} className="flex items-start space-x-3 p-4 rounded-lg border border-repower-gray-200 bg-white hover:bg-repower-gray-50 transition-colors duration-150">
                     <div className="w-6 h-6 bg-repower-red rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
                       <Icons.Lightbulb size={14} className="text-white" />
                     </div>
-                    <p className="text-body text-medium-contrast">{tip}</p>
+                    <p className="text-sm text-repower-gray-700 leading-relaxed">{tip}</p>
                   </div>
                 ))}
             </div>
