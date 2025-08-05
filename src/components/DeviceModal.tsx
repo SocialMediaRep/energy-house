@@ -22,7 +22,7 @@ export const DeviceModal: React.FC<DeviceModalProps> = ({ device, onClose }) => 
             <div className="flex items-center space-x-3">
               <h2 className="h4">{device.name}</h2>
               <div className={`px-3 py-1 rounded-full text-sm font-medium ${
-                device.status === 'on' ? 'bg-red-100 text-red-700' :
+                device.status === 'on' ? 'bg-green-100 text-green-700' :
                 device.status === 'standby' ? 'bg-orange-100 text-orange-700' :
                 'bg-gray-100 text-gray-700'
               }`}>
