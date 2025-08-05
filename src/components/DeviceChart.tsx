@@ -384,12 +384,12 @@ export const DeviceChart: React.FC<DeviceChartProps> = ({ device }) => {
         )}
         
         {/* Max value indicator */}
-        <div className="absolute top-2 left-3 text-xs text-gray-500 bg-white px-2 py-1 rounded border">
+        <div className="absolute top-2 left-3 text-xs text-gray-500 bg-white px-2 py-1 rounded border z-10">
           Max: {Math.round(maxConsumption)}W
         </div>
 
         {/* Device category indicator */}
-        <div className="absolute top-2 right-3 text-xs text-white bg-slate-600 px-2 py-1 rounded">
+        <div className="absolute top-2 right-3 text-xs text-white bg-slate-600 px-2 py-1 rounded z-10">
           {device.category === 'entertainment' ? 'Unterhaltung' :
            device.category === 'electronics' ? 'Elektronik' :
            device.category === 'cooking' ? 'Kochen' :
