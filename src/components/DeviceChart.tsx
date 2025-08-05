@@ -330,7 +330,7 @@ export const DeviceChart: React.FC<DeviceChartProps> = ({ device }) => {
       </div>
 
       {/* Chart */}
-      <div className="h-40 relative bg-white rounded-xl p-3 overflow-hidden border border-gray-200" style={{ zIndex: -1 }}>
+      <div className="h-40 relative bg-white rounded-xl p-3 overflow-hidden border border-gray-200" style={{ zIndex: 1 }}>
         {/* Background grid */}
         <div className="absolute inset-3 opacity-10">
           <div className="w-full h-full grid grid-cols-6 grid-rows-4 gap-0">
@@ -384,12 +384,12 @@ export const DeviceChart: React.FC<DeviceChartProps> = ({ device }) => {
         )}
         
         {/* Max value indicator */}
-        <div className="absolute top-2 left-3 text-xs text-gray-500 bg-white px-2 py-1 rounded border">
+        <div className="absolute top-2 left-3 text-xs text-gray-500 bg-white px-2 py-1 rounded border" style={{ zIndex: 2 }}>
           Max: {Math.round(maxConsumption)}W
         </div>
 
         {/* Device category indicator */}
-        <div className="absolute top-2 right-3 text-xs text-white bg-slate-600 px-2 py-1 rounded">
+        <div className="absolute top-2 right-3 text-xs text-white bg-slate-600 px-2 py-1 rounded" style={{ zIndex: 2 }}>
           {device.category === 'entertainment' ? 'Unterhaltung' :
            device.category === 'electronics' ? 'Elektronik' :
            device.category === 'cooking' ? 'Kochen' :
