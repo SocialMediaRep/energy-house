@@ -169,11 +169,6 @@
   .focus-ring {
     @apply focus:outline-none focus:ring-2 focus:ring-repower-red focus:ring-offset-2;
   }
-
-  /* Selection */
-  ::selection {
-    @apply bg-repower-red text-white;
-  }
 }
 
 /* Component Layer - Repower UI Components */
