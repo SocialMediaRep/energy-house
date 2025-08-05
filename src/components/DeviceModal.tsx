@@ -227,7 +227,7 @@ export const DeviceModal: React.FC<DeviceModalProps> = ({ device, onClose }) => 
               <details className="group bg-white rounded-lg border border-repower-gray-200 overflow-hidden shadow-sm">
                 <summary className="flex items-center justify-between cursor-pointer list-none py-6 px-6 hover:bg-repower-gray-50 transition-all duration-200">
                   <span className="text-lg font-medium group-open:font-bold text-repower-dark transition-all duration-200">Kostenaufschlüsselung</span>
-                  <div className="w-8 h-8 rounded-full border border-repower-gray-300 bg-white flex items-center justify-center transition-all duration-200 group-open:rotate-180 hover:border-repower-gray-400">
+                  <div className="w-8 h-8 rounded-full border border-repower-gray-300 bg-white flex items-center justify-center transition-all duration-200 group-open:rotate-180 hover:border-repower-gray-400 hover:bg-repower-gray-50">
                     <svg className="w-4 h-4 text-repower-red" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2">
                       <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7"/>
                     </svg>
