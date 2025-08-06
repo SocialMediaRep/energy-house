@@ -328,47 +328,11 @@ export const EnergyChart: React.FC<EnergyChartProps> = ({
               </div>
 
               {/* Cost Calculation Steps */}
-              <div className="space-y-4">
-                <h4 className="font-semibold text-repower-dark">Kostenberechnung:</h4>
-                
-                {/* Step 1: Power consumption */}
-                <div className="bg-blue-50 p-4 rounded-lg border border-blue-200">
-                  <div className="text-sm text-blue-800">
-                    <div className="font-medium mb-2">1. Aktueller Verbrauch:</div>
-                    <div className="font-mono text-lg">
-                      {(totalConsumption / 1000).toFixed(3)} kW
-                    </div>
-                  </div>
-                </div>
-
-                {/* Step 2: Electricity price */}
-                <div className="bg-green-50 p-4 rounded-lg border border-green-200">
-                  <div className="text-sm text-green-800">
-                    <div className="font-medium mb-2">2. Strompreis:</div>
-                    <div className="font-mono text-lg">
-                      0.30 CHF/kWh
-                    </div>
-                  </div>
-                </div>
-
-                {/* Step 3: Hourly calculation */}
-                <div className="bg-orange-50 p-4 rounded-lg border border-orange-200">
-                  <div className="text-sm text-orange-800">
-                    <div className="font-medium mb-2">3. Kosten pro Stunde:</div>
-                    <div className="font-mono text-base mb-2">
-                      {(totalConsumption / 1000).toFixed(3)} kW × 0.30 CHF/kWh = <span className="font-bold text-lg">{hourlyCost.toFixed(3)} CHF</span>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Step 4: Daily calculation */}
-                <div className="bg-purple-50 p-4 rounded-lg border border-purple-200">
-                  <div className="text-sm text-purple-800">
-                    <div className="font-medium mb-2">4. Kosten pro Tag:</div>
-                    <div className="font-mono text-base mb-2">
-                      {hourlyCost.toFixed(3)} CHF/h × 24h = <span className="font-bold text-lg">{dailyCost.toFixed(2)} CHF</span>
-                    </div>
-                  </div>
+              <div className="bg-blue-50 p-4 rounded-lg border border-blue-200">
+                <h4 className="font-semibold text-blue-900 mb-3">Kostenberechnung:</h4>
+                <div className="text-sm text-blue-800 font-mono space-y-1">
+                  <div>{(totalConsumption / 1000).toFixed(3)} kW × 0.30 CHF/kWh = <span className="font-bold">{hourlyCost.toFixed(3)} CHF/h</span></div>
+                  <div>{hourlyCost.toFixed(3)} CHF/h × 24h = <span className="font-bold">{dailyCost.toFixed(2)} CHF/Tag</span></div>
                 </div>
               </div>
 
