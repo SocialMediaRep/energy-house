@@ -179,9 +179,9 @@ INSERT INTO devices (id, name, icon, wattage, standby_wattage, status, category,
               {/* Daily Cost */}
               <div className="text-center bg-white rounded-xl p-3 shadow-sm border border-gray-100">
                 <div className="text-xl font-bold text-repower-green-500">
-                  {((getCurrentConsumption() / 1000) * 24 * 0.30).toFixed(2)} CHF
+                  {((getCurrentConsumption() / 1000) * 0.30).toFixed(3)} CHF
                 </div>
-                <div className="text-xs font-medium text-repower-gray-600 mt-1">Täglich</div>
+                <div className="text-xs font-medium text-repower-gray-600 mt-1">Stündlich</div>
               </div>
             </div>
             

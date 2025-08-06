@@ -1,4 +1,5 @@
 import React, { useMemo, useState, useEffect } from 'react';
+import { Info, X } from 'lucide-react';
 
 interface EnergyChartProps {
   totalConsumption: number;
@@ -25,7 +26,12 @@ export const EnergyChart: React.FC<EnergyChartProps> = ({
   const activeDevices = Math.floor(activeConsumption / 100) || 1; // Rough estimate
   const standbyDevices = Math.floor(standbyConsumption / 10) || 0;
   const offDevices = 18 - activeDevices - standbyDevices; // Total assumed devices
-  const dailyCost = (totalConsumption / 1000) * 24 * 0.30; // CHF per kWh estimate
+  const hourlyCost = (totalConsumption / 1000) * 0.30; // CHF per kWh estimate
+  const dailyCost = hourlyCost * 24;
+  const monthlyCost = dailyCost * 30;
+  const yearlyCost = dailyCost * 365;
+
+  const [showCostModal, setShowCostModal] = useState(false);
 
   // Get data points and intervals based on selected time range
   const getTimeRangeConfig = (range: TimeRange) => {
@@ -270,10 +276,17 @@ export const EnergyChart: React.FC<EnergyChartProps> = ({
             
             <div className="bg-repower-gray-50 rounded-lg p-4 md:p-6 text-center">
               <div className="text-body-sm text-low-contrast mb-1">
-                Tägliche Kosten
+                Stündliche Kosten
+                <button
+                  onClick={() => setShowCostModal(true)}
+                  className="ml-2 p-1 rounded-full hover:bg-repower-gray-200 transition-colors"
+                  title="Kostenaufstellung anzeigen"
+                >
+                  <Info size={12} className="text-repower-gray-500" />
+                </button>
               </div>
               <div className="text-2xl font-light text-high-contrast">
-                {dailyCost.toFixed(2)} <span className="text-sm font-normal">CHF</span>
+                {hourlyCost.toFixed(3)} <span className="text-sm font-normal">CHF</span>
               </div>
               <div className="text-caption text-medium-contrast mt-1">
                 bei aktuellem Verbrauch
@@ -283,6 +296,109 @@ export const EnergyChart: React.FC<EnergyChartProps> = ({
         </div>
 
       </div>
+
+      {/* Cost Breakdown Modal */}
+      {showCostModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-3xl max-w-md w-full max-h-[90vh] overflow-y-auto shadow-2xl">
+            <div className="sticky top-0 bg-white p-6 border-b border-gray-100 rounded-t-3xl">
+              <div className="flex items-center justify-between">
+                <h3 className="text-lg font-bold text-repower-dark">Kostenaufstellung</h3>
+                <button
+                  onClick={() => setShowCostModal(false)}
+                  className="p-2 hover:bg-gray-100 rounded-full transition-colors"
+                  aria-label="Schließen"
+                >
+                  <X size={20} />
+                </button>
+              </div>
+            </div>
+            
+            <div className="p-6">
+              {/* Current Consumption */}
+              <div className="mb-6">
+                <div className="text-center p-4 bg-gradient-to-r from-blue-50 to-blue-100 rounded-xl border border-blue-200">
+                  <div className="text-2xl font-bold text-blue-600 mb-1">
+                    {(totalConsumption / 1000).toFixed(3)} kW
+                  </div>
+                  <div className="text-sm text-blue-700">Aktueller Verbrauch</div>
+                </div>
+              </div>
+
+              {/* Cost Breakdown Table */}
+              <div className="bg-white">
+                <table className="w-full text-sm">
+                  <tbody>
+                    <tr>
+                      <td className="py-3 px-4 text-repower-gray-700 font-medium">Strompreis</td>
+                      <td className="py-3 px-4 text-right">
+                        <span className="font-semibold text-repower-dark">0.30</span>
+                        <span className="text-repower-gray-500 ml-1">CHF/kWh</span>
+                      </td>
+                    </tr>
+                    <tr className="bg-repower-gray-50">
+                      <td className="py-3 px-4 text-repower-gray-700 font-medium">Kosten pro Stunde</td>
+                      <td className="py-3 px-4 text-right">
+                        <span className="font-semibold text-repower-dark">{hourlyCost.toFixed(3)}</span>
+                        <span className="text-repower-gray-500 ml-1">CHF</span>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td className="py-3 px-4 text-repower-gray-700 font-medium">Kosten pro Tag</td>
+                      <td className="py-3 px-4 text-right">
+                        <span className="font-semibold text-repower-dark">{dailyCost.toFixed(2)}</span>
+                        <span className="text-repower-gray-500 ml-1">CHF</span>
+                      </td>
+                    </tr>
+                    <tr className="bg-repower-gray-50">
+                      <td className="py-3 px-4 text-repower-gray-700 font-medium">Kosten pro Monat</td>
+                      <td className="py-3 px-4 text-right">
+                        <span className="font-semibold text-repower-dark">{monthlyCost.toFixed(2)}</span>
+                        <span className="text-repower-gray-500 ml-1">CHF</span>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td className="py-3 px-4 text-repower-gray-700 font-medium">Kosten pro Jahr</td>
+                      <td className="py-3 px-4 text-right">
+                        <span className="font-semibold text-repower-dark">{yearlyCost.toFixed(2)}</span>
+                        <span className="text-repower-gray-500 ml-1">CHF</span>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+              {/* Breakdown by Device Status */}
+              <div className="mt-6 space-y-3">
+                <h4 className="font-semibold text-repower-dark mb-3">Verbrauch nach Status</h4>
+                
+                <div className="flex items-center justify-between p-3 bg-green-50 rounded-lg border border-green-100">
+                  <div className="flex items-center space-x-2">
+                    <div className="w-3 h-3 bg-green-500 rounded-full"></div>
+                    <span className="text-sm font-medium text-green-700">Aktive Geräte</span>
+                  </div>
+                  <span className="text-sm font-bold text-green-600">{(activeConsumption / 1000).toFixed(3)} kW</span>
+                </div>
+
+                <div className="flex items-center justify-between p-3 bg-orange-50 rounded-lg border border-orange-100">
+                  <div className="flex items-center space-x-2">
+                    <div className="w-3 h-3 bg-orange-400 rounded-full"></div>
+                    <span className="text-sm font-medium text-orange-700">Standby-Geräte</span>
+                  </div>
+                  <span className="text-sm font-bold text-orange-600">{(standbyConsumption / 1000).toFixed(3)} kW</span>
+                </div>
+              </div>
+              {/* Info Note */}
+              <div className="mt-6 p-4 bg-blue-50 rounded-lg border border-blue-200">
+                <div className="text-sm text-blue-800">
+                  <strong>💡 Hinweis:</strong> Die Kosten basieren auf dem aktuellen Verbrauch und einem Strompreis von 0.30 CHF/kWh. 
+                  Tatsächliche Kosten können je nach Tarif und Nutzungsverhalten variieren.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
