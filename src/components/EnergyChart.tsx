@@ -317,22 +317,66 @@ export const EnergyChart: React.FC<EnergyChartProps> = ({
             </div>
             
             <div className="p-6">
-              {/* Current Consumption */}
+              {/* Current Consumption - styled like device list */}
+              <div className="mb-6 p-3 bg-white rounded-lg border border-gray-100">
+                <div className="flex items-center justify-between">
+                  <span className="text-sm font-medium text-repower-dark">Aktueller Verbrauch</span>
+                  <div className="text-right">
+                    <div className="text-lg font-bold text-blue-600">
+                      {(totalConsumption / 1000).toFixed(3)} kW
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Cost Calculation - styled like device list */}
               <div className="mb-6">
+                <h4 className="font-semibold text-repower-dark mb-3">Kostenberechnung:</h4>
+                
+                <div className="p-3 bg-white rounded-lg border border-gray-100">
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="text-sm font-medium text-repower-dark">Stündliche Kosten</span>
+                    <div className="text-right">
+                      <div className="text-sm font-semibold text-repower-dark">
+                        {hourlyCost.toFixed(3)} CHF/h
+                      </div>
+                      <div className="text-xs text-repower-gray-500 font-mono">
+                        {(totalConsumption / 1000).toFixed(3)} kW × 0.30 CHF/kWh
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+                <div className="mt-2 p-3 bg-white rounded-lg border border-gray-100">
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm font-medium text-repower-dark">Tägliche Kosten</span>
+                    <div className="text-right">
+                      <div className="text-sm font-semibold text-repower-dark">
+                        {dailyCost.toFixed(2)} CHF/Tag
+                      </div>
+                      <div className="text-xs text-repower-gray-500 font-mono">
+                        {hourlyCost.toFixed(3)} CHF/h × 24h
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Remove old cost calculation section */}
+              <div className="mb-6 hidden">
                 <div className="text-center p-4 bg-gradient-to-r from-blue-50 to-blue-100 rounded-xl border border-blue-200">
                   <div className="text-2xl font-bold text-blue-600 mb-1">
                     {(totalConsumption / 1000).toFixed(3)} kW
                   </div>
                   <div className="text-sm text-blue-700">Aktueller Verbrauch</div>
                 </div>
-              </div>
 
-              {/* Cost Calculation Steps */}
-              <div className="p-4 rounded-lg border border-gray-200">
-                <h4 className="font-semibold text-gray-900 mb-3">Kostenberechnung:</h4>
-                <div className="text-sm text-gray-800 font-mono space-y-1">
-                  <div>{(totalConsumption / 1000).toFixed(3)} kW × 0.30 CHF/kWh = <span className="font-bold">{hourlyCost.toFixed(3)} CHF/h</span></div>
-                  <div>{hourlyCost.toFixed(3)} CHF/h × 24h = <span className="font-bold">{dailyCost.toFixed(2)} CHF/Tag</span></div>
+                <div className="p-4 rounded-lg border border-gray-200">
+                  <h4 className="font-semibold text-gray-900 mb-3">Kostenberechnung:</h4>
+                  <div className="text-sm text-gray-800 font-mono space-y-1">
+                    <div>{(totalConsumption / 1000).toFixed(3)} kW × 0.30 CHF/kWh = <span className="font-bold">{hourlyCost.toFixed(3)} CHF/h</span></div>
+                    <div>{hourlyCost.toFixed(3)} CHF/h × 24h = <span className="font-bold">{dailyCost.toFixed(2)} CHF/Tag</span></div>
+                  </div>
                 </div>
               </div>
 
