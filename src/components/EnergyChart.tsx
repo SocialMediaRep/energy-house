@@ -317,19 +317,17 @@ export const EnergyChart: React.FC<EnergyChartProps> = ({
             </div>
             
             <div className="p-6">
-              {/* Current Consumption - styled like device list */}
-              <div className="mb-6 p-3 bg-white rounded-lg border border-gray-100">
-                <div className="flex items-center justify-between">
-                  <span className="text-sm font-medium text-repower-dark">Aktueller Verbrauch</span>
-                  <div className="text-right">
-                    <div className="text-lg font-bold text-blue-600">
-                      {(totalConsumption / 1000).toFixed(3)} kW
-                    </div>
-                  </div>
+              {/* Current Consumption - styled like dashboard */}
+              <div className="mb-6 bg-repower-gray-50 rounded-lg p-4 md:p-6 text-center">
+                <div className="text-body-sm text-low-contrast mb-1">
+                  Aktueller Verbrauch
+                </div>
+                <div className="text-2xl font-light text-high-contrast">
+                  {(totalConsumption / 1000).toFixed(3)} <span className="text-sm font-normal">kW</span>
                 </div>
               </div>
 
-              {/* Cost Calculation - styled like device list */}
+              {/* Cost Calculation - only hourly */}
               <div className="mb-6">
                 <h4 className="font-semibold text-repower-dark mb-3">Kostenberechnung:</h4>
                 
@@ -342,20 +340,6 @@ export const EnergyChart: React.FC<EnergyChartProps> = ({
                       </div>
                       <div className="text-xs text-repower-gray-500 font-mono">
                         {(totalConsumption / 1000).toFixed(3)} kW × 0.30 CHF/kWh
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                
-                <div className="mt-2 p-3 bg-white rounded-lg border border-gray-100">
-                  <div className="flex items-center justify-between">
-                    <span className="text-sm font-medium text-repower-dark">Tägliche Kosten</span>
-                    <div className="text-right">
-                      <div className="text-sm font-semibold text-repower-dark">
-                        {dailyCost.toFixed(2)} CHF/Tag
-                      </div>
-                      <div className="text-xs text-repower-gray-500 font-mono">
-                        {hourlyCost.toFixed(3)} CHF/h × 24h
                       </div>
                     </div>
                   </div>
