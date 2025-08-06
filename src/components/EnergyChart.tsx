@@ -395,7 +395,7 @@ export const EnergyChart: React.FC<EnergyChartProps> = ({
               <div className="mt-6">
                 <h4 className="font-semibold text-repower-dark mb-4">Geräte-Aufschlüsselung</h4>
                 
-                <div className="space-y-2 max-h-64 overflow-y-auto scrollbar-thin">
+                <div className="space-y-2">
                   {devices
                     .filter(device => device.status !== 'off')
                     .sort((a, b) => {
