@@ -330,7 +330,7 @@ export const EnergyChart: React.FC<EnergyChartProps> = ({
               {/* Cost Calculation Steps */}
               <div className="p-4 rounded-lg border border-gray-200">
                 <h4 className="font-semibold text-gray-900 mb-3">Kostenberechnung:</h4>
-                <div className="text-sm text-blue-800 font-mono space-y-1">
+                <div className="text-sm text-gray-800 font-mono space-y-1">
                   <div>{(totalConsumption / 1000).toFixed(3)} kW × 0.30 CHF/kWh = <span className="font-bold">{hourlyCost.toFixed(3)} CHF/h</span></div>
                   <div>{hourlyCost.toFixed(3)} CHF/h × 24h = <span className="font-bold">{dailyCost.toFixed(2)} CHF/Tag</span></div>
                 </div>
