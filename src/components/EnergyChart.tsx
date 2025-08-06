@@ -350,20 +350,6 @@ export const EnergyChart: React.FC<EnergyChartProps> = ({
                         <span className="text-repower-gray-500 ml-1">CHF</span>
                       </td>
                     </tr>
-                    <tr className="bg-repower-gray-50">
-                      <td className="py-3 px-4 text-repower-gray-700 font-medium">Kosten pro Monat</td>
-                      <td className="py-3 px-4 text-right">
-                        <span className="font-semibold text-repower-dark">{monthlyCost.toFixed(2)}</span>
-                        <span className="text-repower-gray-500 ml-1">CHF</span>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td className="py-3 px-4 text-repower-gray-700 font-medium">Kosten pro Jahr</td>
-                      <td className="py-3 px-4 text-right">
-                        <span className="font-semibold text-repower-dark">{yearlyCost.toFixed(2)}</span>
-                        <span className="text-repower-gray-500 ml-1">CHF</span>
-                      </td>
-                    </tr>
                   </tbody>
                 </table>
               </div>
