@@ -423,6 +423,28 @@ export const EnergyChart: React.FC<EnergyChartProps> = ({
                               {dailyCostDevice.toFixed(2)} CHF/Tag
                             </div>
                           </div>
+                {/* Electricity Price Explanation */}
+                <div className="mb-6">
+                  <h4 className="font-semibold text-repower-dark mb-3">Strompreis-Grundlage:</h4>
+                  
+                  <div className="p-4 bg-blue-50 rounded-lg border border-blue-200">
+                    <div className="text-sm text-blue-800 space-y-2">
+                      <div className="flex justify-between items-center">
+                        <span className="font-medium">Durchschnittlicher Schweizer Strompreis:</span>
+                        <span className="font-bold">0.30 CHF/kWh</span>
+                      </div>
+                      <div className="text-xs text-blue-700 bg-blue-100 p-2 rounded">
+                        <strong>Zusammensetzung:</strong>
+                        <ul className="mt-1 space-y-1 ml-4">
+                          <li>• Energie: ~0.12 CHF/kWh</li>
+                          <li>• Netznutzung: ~0.10 CHF/kWh</li>
+                          <li>• Abgaben & Steuern: ~0.08 CHF/kWh</li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
                         </div>
                       );
                     })}
