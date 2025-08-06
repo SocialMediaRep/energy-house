@@ -413,21 +413,46 @@ export const EnergyChart: React.FC<EnergyChartProps> = ({
                       Gesamt ({devices.filter(device => device.status !== 'off').length} Geräte)
                     </span>
                     <div className="text-right">
-                      <div className="text-sm font-bold text-repower-dark">
-                        {hourlyCost.toFixed(3)} CHF/h
+                {/* Current Consumption - Dashboard Style */}
+                <div className="mb-6 bg-repower-gray-50 rounded-lg p-4 text-center">
+                  <div className="text-body-sm text-low-contrast mb-1">
+                    Live <span className="text-caption">{formatTime(Date.now())}</span>
+                  </div>
+                  <div className="text-base font-medium text-high-contrast mb-1">
+                    Verbrauch
+                  </div>
+                  <div className="text-2xl font-light text-high-contrast">
+                    {(totalConsumption / 1000).toFixed(3)} <span className="text-sm font-normal">kW</span>
+                  </div>
+                </div>
+                {/* Cost Calculation - Device List Style */}
+                <div className="mb-6">
+                  <h4 className="font-semibold text-repower-dark mb-3">Kostenberechnung</h4>
+                  <div className="flex items-center justify-between p-3 bg-white rounded-lg border border-gray-100">
+                    <div>
+                      <div className="text-sm font-medium text-repower-dark">Stündliche Kosten</div>
+                      <div className="text-xs text-repower-gray-500 font-mono">
+                        {(totalConsumption / 1000).toFixed(3)} kW × 0.30 CHF/kWh
                       </div>
-                      <div className="text-xs text-repower-gray-500">
-                        {dailyCost.toFixed(2)} CHF/Tag
+                    </div>
+                    <div className="text-right">
+                      <div className="text-sm font-semibold text-repower-dark">
+                        {hourlyCost.toFixed(3)} CHF/h
                       </div>
                     </div>
                   </div>
-                </div>
-              </div>
-              
-              {/* Info Note */}
-              <div className="mt-6 p-4 bg-blue-50 rounded-lg border border-blue-200">
-                <div className="text-sm text-blue-800">
-                  <strong>💡 Hinweis:</strong> Die Kosten basieren auf dem aktuellen Verbrauch und einem Strompreis von 0.30 CHF/kWh. 
+                  <div className="flex items-center justify-between p-3 bg-white rounded-lg border border-gray-100 mt-2">
+                    <div>
+                      <div className="text-sm font-medium text-repower-dark">Tägliche Kosten</div>
+                      <div className="text-xs text-repower-gray-500 font-mono">
+                        {hourlyCost.toFixed(3)} CHF/h × 24h
+                      </div>
+                    </div>
+                    <div className="text-right">
+                      <div className="text-sm font-semibold text-repower-dark">
+                        {dailyCost.toFixed(2)} CHF/Tag
+                      </div>
+                    </div>
                   Tatsächliche Kosten können je nach Tarif und Nutzungsverhalten variieren.
                 </div>
               </div>
