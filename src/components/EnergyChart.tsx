@@ -335,8 +335,8 @@ export const EnergyChart: React.FC<EnergyChartProps> = ({
                   <div className="flex items-center justify-between mb-2">
                     <span className="text-sm font-medium text-repower-dark">Stündliche Kosten</span>
                     <div className="text-right">
-                      <div className="text-sm font-bold text-repower-dark">
-                        {((totalConsumption / 1000) * 0.30).toFixed(3)} CHF/h
+                      <div className="text-sm font-semibold text-repower-dark">
+                        {hourlyCost.toFixed(3)} CHF/h
                       </div>
                       <div className="text-xs text-repower-gray-500 font-mono">
                         {(totalConsumption / 1000).toFixed(3)} kW × 0.30 CHF/kWh
