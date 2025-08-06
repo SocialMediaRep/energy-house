@@ -5,6 +5,7 @@ interface EnergyChartProps {
   totalConsumption: number;
   activeConsumption: number;
   standbyConsumption: number;
+  devices: any[];
 }
 
 interface DataPoint {
@@ -17,7 +18,8 @@ type TimeRange = '1min' | '5min' | '30min';
 export const EnergyChart: React.FC<EnergyChartProps> = ({
   totalConsumption,
   activeConsumption,
-  standbyConsumption
+  standbyConsumption,
+  devices
 }) => {
   const [liveData, setLiveData] = useState<DataPoint[]>([]);
   const [selectedTimeRange, setSelectedTimeRange] = useState<TimeRange>('30min');
@@ -28,8 +30,6 @@ export const EnergyChart: React.FC<EnergyChartProps> = ({
   const offDevices = 18 - activeDevices - standbyDevices; // Total assumed devices
   const hourlyCost = (totalConsumption / 1000) * 0.30; // CHF per kWh estimate
   const dailyCost = hourlyCost * 24;
-  const monthlyCost = dailyCost * 30;
-  const yearlyCost = dailyCost * 365;
 
   const [showCostModal, setShowCostModal] = useState(false);
 
