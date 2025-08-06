@@ -30,6 +30,8 @@ export const EnergyChart: React.FC<EnergyChartProps> = ({
   const offDevices = 18 - activeDevices - standbyDevices; // Total assumed devices
   const hourlyCost = (totalConsumption / 1000) * 0.30; // CHF per kWh estimate
   const dailyCost = hourlyCost * 24;
+  const monthlyCost = dailyCost * 30;
+  const yearlyCost = dailyCost * 365;
 
   const [showCostModal, setShowCostModal] = useState(false);
 
