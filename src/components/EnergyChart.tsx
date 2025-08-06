@@ -350,6 +350,20 @@ export const EnergyChart: React.FC<EnergyChartProps> = ({
                         <span className="text-repower-gray-500 ml-1">CHF</span>
                       </td>
                     </tr>
+                    <tr className="bg-repower-gray-50">
+                      <td className="py-3 px-4 text-repower-gray-700 font-medium">Kosten pro Monat</td>
+                      <td className="py-3 px-4 text-right">
+                        <span className="font-semibold text-repower-dark">{monthlyCost.toFixed(2)}</span>
+                        <span className="text-repower-gray-500 ml-1">CHF</span>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td className="py-3 px-4 text-repower-gray-700 font-medium">Kosten pro Jahr</td>
+                      <td className="py-3 px-4 text-right">
+                        <span className="font-semibold text-repower-dark">{yearlyCost.toFixed(2)}</span>
+                        <span className="text-repower-gray-500 ml-1">CHF</span>
+                      </td>
+                    </tr>
                   </tbody>
                 </table>
               </div>
@@ -374,6 +388,74 @@ export const EnergyChart: React.FC<EnergyChartProps> = ({
                   <span className="text-sm font-bold text-orange-600">{(standbyConsumption / 1000).toFixed(3)} kW</span>
                 </div>
               </div>
+
+              {/* Device List */}
+              <div className="mt-6">
+                <h4 className="font-semibold text-repower-dark mb-4">Geräte-Aufschlüsselung</h4>
+                
+                <div className="space-y-2 max-h-64 overflow-y-auto scrollbar-thin">
+                  {devices
+                    .filter(device => device.status !== 'off')
+                    .sort((a, b) => {
+                      const aConsumption = a.status === 'on' ? a.wattage : a.standbyWattage;
+                      const bConsumption = b.status === 'on' ? b.wattage : b.standbyWattage;
+                      return bConsumption - aConsumption;
+                    })
+                    .map(device => {
+                      const consumption = device.status === 'on' ? device.wattage : device.standbyWattage;
+                      const hourlyCostDevice = (consumption / 1000) * 0.30;
+                      const dailyCostDevice = hourlyCostDevice * 24;
+                      
+                      return (
+                        <div key={device.id} className="flex items-center justify-between p-3 bg-white rounded-lg border border-gray-100">
+                          <div className="flex items-center space-x-3">
+                            <div className={`w-3 h-3 rounded-full ${
+                              device.status === 'on' ? 'bg-green-500' : 'bg-orange-400'
+                            }`}></div>
+                            <div>
+                              <div className="text-sm font-medium text-repower-dark">{device.name}</div>
+                              <div className="text-xs text-repower-gray-500">
+                                {consumption}W • {device.status === 'on' ? 'Ein' : 'Standby'}
+                              </div>
+                            </div>
+                          </div>
+                          <div className="text-right">
+                            <div className="text-sm font-semibold text-repower-dark">
+                              {hourlyCostDevice.toFixed(3)} CHF/h
+                            </div>
+                            <div className="text-xs text-repower-gray-500">
+                              {dailyCostDevice.toFixed(2)} CHF/Tag
+                            </div>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  
+                  {devices.filter(device => device.status !== 'off').length === 0 && (
+                    <div className="text-center py-8 text-repower-gray-500">
+                      <div className="text-sm">Keine aktiven Geräte</div>
+                    </div>
+                  )}
+                </div>
+                
+                {/* Summary */}
+                <div className="mt-4 p-3 bg-repower-gray-50 rounded-lg border border-repower-gray-200">
+                  <div className="flex justify-between items-center">
+                    <span className="text-sm font-medium text-repower-dark">
+                      Gesamt ({devices.filter(device => device.status !== 'off').length} Geräte)
+                    </span>
+                    <div className="text-right">
+                      <div className="text-sm font-bold text-repower-dark">
+                        {hourlyCost.toFixed(3)} CHF/h
+                      </div>
+                      <div className="text-xs text-repower-gray-500">
+                        {dailyCost.toFixed(2)} CHF/Tag
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
               {/* Info Note */}
               <div className="mt-6 p-4 bg-blue-50 rounded-lg border border-blue-200">
                 <div className="text-sm text-blue-800">

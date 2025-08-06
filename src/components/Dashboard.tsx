@@ -144,6 +144,7 @@ INSERT INTO devices (id, name, icon, wattage, standby_wattage, status, category,
             totalConsumption={getCurrentConsumption()}
             activeConsumption={getActiveConsumption()}
             standbyConsumption={getStandbyConsumption()}
+            devices={devices}
           />
         </div>
       </section>
@@ -155,6 +156,7 @@ INSERT INTO devices (id, name, icon, wattage, standby_wattage, status, category,
             totalConsumption={getCurrentConsumption()}
             activeConsumption={getActiveConsumption()}
             standbyConsumption={getStandbyConsumption()}
+            devices={devices}
           />
         </div>
       </section>
