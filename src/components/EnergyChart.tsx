@@ -327,47 +327,49 @@ export const EnergyChart: React.FC<EnergyChartProps> = ({
                 </div>
               </div>
 
-              {/* Cost Breakdown Table */}
-              <div className="bg-white">
-                <table className="w-full text-sm">
-                  <tbody>
-                    <tr>
-                      <td className="py-3 px-4 text-repower-gray-700 font-medium">Strompreis</td>
-                      <td className="py-3 px-4 text-right">
-                        <span className="font-semibold text-repower-dark">0.30</span>
-                        <span className="text-repower-gray-500 ml-1">CHF/kWh</span>
-                      </td>
-                    </tr>
-                    <tr className="bg-repower-gray-50">
-                      <td className="py-3 px-4 text-repower-gray-700 font-medium">Kosten pro Stunde</td>
-                      <td className="py-3 px-4 text-right">
-                        <span className="font-semibold text-repower-dark">{hourlyCost.toFixed(3)}</span>
-                        <span className="text-repower-gray-500 ml-1">CHF</span>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td className="py-3 px-4 text-repower-gray-700 font-medium">Kosten pro Tag</td>
-                      <td className="py-3 px-4 text-right">
-                        <span className="font-semibold text-repower-dark">{dailyCost.toFixed(2)}</span>
-                        <span className="text-repower-gray-500 ml-1">CHF</span>
-                      </td>
-                    </tr>
-                    <tr className="bg-repower-gray-50">
-                      <td className="py-3 px-4 text-repower-gray-700 font-medium">Kosten pro Monat</td>
-                      <td className="py-3 px-4 text-right">
-                        <span className="font-semibold text-repower-dark">{monthlyCost.toFixed(2)}</span>
-                        <span className="text-repower-gray-500 ml-1">CHF</span>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td className="py-3 px-4 text-repower-gray-700 font-medium">Kosten pro Jahr</td>
-                      <td className="py-3 px-4 text-right">
-                        <span className="font-semibold text-repower-dark">{yearlyCost.toFixed(2)}</span>
-                        <span className="text-repower-gray-500 ml-1">CHF</span>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
+              {/* Cost Calculation Steps */}
+              <div className="space-y-4">
+                <h4 className="font-semibold text-repower-dark">Kostenberechnung:</h4>
+                
+                {/* Step 1: Power consumption */}
+                <div className="bg-blue-50 p-4 rounded-lg border border-blue-200">
+                  <div className="text-sm text-blue-800">
+                    <div className="font-medium mb-2">1. Aktueller Verbrauch:</div>
+                    <div className="font-mono text-lg">
+                      {(totalConsumption / 1000).toFixed(3)} kW
+                    </div>
+                  </div>
+                </div>
+
+                {/* Step 2: Electricity price */}
+                <div className="bg-green-50 p-4 rounded-lg border border-green-200">
+                  <div className="text-sm text-green-800">
+                    <div className="font-medium mb-2">2. Strompreis:</div>
+                    <div className="font-mono text-lg">
+                      0.30 CHF/kWh
+                    </div>
+                  </div>
+                </div>
+
+                {/* Step 3: Hourly calculation */}
+                <div className="bg-orange-50 p-4 rounded-lg border border-orange-200">
+                  <div className="text-sm text-orange-800">
+                    <div className="font-medium mb-2">3. Kosten pro Stunde:</div>
+                    <div className="font-mono text-base mb-2">
+                      {(totalConsumption / 1000).toFixed(3)} kW × 0.30 CHF/kWh = <span className="font-bold text-lg">{hourlyCost.toFixed(3)} CHF</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Step 4: Daily calculation */}
+                <div className="bg-purple-50 p-4 rounded-lg border border-purple-200">
+                  <div className="text-sm text-purple-800">
+                    <div className="font-medium mb-2">4. Kosten pro Tag:</div>
+                    <div className="font-mono text-base mb-2">
+                      {hourlyCost.toFixed(3)} CHF/h × 24h = <span className="font-bold text-lg">{dailyCost.toFixed(2)} CHF</span>
+                    </div>
+                  </div>
+                </div>
               </div>
 
               {/* Breakdown by Device Status */}
