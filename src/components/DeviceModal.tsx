@@ -141,8 +141,7 @@ export const DeviceModal: React.FC<DeviceModalProps> = ({ device, onClose }) => 
                 
                 {/* Tooltip */}
                 {showSavingsTooltip && (
-                  <div className="absolute left-0 bottom-0 m-0 w-80 bg-white rounded-lg shadow-lg border border-gray-200 p-4 z-[9999] visible translate-x-[-250px] translate-y-[-50px]
-">
+                  <div className="absolute right-0 bottom-full mb-2 w-80 bg-white rounded-lg shadow-lg border border-gray-200 p-4 z-[9999]">
                     {/* Close Button */}
                     <button
                       onClick={() => setShowSavingsTooltip(false)}
@@ -237,7 +236,7 @@ export const DeviceModal: React.FC<DeviceModalProps> = ({ device, onClose }) => 
                     </div>
                     
                     {/* Tooltip Arrow */}
-                    <div className="absolute top-full" style={{ right: '10px', width: '24px', height: '12px' }}>
+                    <div className="absolute top-full right-2" style={{ width: '24px', height: '12px' }}>
                       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="11" viewBox="0 0 24 11" fill="none">
                         <path d="M1.04907e-06 -2.09815e-06L24 0L14.8284 9.17157C13.2663 10.7337 10.7337 10.7337 9.17157 9.17157L1.04907e-06 -2.09815e-06Z" fill="white"/>
                       </svg>
