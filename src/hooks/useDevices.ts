@@ -70,12 +70,12 @@ export const useDevices = () => {
     }
   }, []);
 
-  const toggleDevice = useCallback((deviceId: string) => {
   // Load devices on mount
   useEffect(() => {
     loadDevices();
   }, [loadDevices]);
 
+  const toggleDevice = useCallback((deviceId: string) => {
     setDevices(prev => {
       const updatedDevices = prev.map(device => {
         if (device.id === deviceId) {
@@ -103,7 +103,7 @@ export const useDevices = () => {
       
       return updatedDevices;
     });
-  }, [loadDevices]);
+  }, []);
 
   const getCurrentConsumption = useCallback(() => {
     return devices.reduce((total, device) => {
