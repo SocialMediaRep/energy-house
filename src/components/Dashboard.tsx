@@ -227,23 +227,23 @@ INSERT INTO devices (id, name, icon, wattage, standby_wattage, status, category,
 
       {/* Main Content */}
       <main className="max-w-7xl mx-auto px-4 md:px-6 lg:px-12 pt-0 pb-2">
-        {/* Global Power Control */}
-        <div className="pt-4 mb-4 md:mb-8">
-          <GlobalPowerControl
-            onToggleAll={toggleAllDevices}
-            totalDevices={regularDevices.length}
-            activeDevices={activeRegularDevices}
-            totalConsumption={getCurrentConsumption()}
-          />
-        </div>
-
         {/* Simple Light Switch */}
         {globalLights && (
-          <div className="mb-4 md:mb-12">
-            <SimpleLightSwitch 
-              isOn={globalLights.status === 'on'}
-              onToggle={() => toggleDevice('global-lights')}
-            />
+          <div className="mb-4 md:mb-12 flex items-center justify-between">
+            <div className="flex-1">
+              <SimpleLightSwitch 
+                isOn={globalLights.status === 'on'}
+                onToggle={() => toggleDevice('global-lights')}
+              />
+            </div>
+            <div className="ml-4">
+              <GlobalPowerControl
+                onToggleAll={toggleAllDevices}
+                totalDevices={regularDevices.length}
+                activeDevices={activeRegularDevices}
+                totalConsumption={getCurrentConsumption()}
+              />
+            </div>
           </div>
         )}
 
