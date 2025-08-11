@@ -65,7 +65,7 @@ export const DeviceModal: React.FC<DeviceModalProps> = ({ device, onClose }) => 
           {/* Device Info */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
             <div className="bg-gray-50 p-4 rounded-2xl border border-gray-200">
-              <div className="text-2xl font-bold text-green-600">
+              <div className="text-2xl font-bold text-gray-600">
                 {device.status === 'on' ? device.wattage : 
                  device.status === 'standby' ? device.standbyWattage : 
                  device.wattage}W
