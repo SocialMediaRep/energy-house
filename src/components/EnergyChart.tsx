@@ -24,7 +24,7 @@ export const EnergyChart: React.FC<EnergyChartProps> = ({
   const [liveData, setLiveData] = useState<DataPoint[]>([]);
   const [selectedTimeRange, setSelectedTimeRange] = useState<TimeRange>('30min');
   const [showCostModal, setShowCostModal] = useState(false);
-  const [lastConsumption, setLastConsumption] = useState(totalConsumption);
+  const [lastConsumption, setLastConsumption] = useState(0);
 
   // Calculate device statistics
   const activeDevices = devices.filter(device => device.status === 'on').length;
@@ -53,13 +53,22 @@ export const EnergyChart: React.FC<EnergyChartProps> = ({
     const now = Date.now();
     const initialData: DataPoint[] = [];
     
-    for (let i = config.points - 1; i >= 0; i--) {
-      const baseConsumption = Math.max(50, totalConsumption * 0.8);
+    // Create initial historical data with realistic progression
+    for (let i = config.points - 1; i >= 1; i--) {
+      const timeOffset = i * config.intervalMs;
+      const baseConsumption = Math.max(50, totalConsumption * 0.9);
+      const variation = Math.sin(i * 0.2) * 15 + Math.random() * 10;
       initialData.push({
-        timestamp: now - (i * config.intervalMs),
-        consumption: baseConsumption + Math.sin(i * 0.3) * 30 + Math.random() * 20
+        timestamp: now - timeOffset,
+        consumption: Math.max(0, baseConsumption + variation)
       });
     }
+    
+    // Add current consumption as the latest point
+    initialData.push({
+      timestamp: now,
+      consumption: totalConsumption + (Math.random() - 0.5) * 2
+    });
     
     setLiveData(initialData);
     setLastConsumption(totalConsumption);
@@ -67,58 +76,76 @@ export const EnergyChart: React.FC<EnergyChartProps> = ({
 
   // REAL-TIME UPDATE: Immediate response to consumption changes
   useEffect(() => {
-    // Only update if consumption actually changed
-    if (totalConsumption === lastConsumption) return;
+    // Skip initial render or if no real change
+    if (lastConsumption === 0 || totalConsumption === lastConsumption) {
+      if (lastConsumption === 0) setLastConsumption(totalConsumption);
+      return;
+    }
     
     const now = Date.now();
-    const consumptionChange = Math.abs(totalConsumption - lastConsumption);
+    const config = getTimeRangeConfig(selectedTimeRange);
+    const cutoffTime = now - config.totalMs;
     
-    // INSTANT UPDATE: Add new data point immediately for any change
+    console.log(`⚡ REAL-TIME UPDATE: ${lastConsumption}W → ${totalConsumption}W (${totalConsumption > lastConsumption ? '+' : ''}${totalConsumption - lastConsumption}W)`);
+    
+    // ALWAYS ADD NEW DATA POINT - never overwrite
     setLiveData(prev => {
+      // Create new data point with current timestamp
       const newPoint = {
         timestamp: now,
-        consumption: totalConsumption + (Math.random() - 0.5) * 1 // Minimal variation for realism
+        consumption: totalConsumption + (Math.random() - 0.5) * 2 // Small realistic variation
       };
       
-      const config = getTimeRangeConfig(selectedTimeRange);
-      const newData = [...prev, newPoint];
+      // Add new point to existing data
+      const updatedData = [...prev, newPoint];
       
-      // Keep only the required number of points
-      return newData.slice(-config.points);
+      // Remove old points outside the time window
+      const filteredData = updatedData.filter(point => point.timestamp >= cutoffTime);
+      
+      // Ensure we don't exceed maximum points for performance
+      const finalData = filteredData.slice(-config.points);
+      
+      return finalData;
     });
     
-    // Update last consumption for next comparison
     setLastConsumption(totalConsumption);
-    
-    // Log for debugging (remove in production)
-    console.log(`⚡ REAL-TIME UPDATE: ${lastConsumption}W → ${totalConsumption}W (${consumptionChange > 0 ? '+' : ''}${totalConsumption - lastConsumption}W)`);
-    
   }, [totalConsumption, lastConsumption, selectedTimeRange]);
 
   // BACKGROUND UPDATES: Periodic updates for smooth animation when no changes
   useEffect(() => {
     const config = getTimeRangeConfig(selectedTimeRange);
+    const cutoffTime = Date.now() - config.totalMs;
     
-    // Less frequent background updates since we have real-time updates
+    // Background updates for natural variation when no device changes
     const interval = setInterval(() => {
       const now = Date.now();
+      
       setLiveData(prev => {
-        const lastPoint = prev[prev.length - 1];
+        if (prev.length === 0) return prev;
         
-        // Only add background points if no recent real-time updates
-        if (lastPoint && (now - lastPoint.timestamp) < config.intervalMs / 2) {
+        const lastPoint = prev[prev.length - 1];
+        const timeSinceLastUpdate = now - lastPoint.timestamp;
+        
+        // Only add background variation if no recent real-time updates
+        if (timeSinceLastUpdate < config.intervalMs / 3) {
           return prev;
         }
         
-        // Add subtle background variation to simulate real measurement fluctuations
-        const newData = [...prev, {
+        // Add subtle background point with natural variation
+        const newPoint = {
           timestamp: now,
-          consumption: totalConsumption + (Math.random() - 0.5) * 2 // Small natural variation
-        }];
+          consumption: totalConsumption + (Math.random() - 0.5) * 3
+        };
         
-        return newData.slice(-config.points);
+        const updatedData = [...prev, newPoint];
+        
+        // Remove old points and limit array size
+        const filteredData = updatedData.filter(point => point.timestamp >= cutoffTime);
+        const finalData = filteredData.slice(-config.points);
+        
+        return finalData;
       });
-    }, Math.max(config.intervalMs / 4, 2000)); // Background updates every 2-5 seconds
+    }, Math.max(config.intervalMs / 3, 3000)); // Background updates every 3-10 seconds
 
     return () => clearInterval(interval);
   }, [totalConsumption, selectedTimeRange]);
@@ -258,11 +285,12 @@ export const EnergyChart: React.FC<EnergyChartProps> = ({
                     <svg className="w-full h-full transition-all duration-200" viewBox="0 0 100 100" preserveAspectRatio="none">
                       <defs>
                         <linearGradient id="areaGradient" x1="0%" y1="0%" x2="0%" y2="100%">
-                          <stop offset="0%" stopColor="rgba(34, 197, 94, 0.2)" />
-                          <stop offset="100%" stopColor="rgba(34, 197, 94, 0.05)" />
+                          <stop offset="0%" stopColor="rgba(34, 197, 94, 0.3)" />
+                          <stop offset="100%" stopColor="rgba(34, 197, 94, 0.08)" />
                         </linearGradient>
                         <linearGradient id="lineGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                          <stop offset="0%" stopColor="#22c55e" />
+                          <stop offset="0%" stopColor="#10b981" />
+                          <stop offset="50%" stopColor="#22c55e" />
                           <stop offset="100%" stopColor="#16a34a" />
                         </linearGradient>
                       </defs>
@@ -277,7 +305,7 @@ export const EnergyChart: React.FC<EnergyChartProps> = ({
                         d={generateLinePath()}
                         fill="none"
                         stroke="url(#lineGradient)"
-                        strokeWidth="1.5"
+                        strokeWidth="2"
                         strokeLinecap="round"
                         strokeLinejoin="round"
                         className="drop-shadow-sm"
@@ -288,8 +316,8 @@ export const EnergyChart: React.FC<EnergyChartProps> = ({
                   {/* Real-time indicator */}
                   {liveData.length > 0 && (
                     <div className="absolute top-2 right-2 flex items-center space-x-2">
-                      <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-                      <span className="text-xs text-green-600 font-medium">LIVE</span>
+                      <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse shadow-sm"></div>
+                      <span className="text-xs text-green-600 font-semibold tracking-wide">LIVE</span>
                     </div>
                   )}
                 </div>
@@ -324,7 +352,7 @@ export const EnergyChart: React.FC<EnergyChartProps> = ({
                   totalConsumption > lastConsumption ? 'text-red-600' : 'text-green-600'
                 }`}>
                   {totalConsumption > lastConsumption ? '↗' : '↘'} 
-                  {Math.abs(totalConsumption - lastConsumption)}W
+                  {Math.abs(totalConsumption - lastConsumption).toFixed(0)}W
                 </div>
               )}
             </div>
