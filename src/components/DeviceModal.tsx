@@ -12,6 +12,7 @@ interface DeviceModalProps {
 export const DeviceModal: React.FC<DeviceModalProps> = ({ device, onClose }) => {
   if (!device) return null;
 
+  const [showTooltip, setShowTooltip] = useState(false);
   const IconComponent = iconMap[device.icon as keyof typeof iconMap] as React.ComponentType<any>;
   
   return (
