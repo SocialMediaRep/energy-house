@@ -221,7 +221,7 @@ INSERT INTO devices (id, name, icon, wattage, standby_wattage, status, category,
       </div>)}
 
       {/* Main Content */}
-      <main className="max-w-7xl mx-auto px-4 pt-0 pb-2 md:py-16">
+      <main className="max-w-7xl mx-auto px-4 md:px-6 lg:px-12 pt-0 pb-2 md:py-16 ">
         {/* Simple Light Switch */}
         {globalLights && (
           <div className="pt-4 mb-4 md:mb-12">
