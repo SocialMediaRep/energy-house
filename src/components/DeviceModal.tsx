@@ -146,7 +146,8 @@ export const DeviceModal: React.FC<DeviceModalProps> = ({ device, onClose }) => 
                     {/* Close Button */}
                     <button
                       onClick={() => setShowSavingsTooltip(false)}
-                      className="absolute top-3 right-3 w-6 h-6 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center transition-colors"
+                      className="absolute top-3 right-3 cursor-pointer self-start p-[15px] outline-secondary-gray-light border border-secondary-gray-soft duration-150 rounded-full hover:outline hover:outline-4 hover:outline-secondary-gray-light text-secondary-gray-medium flex items-center justify-center
+"
                       aria-label="Schließen"
                     >
                       <Icons.X size={14} className="text-gray-600" />
