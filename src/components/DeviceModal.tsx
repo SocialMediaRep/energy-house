@@ -96,7 +96,7 @@ export const DeviceModal: React.FC<DeviceModalProps> = ({ device, onClose }) => 
               <div className="text-sm text-gray-500">Einsparpotential</div>
             </div>
             <div className="bg-gray-50 p-4 rounded-2xl border border-gray-200">
-              <div className="text-2xl font-bold text-orange-600">
+              <div className="text-2xl font-bold text-gray-600">
                 {(() => {
                   // Realistische jährliche Nutzung für 4-köpfige Familie - Neu berechnet
                   let hoursPerYear = 0;
