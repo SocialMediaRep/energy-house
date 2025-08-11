@@ -93,10 +93,11 @@ export const DeviceModal: React.FC<DeviceModalProps> = ({ device, onClose }) => 
                   device.energyEfficiencyRating === 'B' ? '10' :
                   device.energyEfficiencyRating === 'C' ? '5' : '0'}%
               </div>
-              <div className="text-sm text-gray-500">
-                Mögliche Einsparung
-                <div className="text-xs text-gray-400 mt-1 leading-relaxed">
-                  {(() => {
+              <div className="flex items-center text-sm text-gray-500">
+                <span>Mögliche Einsparung</span>
+                <div 
+                  className="ml-2 w-4 h-4 rounded-full bg-gray-300 flex items-center justify-center cursor-help hover:bg-gray-400 transition-colors"
+                  title={(() => {
                     const percentage = device.hasStandby && device.standbyWattage > 0 ? 
                       Math.round((device.standbyWattage / device.wattage) * 100) : 
                       device.energyEfficiencyRating === 'A+' ? 20 :
@@ -165,6 +166,8 @@ export const DeviceModal: React.FC<DeviceModalProps> = ({ device, onClose }) => 
                       return `${percentage}% der Stromkosten (${potentialSavings.toFixed(2)} CHF/Jahr) durch ${method}`;
                     }
                   })()}
+                >
+                  <span className="text-xs text-white font-medium">?</span>
                 </div>
               </div>
             </div>
