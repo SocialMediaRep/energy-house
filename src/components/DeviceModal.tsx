@@ -102,7 +102,7 @@ export const DeviceModal: React.FC<DeviceModalProps> = ({ device, onClose }) => 
                   <span>Mögliche Einsparung</span>
                   <button
                     onClick={() => setShowSavingsTooltip(!showSavingsTooltip)}
-                    className="ml-2 w-4 h-4 rounded-full border border-gray-400 bg-white flex items-center justify-center hover:border-gray-500 transition-colors focus:outline-none focus:ring-2 focus:ring-gray-300"
+                    className="ml-2 w-4 h-4 rounded-full border border-gray-400 bg-white inline-flex flex-col justify-center items-center hover:border-gray-500 transition-colors focus:outline-none focus:ring-2 focus:ring-gray-300"
                     aria-label="Einsparpotential Details"
                   >
                     <span className="text-xs font-bold text-gray-600">i</span>
