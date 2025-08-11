@@ -228,7 +228,7 @@ export const EnergyChart: React.FC<EnergyChartProps> = ({
                     key={key}
                     onClick={() => setSelectedTimeRange(key)}
                     className={`px-2 md:px-4 py-2 rounded-md text-xs md:text-sm font-medium transition-all duration-200 hover:scale-105 ${
-            <div className="h-32 md:h-48 relative bg-white border border-gray-200 rounded overflow-hidden">
+                      selectedTimeRange === key
                         ? 'bg-repower-red text-white shadow-md'
                         : 'text-repower-gray-600 hover:text-repower-dark hover:bg-repower-gray-50'
                     }`}
@@ -244,7 +244,7 @@ export const EnergyChart: React.FC<EnergyChartProps> = ({
               {/* Chart */}
               <div className="h-32 md:h-48 relative bg-white border border-gray-200 rounded">
                 {/* Y-axis labels */}
-                <div className="absolute left-0 top-0 h-full flex flex-col justify-between text-xs text-low-contrast pr-2" >
+                <div className="absolute left-0 top-0 h-full flex flex-col justify-between text-xs text-low-contrast pr-2">
                   {yAxisLabels.map((label, index) => (
                     <div key={index} className="text-right">
                       {label} kW
@@ -255,57 +255,51 @@ export const EnergyChart: React.FC<EnergyChartProps> = ({
                 {/* Chart Area */}
                 <div className="absolute inset-0 ml-8 md:ml-12">
                   {liveData.length > 1 && (
-                    <svg className="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
+                    <svg className="w-full h-full transition-all duration-200" viewBox="0 0 100 100" preserveAspectRatio="none">
+                      <defs>
+                        <linearGradient id="areaGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                          <stop offset="0%" stopColor="rgba(34, 197, 94, 0.2)" />
+                          <stop offset="100%" stopColor="rgba(34, 197, 94, 0.05)" />
+                        </linearGradient>
+                        <linearGradient id="lineGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                          <stop offset="0%" stopColor="#22c55e" />
+                          <stop offset="100%" stopColor="#16a34a" />
+                        </linearGradient>
+                      </defs>
                       {/* Area fill */}
                       <path
                         d={generateAreaPath()}
-                        fill="rgba(59, 130, 246, 0.1)"
+                        fill="url(#areaGradient)"
                         stroke="none"
                       />
                       {/* Line */}
                       <path
                         d={generateLinePath()}
                         fill="none"
-                        stroke="#3b82f6"
-                  <svg className="w-full h-full transition-all duration-200" viewBox="0 0 100 100" preserveAspectRatio="none">
+                        stroke="url(#lineGradient)"
+                        strokeWidth="1.5"
                         strokeLinecap="round"
                         strokeLinejoin="round"
+                        className="drop-shadow-sm"
                       />
-                      fill="url(#areaGradient)"
+                    </svg>
+                  )}
+                  
+                  {/* Real-time indicator */}
+                  {liveData.length > 0 && (
+                    <div className="absolute top-2 right-2 flex items-center space-x-2">
+                      <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+                      <span className="text-xs text-green-600 font-medium">LIVE</span>
+                    </div>
                   )}
                 </div>
               </div>
 
               {/* X-axis time labels */}
               <div className="flex justify-between text-xs text-low-contrast mt-2 md:mt-4 ml-8 md:ml-12">
-                      stroke="url(#lineGradient)"
-                      strokeWidth="1.5"
-                    <span>{formatTime(liveData[0]?.timestamp || Date.now())}</span>
-                    <span>{formatTime(liveData[Math.floor(liveData.length / 2)]?.timestamp || Date.now())}</span>
-                      className="drop-shadow-sm"
-                    <span>{formatTime(liveData[liveData.length - 1]?.timestamp || Date.now())}</span>
-                    
-                    {/* Gradients for better visual appeal */}
-                    <defs>
-                      <linearGradient id="areaGradient" x1="0%" y1="0%" x2="0%" y2="100%">
-                        <stop offset="0%" stopColor="rgba(34, 197, 94, 0.2)" />
-                        <stop offset="100%" stopColor="rgba(34, 197, 94, 0.05)" />
-                      </linearGradient>
-                      <linearGradient id="lineGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                        <stop offset="0%" stopColor="#22c55e" />
-                        <stop offset="100%" stopColor="#16a34a" />
-                      </linearGradient>
-                    </defs>
-                  </>
-                )}
-                
-                {/* Real-time indicator */}
-                {liveData.length > 0 && (
-                  <div className="absolute top-2 right-2 flex items-center space-x-2">
-                    <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-                    <span className="text-xs text-green-600 font-medium">LIVE</span>
-                  </div>
-                )}
+                <span>{formatTime(liveData[0]?.timestamp || Date.now())}</span>
+                <span>{formatTime(liveData[Math.floor(liveData.length / 2)]?.timestamp || Date.now())}</span>
+                <span>{formatTime(liveData[liveData.length - 1]?.timestamp || Date.now())}</span>
               </div>
             </div>
 
