@@ -121,6 +121,20 @@ export const DeviceModal: React.FC<DeviceModalProps> = ({ device, onClose }) => 
                         strokeLinecap="round" 
                         strokeLinejoin="round"
                       />
+                      <path 
+                        d="M11 16V11" 
+                        stroke="#777A7B" 
+                        strokeWidth="2" 
+                        strokeLinecap="round" 
+                        strokeLinejoin="round"
+                      />
+                      <path 
+                        d="M11 8H11.01" 
+                        stroke="#777A7B" 
+                        strokeWidth="2" 
+                        strokeLinecap="round" 
+                        strokeLinejoin="round"
+                      />
                     </svg>
                   </button>
                 </div>
