@@ -102,10 +102,26 @@ export const DeviceModal: React.FC<DeviceModalProps> = ({ device, onClose }) => 
                   <span>Mögliche Einsparung</span>
                   <button
                     onClick={() => setShowSavingsTooltip(!showSavingsTooltip)}
-                    className="ml-2 w-4 h-4 rounded-full border border-gray-400 bg-white inline-flex flex-col justify-center items-center hover:border-gray-500 transition-colors focus:outline-none focus:ring-2 focus:ring-gray-300"
+                    className="ml-2 inline-flex flex-col justify-center items-center hover:opacity-75 transition-opacity focus:outline-none focus:ring-2 focus:ring-gray-300 rounded-full"
+                    style={{ width: '20px', height: '20px', flexShrink: 0 }}
                     aria-label="Einsparpotential Details"
                   >
-                    <span className="text-xs font-bold text-gray-600">i</span>
+                    <svg 
+                      xmlns="http://www.w3.org/2000/svg" 
+                      width="22" 
+                      height="22" 
+                      viewBox="0 0 22 22" 
+                      fill="none"
+                      style={{ strokeWidth: '2px', stroke: '#777A7B' }}
+                    >
+                      <path 
+                        d="M11 21C16.5228 21 21 16.5228 21 11C21 5.47715 16.5228 1 11 1C5.47715 1 1 5.47715 1 11C1 16.5228 5.47715 21 11 21Z" 
+                        stroke="#777A7B" 
+                        strokeWidth="2" 
+                        strokeLinecap="round" 
+                        strokeLinejoin="round"
+                      />
+                    </svg>
                   </button>
                 </div>
                 
