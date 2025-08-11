@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import * as Icons from 'lucide-react';
 import { iconMap } from '../utils/lucide-icons';
 import { Device } from '../types';
