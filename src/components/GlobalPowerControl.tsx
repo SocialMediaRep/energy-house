@@ -25,6 +25,7 @@ export const GlobalPowerControl: React.FC<GlobalPowerControlProps> = ({
   };
 
   return (
+    <div className="flex items-center space-x-4 bg-white rounded-2xl p-3 md:p-8 border border-repower-gray-200 shadow-sm">
     <button
       onClick={handleToggle}
       className={`flex items-center space-x-2 px-4 py-2 rounded-lg font-medium text-sm transition-all duration-300 hover:scale-105 active:scale-95 ${
@@ -39,5 +40,6 @@ export const GlobalPowerControl: React.FC<GlobalPowerControlProps> = ({
         {someDevicesOn ? 'Alle AUS' : 'Alle EIN'}
       </span>
     </button>
+      </div>
   );
 };
