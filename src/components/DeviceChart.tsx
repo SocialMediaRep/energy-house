@@ -287,7 +287,20 @@ export const DeviceChart: React.FC<DeviceChartProps> = ({ device }) => {
         <div>
           <h4 className="text-lg font-semibold text-slate-800 mb-1">Typisches Verhalten</h4>
           <div className="text-sm text-gray-600">
-            Exemplarischer 30-Minuten-Zyklus für {device.name}
+            {(() => {
+              const behaviorText = 
+                device.category === 'entertainment' ? 'Einschaltspitze, dann konstanter Verbrauch je nach Inhalt' :
+                device.category === 'electronics' && device.name.includes('PC') ? 'Hoher Startverbrauch beim Booten, dann variable Last je nach Nutzung' :
+                device.category === 'cooking' ? 'Sofortiger hoher Verbrauch während der Nutzung' :
+                device.category === 'cooling' ? 'Zyklischer Betrieb - Kompressor läuft periodisch' :
+                device.category === 'cleaning' ? 'Verschiedene Phasen: Befüllen, Waschen, Schleudern' :
+                device.category === 'heating' ? 'Aufheizphase, dann Temperatur halten' :
+                device.category === 'network' ? 'Konstanter Grundverbrauch mit Aktivitätsspitzen' :
+                device.category === 'mobility' ? 'Ladekurve: Hoch am Anfang, dann abnehmend' :
+                'Anlaufphase, dann konstanter Betrieb';
+              
+              return `${behaviorText} - Exemplarischer 30-Minuten-Zyklus`;
+            })()}
           </div>
         </div>
         <div className="text-right">
@@ -295,23 +308,6 @@ export const DeviceChart: React.FC<DeviceChartProps> = ({ device }) => {
           <div className="text-sm font-medium text-gray-700">
             30 Min Zyklus
           </div>
-        </div>
-      </div>
-
-      {/* Device behavior description - moved before chart */}
-      <div className="mb-6 p-3 bg-blue-50 rounded-xl border border-blue-100">
-        <div className="text-sm text-blue-800">
-          <strong>Typisches Verhalten:</strong> {
-            device.category === 'entertainment' ? 'Einschaltspitze, dann konstanter Verbrauch je nach Inhell' :
-            device.category === 'electronics' && device.name.includes('PC') ? 'Hoher Startverbrauch beim Booten, dann variable Last je nach Nutzung' :
-            device.category === 'cooking' ? 'Sofortiger hoher Verbrauch während der Nutzung' :
-            device.category === 'cooling' ? 'Zyklischer Betrieb - Kompressor läuft periodisch' :
-            device.category === 'cleaning' ? 'Verschiedene Phasen: Befüllen, Waschen, Schleudern' :
-            device.category === 'heating' ? 'Aufheizphase, dann Temperatur halten' :
-            device.category === 'network' ? 'Konstanter Grundverbrauch mit Aktivitätsspitzen' :
-            device.category === 'mobility' ? 'Ladekurve: Hoch am Anfang, dann abnehmend' :
-            'Anlaufphase, dann konstanter Betrieb'
-          }
         </div>
       </div>
 
