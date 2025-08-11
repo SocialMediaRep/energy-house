@@ -7,7 +7,6 @@ import { DeviceModal } from './DeviceModal';
 import { EnergyChart } from './EnergyChart';
 import { SimpleLightSwitch } from './SimpleLightSwitch';
 import { GlobalPowerControl } from './GlobalPowerControl';
-import { Zap, ArrowRight, Play, RefreshCw } from 'lucide-react';
 
 export const Dashboard: React.FC = () => {
   const { devices, loading, error, toggleDevice, toggleAllDevices, getCurrentConsumption, getActiveConsumption, getStandbyConsumption } = useDevices();
@@ -145,17 +144,6 @@ INSERT INTO devices (id, name, icon, wattage, standby_wattage, status, category,
       {/* Desktop: Fixed Energy Chart Section */}
       <section className="hidden md:block top-0 z-40 py-12">
         <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
-          {/* Reload Button */}
-          <div className="flex justify-end mb-4">
-            <button
-              onClick={() => window.location.reload()}
-              className="flex items-center space-x-2 px-4 py-2 bg-white border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors text-sm font-medium text-gray-700"
-              title="Daten neu laden"
-            >
-              <RefreshCw size={16} />
-              <span>Daten neu laden</span>
-            </button>
-          </div>
           <EnergyChart 
             totalConsumption={getCurrentConsumption()}
             activeConsumption={getActiveConsumption()}
@@ -168,17 +156,6 @@ INSERT INTO devices (id, name, icon, wattage, standby_wattage, status, category,
       {/* Mobile: Energy Chart (not sticky) */}
       <section className="md:hidden bg-gray-50 py-6 border-b border-gray-200 energy-chart-section ">
         <div className="px-4">
-          {/* Mobile Reload Button */}
-          <div className="flex justify-end mb-4">
-            <button
-              onClick={() => window.location.reload()}
-              className="flex items-center space-x-2 px-3 py-2 bg-white border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors text-sm font-medium text-gray-700"
-              title="Daten neu laden"
-            >
-              <RefreshCw size={14} />
-              <span className="hidden sm:inline">Neu laden</span>
-            </button>
-          </div>
           <EnergyChart 
             totalConsumption={getCurrentConsumption()}
             activeConsumption={getActiveConsumption()}
