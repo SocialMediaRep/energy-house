@@ -296,7 +296,7 @@ export const DeviceModal: React.FC<DeviceModalProps> = ({ device, onClose }) => 
               </div>
               <div className="text-sm text-gray-500">Jährliche Kosten</div>
             </div>
-            <div className="bg-gray-50 p-4 rounded-2xl border border-gray-200 relative">
+          </div>
 
           {/* Cost Breakdown Section - for all devices */}
           <div className="mb-6">
@@ -502,114 +502,32 @@ export const DeviceModal: React.FC<DeviceModalProps> = ({ device, onClose }) => 
                               <td className="py-4 px-4 text-repower-gray-700 font-medium">Strompreis</td>
                               <td className="py-4 px-4 text-left">
                                 <span className="font-semibold text-repower-dark">0.30</span>
-              <div className="flex items-center text-sm text-gray-500 relative">
+                                <span className="text-repower-gray-500 ml-1">CHF/kWh</span>
                               </td>
-                <button
-                  onClick={() => setShowSavingsTooltip(!showSavingsTooltip)}
-                  className="ml-2 w-5 h-5 rounded-full bg-gray-400 flex items-center justify-center cursor-pointer hover:bg-gray-500 transition-colors text-white text-xs font-bold"
-                  );
-                  i
-                </button>
-                
-                {/* Tooltip */}
-                {showSavingsTooltip && (
-                  <div className="absolute bottom-full left-0 mb-2 w-80 bg-white rounded-lg shadow-lg border border-gray-200 p-4 z-50">
-                    {/* Close button */}
-                    <button
-                      onClick={() => setShowSavingsTooltip(false)}
-                      className="absolute top-3 right-3 w-6 h-6 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center text-gray-500 hover:text-gray-700 transition-colors"
-                    >
-                      <Icons.X size={14} />
-                    </button>
-                    
-                    {/* Tooltip content */}
-                    <div className="pr-8">
-                      <h4 className="font-semibold text-gray-900 mb-2">Einsparpotential:</h4>
-                      <div className="text-sm text-gray-700 space-y-2">
-                        {(() => {
-                          const percentage = device.hasStandby && device.standbyWattage > 0 ? 
-                            Math.round((device.standbyWattage / device.wattage) * 100) : 
-                            device.energyEfficiencyRating === 'A+' ? 20 :
-                            device.energyEfficiencyRating === 'A' ? 15 :
-                            device.energyEfficiencyRating === 'B' ? 10 :
-                            device.energyEfficiencyRating === 'C' ? 5 : 0;
-                          
-                          // Calculate yearly cost for savings calculation
-                          let hoursPerYear = 0;
-                          switch (device.category) {
-                            case 'entertainment':
-                              hoursPerYear = device.name.includes('Fernseher') ? 2190 : 1460;
-                              break;
-                            case 'cooling':
-                              hoursPerYear = 8760;
-                              break;
-                            case 'heating':
-                              hoursPerYear = device.name.includes('Boiler') ? 2190 : 548;
-                              break;
-                            case 'cleaning':
-                              hoursPerYear = device.name.includes('Waschmaschine') ? 208 : 365;
-                              break;
-                            case 'cooking':
-                              hoursPerYear = device.name.includes('Herd') ? 547 : 300;
-                              break;
-                            case 'network':
-                              hoursPerYear = 8760;
-                              break;
-                            case 'electronics':
-                              hoursPerYear = device.name.includes('PC') ? 1825 : 1460;
-                              break;
-                            case 'mobility':
-                              hoursPerYear = device.name.includes('E-Auto') ? 547 : 200;
-                              break;
-                            case 'personal-care':
-                              hoursPerYear = device.name.includes('Haartrockner') ? 146 : 80;
-                              break;
-                            case 'lighting':
-                              hoursPerYear = 2190;
-                              break;
-                            default:
-                              hoursPerYear = 1200;
-                          }
-                          
-                          const actualWattage = device.status === 'on' ? device.wattage : device.wattage;
-                          const yearlyConsumption = (actualWattage / 1000) * hoursPerYear;
-                          const currentYearlyCost = yearlyConsumption * 0.30;
-                          const potentialSavings = (currentYearlyCost * percentage) / 100;
-                          
-                          const method = device.hasStandby && device.standbyWattage > 0 ? 
-                            'komplettes Ausschalten statt Standby-Modus' :
-                            device.category === 'cooling' ? 'optimale Temperatur (7°C) und seltenes Türöffnen' :
-                            device.category === 'heating' ? 'Temperatur um 1-2°C senken' :
-                            device.category === 'cleaning' ? 'Eco-Programme und volle Beladung' :
-                            device.category === 'cooking' ? 'Restwärme nutzen und Deckel verwenden' :
-                            device.category === 'entertainment' ? 'Helligkeit reduzieren und komplett ausschalten' :
-                            device.category === 'electronics' ? 'Energiesparmodus und Standby vermeiden' :
-                            device.category === 'lighting' ? 'LED-Lampen und bedarfsgerechte Nutzung' :
-                            device.category === 'personal-care' ? 'kürzere Nutzungszeiten und niedrigere Temperaturen' :
-                            'bewusste und effiziente Nutzung';
-                          
-                          return (
-                            <>
-                              <p>
-                                <strong>{percentage}% der Stromkosten</strong> können eingespart werden.
-                              </p>
-                              <p>
-                                Das entspricht etwa <strong>{potentialSavings.toFixed(2)} CHF pro Jahr</strong>.
-                              </p>
-                              <p>
-                                <strong>Wie erreichen:</strong> Durch {method}.
-                              </p>
-                            </>
-                          );
-                        })()}
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      
+                      {/* Cost breakdown */}
+                      <div className="grid grid-cols-3 gap-4">
+                        <div className="text-center p-4 bg-repower-gray-50 rounded-lg">
+                          <div className="text-lg font-bold text-repower-dark">{dailyCost.toFixed(3)} CHF</div>
+                          <div className="text-sm text-repower-gray-600">pro Tag</div>
+                        </div>
+                        <div className="text-center p-4 bg-repower-gray-50 rounded-lg">
+                          <div className="text-lg font-bold text-repower-dark">{monthlyCost.toFixed(2)} CHF</div>
+                          <div className="text-sm text-repower-gray-600">pro Monat</div>
+                        </div>
+                        <div className="text-center p-4 bg-repower-red-50 rounded-lg border border-repower-red-200">
+                          <div className="text-lg font-bold text-repower-red">{yearlyCost.toFixed(2)} CHF</div>
+                          <div className="text-sm text-repower-red-700">pro Jahr</div>
+                        </div>
                       </div>
                     </div>
-                    
-                    {/* Arrow pointing down */}
-                    <div className="absolute top-full left-6 w-0 h-0 border-l-8 border-r-8 border-t-8 border-l-transparent border-r-transparent border-t-white"></div>
-                    <div className="absolute top-full left-6 w-0 h-0 border-l-8 border-r-8 border-t-8 border-l-transparent border-r-transparent border-t-gray-200 transform translate-y-px"></div>
-                  </div>
-                )}
+                  );
+                })()}
+                </div>
               </details>
           </div>
 
