@@ -93,7 +93,18 @@ export const DeviceModal: React.FC<DeviceModalProps> = ({ device, onClose }) => 
                   device.energyEfficiencyRating === 'B' ? '10' :
                   device.energyEfficiencyRating === 'C' ? '5' : '0'}%
               </div>
-              <div className="text-sm text-gray-500">Einsparpotential</div>
+              <div className="text-sm text-gray-500">
+                Einsparpotential
+                <div className="text-xs text-gray-400 mt-1">
+                  {device.hasStandby && device.standbyWattage > 0 ? 
+                    'Durch komplettes Ausschalten statt Standby' :
+                    device.energyEfficiencyRating === 'A+' ? 'Durch optimale Nutzung und Wartung' :
+                    device.energyEfficiencyRating === 'A' ? 'Durch effizientere Nutzung' :
+                    device.energyEfficiencyRating === 'B' ? 'Durch bewusste Nutzung' :
+                    device.energyEfficiencyRating === 'C' ? 'Durch sparsame Nutzung' : 
+                    'Bereits sehr effizient'}
+                </div>
+              </div>
             </div>
             <div className="bg-gray-50 p-4 rounded-2xl border border-gray-200">
               <div className="text-2xl font-bold text-gray-600">
