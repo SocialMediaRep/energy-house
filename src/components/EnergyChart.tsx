@@ -65,40 +65,61 @@ export const EnergyChart: React.FC<EnergyChartProps> = ({
 
   // Update chart when consumption changes
   useEffect(() => {
-    const config = getTimeRangeConfig(selectedTimeRange);
     const now = Date.now();
     
-    // Add immediate data point when consumption changes
+    // Add IMMEDIATE data point when consumption changes - no delay!
     setLiveData(prev => {
-      const newData = [...prev, {
-        timestamp: now,
-        consumption: totalConsumption + (Math.random() - 0.5) * 5 // Small variation for realism
-      }];
+      const lastPoint = prev[prev.length - 1];
       
-      return newData.slice(-config.points);
+      // Always add new point immediately when consumption changes
+      const newPoint = {
+        timestamp: now,
+        consumption: totalConsumption + (Math.random() - 0.5) * 2 // Very small variation
+      };
+      
+      // If this is a significant change or first point, add immediately
+      if (!lastPoint || Math.abs(lastPoint.consumption - totalConsumption) > 5) {
+        const config = getTimeRangeConfig(selectedTimeRange);
+        const newData = [...prev, newPoint];
+        return newData.slice(-config.points);
+      }
+      
+      // Otherwise, update the last point to current consumption
+      const updatedData = [...prev];
+      if (updatedData.length > 0) {
+        updatedData[updatedData.length - 1] = {
+          ...updatedData[updatedData.length - 1],
+          consumption: totalConsumption + (Math.random() - 0.5) * 2,
+          timestamp: now
+        };
+      }
+      return updatedData;
     });
   }, [totalConsumption, selectedTimeRange]);
 
   // Add periodic data points based on selected interval
   useEffect(() => {
     const config = getTimeRangeConfig(selectedTimeRange);
+    
+    // Reduce interval for more responsive updates
     const interval = setInterval(() => {
       const now = Date.now();
       setLiveData(prev => {
-        // Only add if the last data point is older than half the interval
         const lastPoint = prev[prev.length - 1];
-        if (lastPoint && (now - lastPoint.timestamp) < config.intervalMs / 2) {
+        
+        // Only add periodic points if no recent manual updates
+        if (lastPoint && (now - lastPoint.timestamp) < config.intervalMs / 3) {
           return prev;
         }
         
         const newData = [...prev, {
           timestamp: now,
-          consumption: totalConsumption + (Math.random() - 0.5) * 10
+          consumption: totalConsumption + (Math.random() - 0.5) * 3 // Smaller random variation
         }];
         
         return newData.slice(-config.points);
       });
-    }, Math.max(config.intervalMs / 4, 2000)); // Update more frequently but not too often
+    }, Math.max(config.intervalMs / 6, 1000)); // More frequent updates (every 1-2 seconds)
 
     return () => clearInterval(interval);
   }, [totalConsumption, selectedTimeRange]);
