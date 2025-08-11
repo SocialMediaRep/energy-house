@@ -214,14 +214,12 @@ INSERT INTO devices (id, name, icon, wattage, standby_wattage, status, category,
               />
             </div>
             <div className="md:col-span-1 justify-self-end">
-              <div className="w-fit rounded-xl border border-gray-200 bg-white p-3 md:p-4 shadow-sm transition-shadow hover:shadow-md">
                 <GlobalPowerControl
                   onToggleAll={toggleAllDevices}
                   totalDevices={regularDevices.length}
                   activeDevices={activeRegularDevices}
                   totalConsumption={getCurrentConsumption()}
                 />
-              </div>
             </div>
           </div>
         )}
