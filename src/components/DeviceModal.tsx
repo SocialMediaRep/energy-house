@@ -141,7 +141,7 @@ export const DeviceModal: React.FC<DeviceModalProps> = ({ device, onClose }) => 
                 
                 {/* Tooltip */}
                 {showSavingsTooltip && (
-                  <div className="absolute left-0 bottom-0 m-0 w-80 bg-white rounded-lg shadow-lg border border-gray-200 p-4 z-[9999] visible translate-x-[-50px] translate-y-[-80px]
+                  <div className="absolute left-0 bottom-0 m-0 w-80 bg-white rounded-lg shadow-lg border border-gray-200 p-4 z-[9999] visible translate-x-[-50px] translate-y-[-30px]
 ">
                     {/* Close Button */}
                     <button
