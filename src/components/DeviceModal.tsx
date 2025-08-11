@@ -236,8 +236,11 @@ export const DeviceModal: React.FC<DeviceModalProps> = ({ device, onClose }) => 
                     </div>
                     
                     {/* Tooltip Arrow */}
-                    <div className="absolute top-full right-6 w-0 h-0 border-l-8 border-r-8 border-t-8 border-l-transparent border-r-transparent border-t-white"></div>
-                    <div className="absolute top-full right-6 w-0 h-0 border-l-8 border-r-8 border-t-8 border-l-transparent border-r-transparent border-t-gray-200 transform translate-y-px"></div>
+                    <div className="absolute top-full right-6 transform -translate-x-1/2" style={{ width: '24px', height: '12px' }}>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="11" viewBox="0 0 24 11" fill="none">
+                        <path d="M1.04907e-06 -2.09815e-06L24 0L14.8284 9.17157C13.2663 10.7337 10.7337 10.7337 9.17157 9.17157L1.04907e-06 -2.09815e-06Z" fill="white"/>
+                      </svg>
+                    </div>
                   </div>
                 )}
               </div>
