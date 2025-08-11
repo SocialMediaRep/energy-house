@@ -123,12 +123,41 @@ export const useDevices = () => {
     }, 0);
   }, [devices]);
 
+  const toggleAllDevices = useCallback(async (targetStatus: 'on' | 'off') => {
+    try {
+      // Update all devices to the target status
+      const updatedDevices = devices.map(device => ({
+        ...device,
+        status: targetStatus as 'off' | 'standby' | 'on'
+      }));
+      
+      // Update local state immediately for responsive UI
+      setDevices(updatedDevices);
+      
+      // Update all devices in database
+      const { error } = await supabase
+        .from('devices')
+        .update({ status: targetStatus })
+        .neq('id', 'global-lights'); // Exclude global lights from mass update
+      
+      if (error) {
+        console.error('Error updating all devices:', error);
+        // Revert on error
+        loadDevices();
+      }
+    } catch (err) {
+      console.error('Error in toggleAllDevices:', err);
+      loadDevices();
+    }
+  }, [devices, loadDevices]);
+
   return {
     devices,
     loading,
     error,
     loadDevices,
     toggleDevice,
+    toggleAllDevices,
     getCurrentConsumption,
     getStandbyConsumption,
     getActiveConsumption

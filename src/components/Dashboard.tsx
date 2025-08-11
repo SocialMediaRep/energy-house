@@ -6,10 +6,11 @@ import { HouseLayout } from './HouseLayout';
 import { DeviceModal } from './DeviceModal';
 import { EnergyChart } from './EnergyChart';
 import { SimpleLightSwitch } from './SimpleLightSwitch';
+import { GlobalPowerControl } from './GlobalPowerControl';
 import { Zap, ArrowRight, Play, RefreshCw } from 'lucide-react';
 
 export const Dashboard: React.FC = () => {
-  const { devices, loading, error, toggleDevice, getCurrentConsumption, getActiveConsumption, getStandbyConsumption } = useDevices();
+  const { devices, loading, error, toggleDevice, toggleAllDevices, getCurrentConsumption, getActiveConsumption, getStandbyConsumption } = useDevices();
   const [selectedDevice, setSelectedDevice] = useState<Device | null>(null);
   const [showStickyHeader, setShowStickyHeader] = useState(false);
 
@@ -37,6 +38,10 @@ export const Dashboard: React.FC = () => {
 
   // Find global lights device
   const globalLights = devices.find(device => device.id === 'global-lights');
+  
+  // Calculate stats for global control (excluding global lights)
+  const regularDevices = devices.filter(device => device.id !== 'global-lights');
+  const activeRegularDevices = regularDevices.filter(device => device.status !== 'off').length;
 
   if (loading) {
     return (
@@ -222,9 +227,19 @@ INSERT INTO devices (id, name, icon, wattage, standby_wattage, status, category,
 
       {/* Main Content */}
       <main className="max-w-7xl mx-auto px-4 md:px-6 lg:px-12 pt-0 pb-2">
+        {/* Global Power Control */}
+        <div className="pt-4 mb-4 md:mb-8">
+          <GlobalPowerControl
+            onToggleAll={toggleAllDevices}
+            totalDevices={regularDevices.length}
+            activeDevices={activeRegularDevices}
+            totalConsumption={getCurrentConsumption()}
+          />
+        </div>
+
         {/* Simple Light Switch */}
         {globalLights && (
-          <div className="pt-4 mb-4 md:mb-12">
+          <div className="mb-4 md:mb-12">
             <SimpleLightSwitch 
               isOn={globalLights.status === 'on'}
               onToggle={() => toggleDevice('global-lights')}
