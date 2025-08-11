@@ -368,7 +368,13 @@ export const DeviceModal: React.FC<DeviceModalProps> = ({ device, onClose }) => 
                   return yearlyCost.toFixed(2);
                 })()} CHF
               </div>
-              <div className="text-sm text-gray-500">Jährliche Kosten</div>
+              <button
+                onClick={() => setShowCostModal(true)}
+                className="text-sm text-gray-500 hover:text-blue-600 hover:underline transition-colors cursor-pointer"
+                title="Kostenaufschlüsselung anzeigen"
+              >
+                Jährliche Kosten
+              </button>
             </div>
           </div>
 
