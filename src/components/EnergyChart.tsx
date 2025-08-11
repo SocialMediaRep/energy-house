@@ -33,8 +33,6 @@ export const EnergyChart: React.FC<EnergyChartProps> = ({
   const monthlyCost = dailyCost * 30;
   const yearlyCost = dailyCost * 365;
 
-  // Calculate device statistics
-  const activeDevices = Math.floor(activeConsumption / 100) || 1; // Rough estimate
   // Get data points and intervals based on selected time range
   const getTimeRangeConfig = (range: TimeRange) => {
     switch (range) {
