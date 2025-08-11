@@ -282,7 +282,7 @@ export const DeviceChart: React.FC<DeviceChartProps> = ({ device }) => {
   const typicalIdle = device.hasStandby ? device.standbyWattage : Math.round(device.wattage * 0.1);
 
   return (
-    <div className="bg-gradient-to-br from-slate-50 to-slate-100 rounded-2xl p-4 border border-slate-200">
+    <div className="bg-gradient-to-br from-slate-50 fTypisches Verhaltento-slate-100 rounded-2xl p-4 border border-slate-200">
       <div className="flex items-center justify-between mb-4">
         <div>
           <h4 className="text-lg font-semibold text-slate-800 mb-1">Typisches Verhalten</h4>
