@@ -25,16 +25,16 @@ export const EnergyChart: React.FC<EnergyChartProps> = ({
   const [selectedTimeRange, setSelectedTimeRange] = useState<TimeRange>('30min');
 
   // Calculate device statistics
-  const activeDevices = Math.floor(activeConsumption / 100) || 1; // Rough estimate
-  const standbyDevices = Math.floor(standbyConsumption / 10) || 0;
-  const offDevices = 18 - activeDevices - standbyDevices; // Total assumed devices
-  const hourlyCost = (totalConsumption / 1000) * 0.30; // CHF per kWh estimate
+  const activeDevices = devices.filter(device => device.status === 'on').length;
+  const standbyDevices = devices.filter(device => device.status === 'standby').length;
+  const offDevices = devices.filter(device => device.status === 'off').length;
+  const hourlyCost = (totalConsumption / 1000) * 0.30;
   const dailyCost = hourlyCost * 24;
   const monthlyCost = dailyCost * 30;
   const yearlyCost = dailyCost * 365;
 
-  const [showCostModal, setShowCostModal] = useState(false);
-
+  // Calculate device statistics
+  const activeDevices = Math.floor(activeConsumption / 100) || 1; // Rough estimate
   // Get data points and intervals based on selected time range
   const getTimeRangeConfig = (range: TimeRange) => {
     switch (range) {
@@ -68,30 +68,38 @@ export const EnergyChart: React.FC<EnergyChartProps> = ({
   useEffect(() => {
     const config = getTimeRangeConfig(selectedTimeRange);
     const now = Date.now();
+    
+    // Add immediate data point when consumption changes
     setLiveData(prev => {
       const newData = [...prev, {
         timestamp: now,
-        consumption: totalConsumption
+        consumption: totalConsumption + (Math.random() - 0.5) * 5 // Small variation for realism
       }];
       
       return newData.slice(-config.points);
     });
   }, [totalConsumption, selectedTimeRange]);
 
-  // Add new data point based on selected interval
+  // Add periodic data points based on selected interval
   useEffect(() => {
     const config = getTimeRangeConfig(selectedTimeRange);
     const interval = setInterval(() => {
       const now = Date.now();
       setLiveData(prev => {
+        // Only add if the last data point is older than half the interval
+        const lastPoint = prev[prev.length - 1];
+        if (lastPoint && (now - lastPoint.timestamp) < config.intervalMs / 2) {
+          return prev;
+        }
+        
         const newData = [...prev, {
           timestamp: now,
-          consumption: totalConsumption + (Math.random() - 0.5) * 15
+          consumption: totalConsumption + (Math.random() - 0.5) * 10
         }];
         
         return newData.slice(-config.points);
       });
-    }, config.intervalMs);
+    }, Math.max(config.intervalMs / 4, 2000)); // Update more frequently but not too often
 
     return () => clearInterval(interval);
   }, [totalConsumption, selectedTimeRange]);
@@ -99,8 +107,9 @@ export const EnergyChart: React.FC<EnergyChartProps> = ({
   const maxConsumption = useMemo(() => {
     if (liveData.length === 0) return Math.max(totalConsumption, 100);
     const maxFromData = Math.max(...liveData.map(d => d.consumption));
-    // Round up to next 0.05 kW for cleaner y-axis
-    return Math.ceil(maxFromData / 50) * 50;
+    // Include current consumption in max calculation and round up
+    const maxValue = Math.max(maxFromData, totalConsumption);
+    return Math.ceil(maxValue / 50) * 50;
   }, [liveData, totalConsumption]);
 
   const formatTime = (timestamp: number) => {
