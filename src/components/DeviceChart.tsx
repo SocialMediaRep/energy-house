@@ -313,30 +313,30 @@ export const DeviceChart: React.FC<DeviceChartProps> = ({ device }) => {
 
       {/* Device-specific consumption breakdown */}
       <div className="grid grid-cols-3 gap-3 mb-4">
-        <div className="bg-gray-50 p-3 rounded-xl border border-gray-300">
+        <div className="bg-green-50 p-3 rounded-xl border border-green-100">
           <div className="flex items-center space-x-2">
-            <div className="w-2 h-2 bg-gray-400 rounded-full"></div>
-            <span className="text-xs font-medium text-gray-700">Betrieb</span>
+            <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+            <span className="text-xs font-medium text-green-700">Betrieb</span>
           </div>
-          <div className="text-lg font-bold text-gray-700 mt-1">
+          <div className="text-lg font-bold text-green-600 mt-1">
             {typicalRunning}W
           </div>
         </div>
-        <div className="bg-gray-50 p-3 rounded-xl border border-gray-300">
+        <div className="bg-red-50 p-3 rounded-xl border border-red-100">
           <div className="flex items-center space-x-2">
-            <div className="w-2 h-2 bg-gray-400 rounded-full"></div>
-            <span className="text-xs font-medium text-gray-700">Anlauf</span>
+            <div className="w-2 h-2 bg-red-500 rounded-full"></div>
+            <span className="text-xs font-medium text-red-700">Anlauf</span>
           </div>
-          <div className="text-lg font-bold text-gray-700 mt-1">
+          <div className="text-lg font-bold text-red-600 mt-1">
             {typicalStartup}W
           </div>
         </div>
-        <div className="bg-gray-50 p-3 rounded-xl border border-gray-300">
+        <div className="bg-orange-50 p-3 rounded-xl border border-orange-100">
           <div className="flex items-center space-x-2">
-            <div className="w-2 h-2 bg-gray-400 rounded-full"></div>
-            <span className="text-xs font-medium text-gray-700">Bereit</span>
+            <div className="w-2 h-2 bg-orange-400 rounded-full"></div>
+            <span className="text-xs font-medium text-orange-700">Bereit</span>
           </div>
-          <div className="text-lg font-bold text-gray-700 mt-1">
+          <div className="text-lg font-bold text-orange-600 mt-1">
             {typicalIdle}W
           </div>
         </div>

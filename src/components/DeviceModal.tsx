@@ -64,27 +64,27 @@ export const DeviceModal: React.FC<DeviceModalProps> = ({ device, onClose }) => 
 
           {/* Device Info */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-            <div className="bg-green-50 p-4 rounded-2xl border border-green-100">
+            <div className="bg-gray-50 p-4 rounded-2xl border border-gray-200">
               <div className="text-2xl font-bold text-green-600">
                 {device.status === 'on' ? device.wattage : 
                  device.status === 'standby' ? device.standbyWattage : 
                  device.wattage}W
               </div>
-              <div className="text-sm text-gray-600">
+              <div className="text-sm text-gray-500">
                 Verbrauch pro Stunde
               </div>
             </div>
-            <div className="bg-blue-50 p-4 rounded-2xl border border-blue-100">
+            <div className="bg-gray-50 p-4 rounded-2xl border border-gray-200">
               <div className="text-2xl font-bold text-blue-600">
                 {device.status === 'on' ? device.costPerHour.toFixed(3) : 
                  device.status === 'standby' ? (device.standbyWattage * 0.30 / 1000).toFixed(3) : 
                  device.costPerHour.toFixed(3)} CHF
               </div>
-              <div className="text-sm text-gray-600">
+              <div className="text-sm text-gray-500">
                 Kosten pro Stunde
               </div>
             </div>
-            <div className="bg-green-50 p-4 rounded-2xl border border-green-100">
+            <div className="bg-gray-50 p-4 rounded-2xl border border-gray-200">
               <div className="text-2xl font-bold text-green-600">
                 {device.hasStandby && device.standbyWattage > 0 ? 
                   Math.round((device.standbyWattage / device.wattage) * 100) : 
@@ -93,9 +93,9 @@ export const DeviceModal: React.FC<DeviceModalProps> = ({ device, onClose }) => 
                   device.energyEfficiencyRating === 'B' ? '10' :
                   device.energyEfficiencyRating === 'C' ? '5' : '0'}%
               </div>
-              <div className="text-sm text-gray-600">Einsparpotential</div>
+              <div className="text-sm text-gray-500">Einsparpotential</div>
             </div>
-            <div className="bg-orange-50 p-4 rounded-2xl border border-orange-100">
+            <div className="bg-gray-50 p-4 rounded-2xl border border-gray-200">
               <div className="text-2xl font-bold text-orange-600">
                 {(() => {
                   // Realistische jährliche Nutzung für 4-köpfige Familie - Neu berechnet
@@ -217,7 +217,7 @@ export const DeviceModal: React.FC<DeviceModalProps> = ({ device, onClose }) => 
                   return yearlyCost.toFixed(2);
                 })()} CHF
               </div>
-              <div className="text-sm text-gray-600">Jährliche Kosten</div>
+              <div className="text-sm text-gray-500">Jährliche Kosten</div>
             </div>
           </div>
 
