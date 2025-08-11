@@ -23,6 +23,7 @@ export const EnergyChart: React.FC<EnergyChartProps> = ({
 }) => {
   const [liveData, setLiveData] = useState<DataPoint[]>([]);
   const [selectedTimeRange, setSelectedTimeRange] = useState<TimeRange>('30min');
+  const [showCostModal, setShowCostModal] = useState(false);
 
   // Calculate device statistics
   const activeDevices = devices.filter(device => device.status === 'on').length;
