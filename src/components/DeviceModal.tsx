@@ -85,7 +85,7 @@ export const DeviceModal: React.FC<DeviceModalProps> = ({ device, onClose }) => 
               </div>
             </div>
             <div className="bg-gray-50 p-4 rounded-2xl border border-gray-200">
-              <div className="text-2xl font-bold text-green-600">
+              <div className="text-2xl font-bold text-gray-600">
                 {device.hasStandby && device.standbyWattage > 0 ? 
                   Math.round((device.standbyWattage / device.wattage) * 100) : 
                   device.energyEfficiencyRating === 'A+' ? '20' :
