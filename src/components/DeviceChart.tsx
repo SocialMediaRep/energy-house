@@ -313,30 +313,30 @@ export const DeviceChart: React.FC<DeviceChartProps> = ({ device }) => {
 
       {/* Device-specific consumption breakdown */}
       <div className="grid grid-cols-3 gap-3 mb-4">
-        <div className="bg-white p-3 rounded-xl border border-gray-200">
+        <div className="bg-gray-50 p-3 rounded-xl border border-gray-300">
           <div className="flex items-center space-x-2">
-            <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+            <div className="w-2 h-2 bg-gray-400 rounded-full"></div>
             <span className="text-xs font-medium text-gray-700">Betrieb</span>
           </div>
-          <div className="text-lg font-bold text-green-600 mt-1">
+          <div className="text-lg font-bold text-gray-700 mt-1">
             {typicalRunning}W
           </div>
         </div>
-        <div className="bg-white p-3 rounded-xl border border-gray-200">
+        <div className="bg-gray-50 p-3 rounded-xl border border-gray-300">
           <div className="flex items-center space-x-2">
-            <div className="w-2 h-2 bg-red-500 rounded-full"></div>
+            <div className="w-2 h-2 bg-gray-400 rounded-full"></div>
             <span className="text-xs font-medium text-gray-700">Anlauf</span>
           </div>
-          <div className="text-lg font-bold text-red-600 mt-1">
+          <div className="text-lg font-bold text-gray-700 mt-1">
             {typicalStartup}W
           </div>
         </div>
-        <div className="bg-white p-3 rounded-xl border border-gray-200">
+        <div className="bg-gray-50 p-3 rounded-xl border border-gray-300">
           <div className="flex items-center space-x-2">
-            <div className="w-2 h-2 bg-orange-500 rounded-full"></div>
+            <div className="w-2 h-2 bg-gray-400 rounded-full"></div>
             <span className="text-xs font-medium text-gray-700">Bereit</span>
           </div>
-          <div className="text-lg font-bold text-orange-600 mt-1">
+          <div className="text-lg font-bold text-gray-700 mt-1">
             {typicalIdle}W
           </div>
         </div>
