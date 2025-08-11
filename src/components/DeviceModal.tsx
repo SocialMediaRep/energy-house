@@ -94,15 +94,77 @@ export const DeviceModal: React.FC<DeviceModalProps> = ({ device, onClose }) => 
                   device.energyEfficiencyRating === 'C' ? '5' : '0'}%
               </div>
               <div className="text-sm text-gray-500">
-                Einsparpotential
-                <div className="text-xs text-gray-400 mt-1">
-                  {device.hasStandby && device.standbyWattage > 0 ? 
-                    'Durch komplettes Ausschalten statt Standby' :
-                    device.energyEfficiencyRating === 'A+' ? 'Durch optimale Nutzung und Wartung' :
-                    device.energyEfficiencyRating === 'A' ? 'Durch effizientere Nutzung' :
-                    device.energyEfficiencyRating === 'B' ? 'Durch bewusste Nutzung' :
-                    device.energyEfficiencyRating === 'C' ? 'Durch sparsame Nutzung' : 
-                    'Bereits sehr effizient'}
+                Mögliche Einsparung
+                <div className="text-xs text-gray-400 mt-1 leading-relaxed">
+                  {(() => {
+                    const percentage = device.hasStandby && device.standbyWattage > 0 ? 
+                      Math.round((device.standbyWattage / device.wattage) * 100) : 
+                      device.energyEfficiencyRating === 'A+' ? 20 :
+                      device.energyEfficiencyRating === 'A' ? 15 :
+                      device.energyEfficiencyRating === 'B' ? 10 :
+                      device.energyEfficiencyRating === 'C' ? 5 : 0;
+                    
+                    const yearlyConsumption = (() => {
+                      let hoursPerYear = 0;
+                      switch (device.category) {
+                        case 'entertainment':
+                          hoursPerYear = device.name.includes('Fernseher') ? 2190 : 1460;
+                          break;
+                        case 'cooling':
+                          hoursPerYear = 8760;
+                          break;
+                        case 'heating':
+                          hoursPerYear = device.name.includes('Boiler') ? 2190 : 548;
+                          break;
+                        case 'cleaning':
+                          hoursPerYear = device.name.includes('Waschmaschine') ? 208 : 365;
+                          break;
+                        case 'cooking':
+                          hoursPerYear = device.name.includes('Herd') ? 547 : 300;
+                          break;
+                        case 'network':
+                          hoursPerYear = 8760;
+                          break;
+                        case 'electronics':
+                          hoursPerYear = device.name.includes('PC') ? 1825 : 1460;
+                          break;
+                        case 'mobility':
+                          hoursPerYear = device.name.includes('E-Auto') ? 547 : 200;
+                          break;
+                        case 'personal-care':
+                          hoursPerYear = device.name.includes('Haartrockner') ? 146 : 80;
+                          break;
+                        case 'lighting':
+                          hoursPerYear = 2190;
+                          break;
+                        default:
+                          hoursPerYear = 1200;
+                      }
+                      
+                      const actualWattage = device.status === 'on' ? device.wattage : device.wattage;
+                      return (actualWattage / 1000) * hoursPerYear;
+                    })();
+                    
+                    const currentYearlyCost = yearlyConsumption * 0.30;
+                    const potentialSavings = (currentYearlyCost * percentage) / 100;
+                    
+                    if (device.hasStandby && device.standbyWattage > 0) {
+                      return `${percentage}% der Stromkosten (${potentialSavings.toFixed(2)} CHF/Jahr) durch komplettes Ausschalten statt Standby-Modus`;
+                    } else {
+                      const method = 
+                        device.category === 'cooling' ? 'optimale Temperatur (7°C) und seltenes Türöffnen' :
+                        device.category === 'heating' ? 'Temperatur um 1-2°C senken' :
+                        device.category === 'cleaning' ? 'Eco-Programme und volle Beladung' :
+                        device.category === 'cooking' ? 'Restwärme nutzen und Deckel verwenden' :
+                        device.category === 'entertainment' ? 'Helligkeit reduzieren und komplett ausschalten' :
+                        device.category === 'electronics' ? 'Energiesparmodus und Standby vermeiden' :
+                        device.category === 'lighting' ? 'LED-Lampen und bedarfsgerechte Nutzung' :
+                        device.category === 'personal-care' ? 'kürzere Nutzungszeiten und niedrigere Temperaturen' :
+                        'bewusste und effiziente Nutzung';
+                      
+                      return `${percentage}% der Stromkosten (${potentialSavings.toFixed(2)} CHF/Jahr) durch ${method}`;
+                    }
+                  })()}
                 </div>
               </div>
             </div>
