@@ -102,16 +102,16 @@ export const DeviceModal: React.FC<DeviceModalProps> = ({ device, onClose }) => 
                   <span>Mögliche Einsparung</span>
                   <button
                     onClick={() => setShowSavingsTooltip(!showSavingsTooltip)}
-                    className="ml-2 w-4 h-4 rounded-full bg-gray-400 flex items-center justify-center hover:bg-gray-500 transition-colors focus:outline-none focus:ring-2 focus:ring-gray-300"
+                    className="ml-2 w-4 h-4 rounded-full border border-gray-400 bg-white flex items-center justify-center hover:border-gray-500 transition-colors focus:outline-none focus:ring-2 focus:ring-gray-300"
                     aria-label="Einsparpotential Details"
                   >
-                    <Icons.Info size={10} className="text-white" />
+                    <span className="text-xs font-bold text-gray-600">i</span>
                   </button>
                 </div>
                 
-                {/* Repower Style Tooltip */}
+                {/* Tooltip */}
                 {showSavingsTooltip && (
-                  <div className="absolute bottom-full left-0 mb-2 w-80 bg-white rounded-lg shadow-lg border border-gray-200 p-4 z-50">
+                  <div className="absolute bottom-full right-0 mb-2 w-80 bg-white rounded-lg shadow-lg border border-gray-200 p-4 z-50">
                     {/* Close Button */}
                     <button
                       onClick={() => setShowSavingsTooltip(false)}
@@ -123,7 +123,6 @@ export const DeviceModal: React.FC<DeviceModalProps> = ({ device, onClose }) => 
                     
                     {/* Tooltip Content */}
                     <div className="pr-8">
-                      <h4 className="font-semibold text-gray-900 mb-2">Einsparpotential:</h4>
                       <div className="text-sm text-gray-700 space-y-2">
                         {(() => {
                           const percentage = device.hasStandby && device.standbyWattage > 0 ? 
@@ -192,13 +191,13 @@ export const DeviceModal: React.FC<DeviceModalProps> = ({ device, onClose }) => 
                           return (
                             <>
                               <p>
-                                <strong>{percentage}% der Stromkosten</strong> können eingespart werden.
+                                {percentage}% der Stromkosten können eingespart werden.
                               </p>
                               <p>
-                                Das entspricht etwa <strong>{potentialSavings.toFixed(2)} CHF pro Jahr</strong>.
+                                Das entspricht etwa {potentialSavings.toFixed(2)} CHF pro Jahr.
                               </p>
-                              <p className="text-repower-red">
-                                <strong>Wie erreichen:</strong> Durch {method}.
+                              <p>
+                                Durch {method}.
                               </p>
                             </>
                           );
@@ -207,8 +206,8 @@ export const DeviceModal: React.FC<DeviceModalProps> = ({ device, onClose }) => 
                     </div>
                     
                     {/* Tooltip Arrow */}
-                    <div className="absolute top-full left-6 w-0 h-0 border-l-8 border-r-8 border-t-8 border-l-transparent border-r-transparent border-t-white"></div>
-                    <div className="absolute top-full left-6 w-0 h-0 border-l-8 border-r-8 border-t-8 border-l-transparent border-r-transparent border-t-gray-200 transform translate-y-px"></div>
+                    <div className="absolute top-full right-6 w-0 h-0 border-l-8 border-r-8 border-t-8 border-l-transparent border-r-transparent border-t-white"></div>
+                    <div className="absolute top-full right-6 w-0 h-0 border-l-8 border-r-8 border-t-8 border-l-transparent border-r-transparent border-t-gray-200 transform translate-y-px"></div>
                   </div>
                 )}
               </div>
