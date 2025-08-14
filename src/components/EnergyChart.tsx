@@ -295,9 +295,9 @@ export const EnergyChart: React.FC<EnergyChartProps> = ({
                           <stop offset="100%" stopColor="rgba(34, 197, 94, 0.08)" />
                         </linearGradient>
                         <linearGradient id="lineGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                          <stop offset="0%" stopColor="#10b981" />
-                          <stop offset="50%" stopColor="#22c55e" />
-                          <stop offset="100%" stopColor="#16a34a" />
+                          <stop offset="0%" stopColor="#1064b9" />
+                          <stop offset="50%" stopColor="#227ac5" />
+                          <stop offset="100%" stopColor="#1656a3" />
                         </linearGradient>
                       </defs>
                       {/* Area fill */}
