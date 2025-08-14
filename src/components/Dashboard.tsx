@@ -206,20 +206,12 @@ INSERT INTO devices (id, name, icon, wattage, standby_wattage, status, category,
       <main className="max-w-7xl mx-auto px-4 md:px-6 lg:px-12 pt-0 pb-2">
         {/* Simple Light Switch */}
         {globalLights && (
-          <div className="mb-4 md:mb-12 grid grid-cols-1 md:grid-cols-3 items-center gap-4">
-            <div className="md:col-span-2">
+          <div className="mb-4 md:mb-12">
+            <div>
               <SimpleLightSwitch 
                 isOn={globalLights.status === 'on'}
                 onToggle={() => toggleDevice('global-lights')}
               />
-            </div>
-            <div className="md:col-span-1 justify-self-end">
-                <GlobalPowerControl
-                  onToggleAll={toggleAllDevices}
-                  totalDevices={regularDevices.length}
-                  activeDevices={activeRegularDevices}
-                  totalConsumption={getCurrentConsumption()}
-                />
             </div>
           </div>
         )}
@@ -233,6 +225,14 @@ INSERT INTO devices (id, name, icon, wattage, standby_wattage, status, category,
           />
         </div>
       </main>
+
+      {/* Floating Action Button */}
+      <GlobalPowerControl
+        onToggleAll={toggleAllDevices}
+        totalDevices={regularDevices.length}
+        activeDevices={activeRegularDevices}
+        totalConsumption={getCurrentConsumption()}
+      />
 
       {/* Device Modal */}
       <DeviceModal 

@@ -25,21 +25,19 @@ export const GlobalPowerControl: React.FC<GlobalPowerControlProps> = ({
   };
 
   return (
-    <div className="flex items-center space-x-4 bg-white rounded-2xl p-3 md:p-8 border border-repower-gray-200 shadow-sm">
     <button
       onClick={handleToggle}
-      className={`flex items-center space-x-2 px-4 py-2 rounded-lg font-medium text-sm transition-all duration-300 hover:scale-105 active:scale-95 ${
-        someDevicesOn
-          ? 'bg-red-500 text-white hover:bg-red-600'
-          : 'bg-green-500 text-white hover:bg-green-600'
-      }`}
-      title={someDevicesOn ? 'Alle Geräte ausschalten' : 'Alle Geräte einschalten'}
+      className="fixed bottom-6 right-6 w-14 h-14 bg-gray-100 hover:bg-red-500 text-gray-600 hover:text-white rounded-full shadow-lg hover:shadow-xl transition-all duration-200 flex items-center justify-center cursor-pointer z-50 group"
+      title="Alle Geräte ausschalten"
+      aria-label="Alle Geräte ausschalten"
     >
-      <Power size={16} />
-      <span>
-        {someDevicesOn ? 'Alle AUS' : 'Alle EIN'}
-      </span>
-    </button>
+      <Power size={24} strokeWidth={2} className="transition-colors duration-200" />
+      
+      {/* Tooltip */}
+      <div className="absolute bottom-full right-0 mb-2 px-3 py-2 bg-gray-900 text-white text-sm rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap">
+        Alle Geräte ausschalten
+        <div className="absolute top-full right-4 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-gray-900"></div>
       </div>
+    </button>
   );
 };
