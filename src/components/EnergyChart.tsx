@@ -24,7 +24,6 @@ export const EnergyChart: React.FC<EnergyChartProps> = ({
   const [liveData, setLiveData] = useState<DataPoint[]>([]);
   const [selectedTimeRange, setSelectedTimeRange] = useState<TimeRange>('1min');
   const [showCostModal, setShowCostModal] = useState(false);
-  const [lastConsumption, setLastConsumption] = useState(0);
 
   // Calculate device statistics
   const activeDevices = devices.filter(device => device.status === 'on').length;
@@ -71,22 +70,15 @@ export const EnergyChart: React.FC<EnergyChartProps> = ({
     });
     
     setLiveData(initialData);
-    setLastConsumption(totalConsumption);
   }, [selectedTimeRange]);
 
   // REAL-TIME UPDATE: Immediate response to consumption changes
   useEffect(() => {
-    // Skip initial render or if no real change
-    if (lastConsumption === 0 || totalConsumption === lastConsumption) {
-      if (lastConsumption === 0) setLastConsumption(totalConsumption);
-      return;
-    }
-    
     const now = Date.now();
     const config = getTimeRangeConfig(selectedTimeRange);
     const cutoffTime = now - config.totalMs;
     
-    console.log(`⚡ REAL-TIME UPDATE: ${lastConsumption}W → ${totalConsumption}W (${totalConsumption > lastConsumption ? '+' : ''}${totalConsumption - lastConsumption}W)`);
+    console.log(`⚡ REAL-TIME UPDATE: ${totalConsumption}W (${devices.filter(d => d.status !== 'off').length} active devices)`);
     
     // ALWAYS ADD NEW DATA POINT - never overwrite
     setLiveData(prev => {
@@ -107,10 +99,7 @@ export const EnergyChart: React.FC<EnergyChartProps> = ({
       
       return finalData;
     });
-    
-    setLastConsumption(totalConsumption);
-  }, [totalConsumption, lastConsumption, selectedTimeRange]);
-
+  }, [totalConsumption, devices, selectedTimeRange]);
   // BACKGROUND UPDATES: Periodic updates for smooth animation when no changes
   useEffect(() => {
     const config = getTimeRangeConfig(selectedTimeRange);
@@ -347,14 +336,9 @@ export const EnergyChart: React.FC<EnergyChartProps> = ({
               </div>
               
               {/* Real-time change indicator */}
-              {Math.abs(totalConsumption - lastConsumption) > 0 && (
-                <div className={`text-xs font-medium mt-1 transition-all duration-500 ${
-                  totalConsumption > lastConsumption ? 'text-red-600' : 'text-green-600'
-                }`}>
-                  {totalConsumption > lastConsumption ? '↗' : '↘'} 
-                  {Math.abs(totalConsumption - lastConsumption).toFixed(0)}W
-                </div>
-              )}
+              <div className="text-xs font-medium mt-1 text-green-600">
+                {activeDevices} aktive Geräte
+              </div>
             </div>
             
             <div className="bg-repower-gray-50 rounded-lg p-4 md:p-6 text-center">
