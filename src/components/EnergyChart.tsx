@@ -403,7 +403,7 @@ export const EnergyChart: React.FC<EnergyChartProps> = ({
             </div>
             
             <div className="p-6">
-              {/* Current Consumption - styled like dashboard */}
+              {/* Current Consumption - styled like dashboard 
               <div className="mb-6 bg-repower-gray-50 rounded-lg p-4 md:p-6 text-center">
                 <div className="text-body-sm text-low-contrast mb-1">
                   Aktueller Verbrauch
@@ -412,7 +412,7 @@ export const EnergyChart: React.FC<EnergyChartProps> = ({
                   {(totalConsumption / 1000).toFixed(3)} <span className="text-sm font-normal">kW</span>
                 </div>
               </div>
-
+*/}
               {/* Cost Calculation - only hourly */}
               <div className="mb-6">
                 <h4 className="font-semibold text-repower-dark mb-3">Kostenberechnung:</h4>
