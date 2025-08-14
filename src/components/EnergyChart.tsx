@@ -245,6 +245,10 @@ export const EnergyChart: React.FC<EnergyChartProps> = ({
           <span className="hidden md:inline">Aktueller Stromverbrauch</span>
           <span className="md:hidden">Stromverbrauch</span>
         </h2>
+         {/* Alle AUS Button */}
+            <div className="mt-4">
+              <GlobalPowerControl onToggleAll={onToggleAll} />
+            </div>
       </div>
 
       {/* Main Content Grid */}
@@ -375,10 +379,7 @@ export const EnergyChart: React.FC<EnergyChartProps> = ({
               </div>
             </div>
             
-            {/* Alle AUS Button */}
-            <div className="mt-4">
-              <GlobalPowerControl onToggleAll={onToggleAll} />
-            </div>
+           
           </div>
         </div>
 
