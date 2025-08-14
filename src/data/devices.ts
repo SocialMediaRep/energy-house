@@ -3,6 +3,25 @@ import { Device } from '../types';
 export const devices: Device[] = [
   // Badezimmer - zusätzliche Geräte
   {
+    id: 'bathroom-shower',
+    name: 'Dusche/Bad',
+    icon: 'Droplets',
+    wattage: 3000,
+    standbyWattage: 0,
+    status: 'off',
+    category: 'heating',
+    tips: [
+      'Reduzieren Sie die Duschzeit auf maximal 5 Minuten',
+      'Verwenden Sie einen wassersparenden Duschkopf',
+      'Stellen Sie die Wassertemperatur nicht zu heiß ein',
+      'Schalten Sie das Wasser beim Einseifen ab'
+    ],
+    description: 'Warmwasserverbrauch für Dusche und Bad.',
+    costPerHour: 0.90,
+    energyEfficiencyRating: 'B',
+    hasStandby: false
+  },
+  {
     id: 'bathroom-ventilation',
     name: 'Badlüfter',
     icon: 'Fan',
