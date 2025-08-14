@@ -13,7 +13,7 @@ interface DataPoint {
   consumption: number;
 }
 
-type TimeRange = '1min' | '5min' | '30min';
+type TimeRange = '30s' | '1min' | '5min';
 
 export const EnergyChart: React.FC<EnergyChartProps> = ({
   totalConsumption,
@@ -22,7 +22,7 @@ export const EnergyChart: React.FC<EnergyChartProps> = ({
   devices
 }) => {
   const [liveData, setLiveData] = useState<DataPoint[]>([]);
-  const [selectedTimeRange, setSelectedTimeRange] = useState<TimeRange>('30min');
+  const [selectedTimeRange, setSelectedTimeRange] = useState<TimeRange>('1min');
   const [showCostModal, setShowCostModal] = useState(false);
   const [lastConsumption, setLastConsumption] = useState(0);
 
@@ -38,12 +38,12 @@ export const EnergyChart: React.FC<EnergyChartProps> = ({
   // Get data points and intervals based on selected time range
   const getTimeRangeConfig = (range: TimeRange) => {
     switch (range) {
+      case '30s':
+        return { points: 15, intervalMs: 2000, totalMs: 30000 }; // 15 points, 2s intervals, 30 seconds
       case '1min':
-        return { points: 12, intervalMs: 5000, totalMs: 60000 }; // 12 points, 5s intervals, 1 minute
+        return { points: 20, intervalMs: 3000, totalMs: 60000 }; // 20 points, 3s intervals, 1 minute
       case '5min':
         return { points: 30, intervalMs: 10000, totalMs: 300000 }; // 30 points, 10s intervals, 5 minutes
-      case '30min':
-        return { points: 30, intervalMs: 60000, totalMs: 1800000 }; // 30 points, 1min intervals, 30 minutes
     }
   };
 
@@ -72,7 +72,7 @@ export const EnergyChart: React.FC<EnergyChartProps> = ({
     
     setLiveData(initialData);
     setLastConsumption(totalConsumption);
-  }, [selectedTimeRange, totalConsumption]);
+  }, [selectedTimeRange]);
 
   // REAL-TIME UPDATE: Immediate response to consumption changes
   useEffect(() => {
@@ -247,9 +247,9 @@ export const EnergyChart: React.FC<EnergyChartProps> = ({
             <div className="flex justify-start mb-4 md:mb-6">
               <div className="flex bg-repower-gray-100 rounded-lg p-1">
                 {[
+                  { key: '30s' as TimeRange, label: '30 Sek' },
                   { key: '1min' as TimeRange, label: '1 Min' },
-                  { key: '5min' as TimeRange, label: '5 Min' },
-                  { key: '30min' as TimeRange, label: '30 Min' }
+                  { key: '5min' as TimeRange, label: '5 Min' }
                 ].map(({ key, label }) => (
                   <button
                     key={key}
