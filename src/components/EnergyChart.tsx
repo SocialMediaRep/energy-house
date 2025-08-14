@@ -323,7 +323,7 @@ export const EnergyChart: React.FC<EnergyChartProps> = ({
                   {displayedData.length > 0 && (
                     <div className="absolute top-2 right-2 flex items-center space-x-2">
                       <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse shadow-sm"></div>
-                      <span className="text-xs text-green-600 font-semibold tracking-wide">LIVE</span>
+                      <span className="text-xs text-blue-600 font-semibold tracking-wide">LIVE</span>
                     </div>
                   )}
                 </div>
