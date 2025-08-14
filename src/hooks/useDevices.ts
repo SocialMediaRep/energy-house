@@ -53,8 +53,6 @@ export const useDevices = () => {
 
   return {
     devices,
-    loading: false,
-    error: null,
     toggleDevice,
     toggleAllDevices,
     getCurrentConsumption,

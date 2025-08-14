@@ -6,7 +6,6 @@ import { HouseLayout } from './HouseLayout';
 import { DeviceModal } from './DeviceModal';
 import { EnergyChart } from './EnergyChart';
 import { SimpleLightSwitch } from './SimpleLightSwitch';
-import { GlobalPowerControl } from './GlobalPowerControl';
 
 export const Dashboard: React.FC = () => {
   const { devices, toggleDevice, toggleAllDevices, getCurrentConsumption, getActiveConsumption, getStandbyConsumption } = useDevices();
@@ -131,8 +130,6 @@ export const Dashboard: React.FC = () => {
           />
         </div>
       </main>
-
-      {/* Floating Action Button */}
 
       {/* Device Modal */}
       <DeviceModal 
