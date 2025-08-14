@@ -19,15 +19,3 @@ export interface Room {
   devices: Device[];
   gridArea: string;
 }
-
-export interface Challenge {
-  id: string;
-  title: string;
-  description: string;
-  points: number;
-  energySaving: number;
-  difficulty: 'Einfach' | 'Mittel' | 'Schwer';
-  category: 'Geräte' | 'Heizung' | 'Beleuchtung' | 'Waschen' | 'Kochen';
-  isCompleted: boolean;
-  icon: string;
-}
