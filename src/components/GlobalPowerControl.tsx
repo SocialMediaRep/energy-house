@@ -16,7 +16,7 @@ export const GlobalPowerControl: React.FC<GlobalPowerControlProps> = ({
   return (
     <button
       onClick={handleToggle}
-      className="group relative flex items-center justify-center space-x-2 w-full py-4 bg-repower-gray-100 border border-repower-gray-200 hover:bg-repower-red rounded-lg transition-all duration-200 cursor-pointer"
+      className="group relative flex items-center justify-center space-x-2 w-full py-2 bg-repower-gray-100 border border-repower-gray-200 hover:bg-repower-red rounded-lg transition-all duration-200 cursor-pointer"
       title="Alle Geräte ausschalten"
       aria-label="Alle Geräte ausschalten"
     >
