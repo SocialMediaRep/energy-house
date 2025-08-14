@@ -25,6 +25,10 @@ export const EnergyChart: React.FC<EnergyChartProps> = ({
   const [selectedTimeRange, setSelectedTimeRange] = useState<TimeRange>('1min');
   const [showCostModal, setShowCostModal] = useState(false);
 
+  // Constants for maximum data history (5 minutes)
+  const MAX_HISTORY_MS = 5 * 60 * 1000; // 5 minutes in milliseconds
+  const MAX_HISTORY_POINTS = 100; // Maximum number of data points to keep
+
   // Calculate device statistics
   const activeDevices = devices.filter(device => device.status === 'on').length;
   const standbyDevices = devices.filter(device => device.status === 'standby').length;
@@ -46,37 +50,37 @@ export const EnergyChart: React.FC<EnergyChartProps> = ({
     }
   };
 
-  // Initialize with historical data points based on selected time range
+  // Initialize with some historical data only once
   useEffect(() => {
-    const config = getTimeRangeConfig(selectedTimeRange);
-    const now = Date.now();
-    const initialData: DataPoint[] = [];
-    
-    // Create initial historical data with realistic progression
-    for (let i = config.points - 1; i >= 1; i--) {
-      const timeOffset = i * config.intervalMs;
-      const baseConsumption = Math.max(50, totalConsumption * 0.9);
-      const variation = Math.sin(i * 0.2) * 15 + Math.random() * 10;
+    if (liveData.length === 0) {
+      const now = Date.now();
+      const initialData: DataPoint[] = [];
+      
+      // Create initial historical data for the last 30 seconds
+      for (let i = 15; i >= 1; i--) {
+        const timeOffset = i * 2000; // 2 second intervals
+        const baseConsumption = Math.max(50, totalConsumption * 0.9);
+        const variation = Math.sin(i * 0.2) * 15 + Math.random() * 10;
+        initialData.push({
+          timestamp: now - timeOffset,
+          consumption: Math.max(0, baseConsumption + variation)
+        });
+      }
+      
+      // Add current consumption as the latest point
       initialData.push({
-        timestamp: now - timeOffset,
-        consumption: Math.max(0, baseConsumption + variation)
+        timestamp: now,
+        consumption: totalConsumption + (Math.random() - 0.5) * 2
       });
+      
+      setLiveData(initialData);
     }
-    
-    // Add current consumption as the latest point
-    initialData.push({
-      timestamp: now,
-      consumption: totalConsumption + (Math.random() - 0.5) * 2
-    });
-    
-    setLiveData(initialData);
-  }, [selectedTimeRange]);
+  }, []);
 
   // REAL-TIME UPDATE: Immediate response to consumption changes
   useEffect(() => {
     const now = Date.now();
-    const config = getTimeRangeConfig(selectedTimeRange);
-    const cutoffTime = now - config.totalMs;
+    const cutoffTime = now - MAX_HISTORY_MS;
     
     console.log(`⚡ REAL-TIME UPDATE: ${totalConsumption}W (${devices.filter(d => d.status !== 'off').length} active devices)`);
     
@@ -94,17 +98,16 @@ export const EnergyChart: React.FC<EnergyChartProps> = ({
       // Remove old points outside the time window
       const filteredData = updatedData.filter(point => point.timestamp >= cutoffTime);
       
-      // Ensure we don't exceed maximum points for performance
-      const finalData = filteredData.slice(-config.points);
+      // Ensure we don't exceed maximum history points for performance
+      const finalData = filteredData.slice(-MAX_HISTORY_POINTS);
       
       return finalData;
     });
-  }, [totalConsumption, devices, selectedTimeRange]);
+  }, [totalConsumption, devices]);
 
   // BACKGROUND UPDATES: Periodic updates for smooth animation when no changes
   useEffect(() => {
-    const config = getTimeRangeConfig(selectedTimeRange);
-    const cutoffTime = Date.now() - config.totalMs;
+    const cutoffTime = Date.now() - MAX_HISTORY_MS;
     
     // Background updates for natural variation when no device changes
     const interval = setInterval(() => {
@@ -116,8 +119,8 @@ export const EnergyChart: React.FC<EnergyChartProps> = ({
         const lastPoint = prev[prev.length - 1];
         const timeSinceLastUpdate = now - lastPoint.timestamp;
         
-        // Only add background variation if no recent real-time updates
-        if (timeSinceLastUpdate < config.intervalMs / 3) {
+        // Only add background variation if no recent real-time updates (less than 1 second)
+        if (timeSinceLastUpdate < 1000) {
           return prev;
         }
         
@@ -131,22 +134,35 @@ export const EnergyChart: React.FC<EnergyChartProps> = ({
         
         // Remove old points and limit array size
         const filteredData = updatedData.filter(point => point.timestamp >= cutoffTime);
-        const finalData = filteredData.slice(-config.points);
+        const finalData = filteredData.slice(-MAX_HISTORY_POINTS);
         
         return finalData;
       });
-    }, Math.max(config.intervalMs / 3, 3000)); // Background updates every 3-10 seconds
+    }, 3000); // Background updates every 3 seconds
 
     return () => clearInterval(interval);
-  }, [totalConsumption, selectedTimeRange]);
+  }, [totalConsumption]);
+
+  // Filter displayed data based on selected time range
+  const displayedData = useMemo(() => {
+    const config = getTimeRangeConfig(selectedTimeRange);
+    const now = Date.now();
+    const cutoffTime = now - config.totalMs;
+    
+    // Filter liveData to show only the selected time range
+    const filteredData = liveData.filter(point => point.timestamp >= cutoffTime);
+    
+    // If we don't have enough data points for the selected range, return what we have
+    return filteredData;
+  }, [liveData, selectedTimeRange]);
 
   const maxConsumption = useMemo(() => {
-    if (liveData.length === 0) return Math.max(totalConsumption, 100);
-    const maxFromData = Math.max(...liveData.map(d => d.consumption));
+    if (displayedData.length === 0) return Math.max(totalConsumption, 100);
+    const maxFromData = Math.max(...displayedData.map(d => d.consumption));
     // Include current consumption in max calculation and round up
     const maxValue = Math.max(maxFromData, totalConsumption);
     return Math.ceil(maxValue / 50) * 50;
-  }, [liveData, totalConsumption]);
+  }, [displayedData, totalConsumption]);
 
   const formatTime = (timestamp: number) => {
     const date = new Date(timestamp);
@@ -166,15 +182,15 @@ export const EnergyChart: React.FC<EnergyChartProps> = ({
 
   // Generate SVG path for the area chart
   const generateAreaPath = () => {
-    if (liveData.length < 2) return '';
+    if (displayedData.length < 2) return '';
     
     const width = 100;
     const height = 100;
-    const stepX = width / (liveData.length - 1);
+    const stepX = width / (displayedData.length - 1);
     
     let path = `M 0 ${height}`; // Start at bottom left
     
-    liveData.forEach((point, index) => {
+    displayedData.forEach((point, index) => {
       const x = index * stepX;
       const y = height - (point.consumption / maxConsumption) * height;
       
@@ -192,15 +208,15 @@ export const EnergyChart: React.FC<EnergyChartProps> = ({
 
   // Generate SVG path for the line
   const generateLinePath = () => {
-    if (liveData.length < 2) return '';
+    if (displayedData.length < 2) return '';
     
     const width = 100;
     const height = 100;
-    const stepX = width / (liveData.length - 1);
+    const stepX = width / (displayedData.length - 1);
     
     let path = '';
     
-    liveData.forEach((point, index) => {
+    displayedData.forEach((point, index) => {
       const x = index * stepX;
       const y = height - (point.consumption / maxConsumption) * height;
       
@@ -271,7 +287,7 @@ export const EnergyChart: React.FC<EnergyChartProps> = ({
 
                 {/* Chart Area */}
                 <div className="absolute inset-0 ml-8 md:ml-12">
-                  {liveData.length > 1 && (
+                  {displayedData.length > 1 && (
                     <svg className="w-full h-full transition-all duration-200" viewBox="0 0 100 100" preserveAspectRatio="none">
                       <defs>
                         <linearGradient id="areaGradient" x1="0%" y1="0%" x2="0%" y2="100%">
@@ -304,7 +320,7 @@ export const EnergyChart: React.FC<EnergyChartProps> = ({
                   )}
                   
                   {/* Real-time indicator */}
-                  {liveData.length > 0 && (
+                  {displayedData.length > 0 && (
                     <div className="absolute top-2 right-2 flex items-center space-x-2">
                       <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse shadow-sm"></div>
                       <span className="text-xs text-green-600 font-semibold tracking-wide">LIVE</span>
@@ -315,9 +331,9 @@ export const EnergyChart: React.FC<EnergyChartProps> = ({
 
               {/* X-axis time labels */}
               <div className="flex justify-between text-xs text-low-contrast mt-2 md:mt-4 ml-8 md:ml-12">
-                <span>{formatTime(liveData[0]?.timestamp || Date.now())}</span>
-                <span>{formatTime(liveData[Math.floor(liveData.length / 2)]?.timestamp || Date.now())}</span>
-                <span>{formatTime(liveData[liveData.length - 1]?.timestamp || Date.now())}</span>
+                <span>{formatTime(displayedData[0]?.timestamp || Date.now())}</span>
+                <span>{formatTime(displayedData[Math.floor(displayedData.length / 2)]?.timestamp || Date.now())}</span>
+                <span>{formatTime(displayedData[displayedData.length - 1]?.timestamp || Date.now())}</span>
               </div>
             </div>
 
