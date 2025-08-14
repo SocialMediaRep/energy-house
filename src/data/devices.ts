@@ -1,5 +1,158 @@
 import { Device } from '../types';
 
+  // Badezimmer - zusätzliche Geräte
+  {
+    id: 'bathroom-shower',
+    name: 'Dusche/Bad',
+    icon: 'Droplets',
+    wattage: 3000,
+    standbyWattage: 0,
+    status: 'off',
+    category: 'heating',
+    tips: [
+      'Kürzen Sie die Duschzeit auf maximal 5 Minuten',
+      'Nutzen Sie eine wassersparende Duschbrause',
+      'Duschen Sie bei niedrigerer Temperatur',
+      'Reduzieren Sie die Wassertemperatur um 2°C'
+    ],
+    description: 'Warmwasser für Dusche und Bad verbraucht viel Energie.',
+    costPerHour: 0.90,
+    energyEfficiencyRating: 'D',
+    hasStandby: false
+  },
+  {
+    id: 'bathroom-ventilation',
+    name: 'Badlüfter',
+    icon: 'Fan',
+    wattage: 25,
+    standbyWattage: 0,
+    status: 'off',
+    category: 'ventilation',
+    tips: [
+      'Schalten Sie den Ventilator nach dem Duschen ein',
+      'Lassen Sie ihn nur 15-30 Minuten laufen',
+      'Reinigen Sie die Filter regelmäßig'
+    ],
+    description: 'Badezimmerventilator für Luftzirkulation.',
+    costPerHour: 0.008,
+    energyEfficiencyRating: 'A',
+    hasStandby: false
+  },
+  {
+    id: 'bathroom-toothbrush',
+    name: 'Elektrische Zahnbürste',
+    icon: 'Zap',
+    wattage: 3,
+    standbyWattage: 0,
+    status: 'off',
+    category: 'personal-care',
+    tips: [
+      'Laden Sie die Zahnbürste nur bei Bedarf',
+      'Verwenden Sie sie 2x täglich für 2 Minuten',
+      'Lassen Sie sie nicht dauerhaft auf der Ladestation'
+    ],
+    description: 'Elektrische Zahnbürste für die tägliche Zahnpflege.',
+    costPerHour: 0.001,
+    energyEfficiencyRating: 'A+',
+    hasStandby: false
+  },
+  {
+    id: 'bathroom-straightener',
+    name: 'Glätteisen',
+    icon: 'Flame',
+    wattage: 45,
+    standbyWattage: 0,
+    status: 'off',
+    category: 'personal-care',
+    tips: [
+      'Heizen Sie nur so lange vor wie nötig',
+      'Verwenden Sie Hitzeschutz-Produkte',
+      'Schalten Sie das Gerät sofort nach Gebrauch aus',
+      'Nutzen Sie die niedrigste effektive Temperatur'
+    ],
+    description: 'Glätteisen für das Styling der Haare.',
+    costPerHour: 0.014,
+    energyEfficiencyRating: 'B',
+    hasStandby: false
+  },
+  {
+    id: 'bathroom-curler',
+    name: 'Lockenstab',
+    icon: 'Flame',
+    wattage: 35,
+    standbyWattage: 0,
+    status: 'off',
+    category: 'personal-care',
+    tips: [
+      'Heizen Sie nur so lange vor wie nötig',
+      'Verwenden Sie Hitzeschutz-Produkte',
+      'Schalten Sie das Gerät sofort nach Gebrauch aus',
+      'Nutzen Sie die niedrigste effektive Temperatur'
+    ],
+    description: 'Lockenstab für das Styling der Haare.',
+    costPerHour: 0.011,
+    energyEfficiencyRating: 'B',
+    hasStandby: false
+  },
+  // Wohnzimmer - zusätzliches Gerät
+  {
+    id: 'living-robot-vacuum',
+    name: 'Staubsaugroboter',
+    icon: 'Bot',
+    wattage: 30,
+    standbyWattage: 3,
+    status: 'standby',
+    category: 'cleaning',
+    tips: [
+      'Lassen Sie den Roboter täglich zur gleichen Zeit reinigen',
+      'Leeren Sie den Staubbehälter regelmäßig',
+      'Reinigen Sie die Bürsten wöchentlich',
+      'Nutzen Sie den Eco-Modus für längere Akkulaufzeit',
+      'Räumen Sie den Boden vor der Reinigung frei',
+      'Platzieren Sie die Ladestation an einer gut erreichbaren Stelle'
+    ],
+    description: 'Automatischer Staubsaugroboter für die tägliche Reinigung.',
+    costPerHour: 0.009,
+    energyEfficiencyRating: 'A+',
+    hasStandby: true
+  },
+  // Küche - Herd und Backofen getrennt (ersetzt kitchen-oven)
+  {
+    id: 'kitchen-stove',
+    name: 'Herd',
+    icon: 'ChefHat',
+    wattage: 2000,
+    standbyWattage: 0,
+    status: 'off',
+    category: 'cooking',
+    tips: [
+      'Nutzen Sie die Restwärme',
+      'Verwenden Sie passende Topfgrößen',
+      'Nutzen Sie Deckel beim Kochen'
+    ],
+    description: 'Elektrischer Herd zum Kochen.',
+    costPerHour: 0.60,
+    energyEfficiencyRating: 'A',
+    hasStandby: false
+  },
+  {
+    id: 'kitchen-oven',
+    name: 'Backofen',
+    icon: 'ChefHat',
+    wattage: 2200,
+    standbyWattage: 0,
+    status: 'off',
+    category: 'cooking',
+    tips: [
+      'Nutzen Sie die Restwärme',
+      'Heizen Sie nicht vor, wenn möglich',
+      'Nutzen Sie die Umluft-Funktion für niedrigere Temperaturen'
+    ],
+    description: 'Elektrischer Backofen zum Backen und Braten.',
+    costPerHour: 0.66,
+    energyEfficiencyRating: 'A',
+    hasStandby: false
+  },
 export const devices: Device[] = [
   // Globaler Lichtschalter
   {
