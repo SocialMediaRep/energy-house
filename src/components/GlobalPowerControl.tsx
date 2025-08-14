@@ -43,3 +43,5 @@ export const GlobalPowerControl: React.FC<GlobalPowerControlProps> = ({
     </button>
   );
 };
+  )
+}
