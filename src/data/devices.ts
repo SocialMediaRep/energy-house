@@ -1,5 +1,6 @@
 import { Device } from '../types';
 
+export const devices: Device[] = [
   // Badezimmer - zusätzliche Geräte
   {
     id: 'bathroom-shower',
@@ -116,44 +117,6 @@ import { Device } from '../types';
     energyEfficiencyRating: 'A+',
     hasStandby: true
   },
-  // Küche - Herd und Backofen getrennt (ersetzt kitchen-oven)
-  {
-    id: 'kitchen-stove',
-    name: 'Herd',
-    icon: 'ChefHat',
-    wattage: 2000,
-    standbyWattage: 0,
-    status: 'off',
-    category: 'cooking',
-    tips: [
-      'Nutzen Sie die Restwärme',
-      'Verwenden Sie passende Topfgrößen',
-      'Nutzen Sie Deckel beim Kochen'
-    ],
-    description: 'Elektrischer Herd zum Kochen.',
-    costPerHour: 0.60,
-    energyEfficiencyRating: 'A',
-    hasStandby: false
-  },
-  {
-    id: 'kitchen-oven',
-    name: 'Backofen',
-    icon: 'ChefHat',
-    wattage: 2200,
-    standbyWattage: 0,
-    status: 'off',
-    category: 'cooking',
-    tips: [
-      'Nutzen Sie die Restwärme',
-      'Heizen Sie nicht vor, wenn möglich',
-      'Nutzen Sie die Umluft-Funktion für niedrigere Temperaturen'
-    ],
-    description: 'Elektrischer Backofen zum Backen und Braten.',
-    costPerHour: 0.66,
-    energyEfficiencyRating: 'A',
-    hasStandby: false
-  },
-export const devices: Device[] = [
   // Globaler Lichtschalter
   {
     id: 'global-lights',
@@ -324,7 +287,7 @@ export const devices: Device[] = [
   },
   {
     id: 'living-router',
-    name: 'Spielkonsole',
+    name: 'Router',
     icon: 'Router',
     wattage: 12,
     standbyWattage: 0,
