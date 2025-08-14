@@ -1,11 +1,13 @@
 import React, { useMemo, useState, useEffect } from 'react';
 import { Info, X } from 'lucide-react';
+import { GlobalPowerControl } from './GlobalPowerControl';
 
 interface EnergyChartProps {
   totalConsumption: number;
   activeConsumption: number;
   standbyConsumption: number;
   devices: any[];
+  onToggleAll: (status: 'on' | 'off') => void;
 }
 
 interface DataPoint {
@@ -19,7 +21,8 @@ export const EnergyChart: React.FC<EnergyChartProps> = ({
   totalConsumption,
   activeConsumption,
   standbyConsumption,
-  devices
+  devices,
+  onToggleAll
 }) => {
   const [liveData, setLiveData] = useState<DataPoint[]>([]);
   const [selectedTimeRange, setSelectedTimeRange] = useState<TimeRange>('1min');
@@ -370,6 +373,11 @@ export const EnergyChart: React.FC<EnergyChartProps> = ({
               <div className="text-caption text-medium-contrast mt-1">
                 bei aktuellem Verbrauch
               </div>
+            </div>
+            
+            {/* Alle AUS Button */}
+            <div className="mt-4">
+              <GlobalPowerControl onToggleAll={onToggleAll} />
             </div>
           </div>
         </div>

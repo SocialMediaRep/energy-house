@@ -149,6 +149,7 @@ INSERT INTO devices (id, name, icon, wattage, standby_wattage, status, category,
             activeConsumption={getActiveConsumption()}
             standbyConsumption={getStandbyConsumption()}
             devices={devices}
+            onToggleAll={toggleAllDevices}
           />
         </div>
       </section>
@@ -161,6 +162,7 @@ INSERT INTO devices (id, name, icon, wattage, standby_wattage, status, category,
             activeConsumption={getActiveConsumption()}
             standbyConsumption={getStandbyConsumption()}
             devices={devices}
+            onToggleAll={toggleAllDevices}
           />
         </div>
       </section>
@@ -227,12 +229,6 @@ INSERT INTO devices (id, name, icon, wattage, standby_wattage, status, category,
       </main>
 
       {/* Floating Action Button */}
-      <GlobalPowerControl
-        onToggleAll={toggleAllDevices}
-        totalDevices={regularDevices.length}
-        activeDevices={activeRegularDevices}
-        totalConsumption={getCurrentConsumption()}
-      />
 
       {/* Device Modal */}
       <DeviceModal 
