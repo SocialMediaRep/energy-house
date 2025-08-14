@@ -292,7 +292,7 @@ export const EnergyChart: React.FC<EnergyChartProps> = ({
                       <defs>
                         <linearGradient id="areaGradient" x1="0%" y1="0%" x2="0%" y2="100%">
                           <stop offset="0%" stopColor="rgba(34, 122, 197, 0.3)" />
-                          <stop offset="100%" stopColor=rgba(34, 122, 197, 0.08)" />
+                          <stop offset="100%" stopColor="rgba(34, 122, 197, 0.08)" />
                         </linearGradient>
                         <linearGradient id="lineGradient" x1="0%" y1="0%" x2="100%" y2="0%">
                           <stop offset="0%" stopColor="#1064b9" />
