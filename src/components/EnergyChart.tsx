@@ -100,6 +100,7 @@ export const EnergyChart: React.FC<EnergyChartProps> = ({
       return finalData;
     });
   }, [totalConsumption, devices, selectedTimeRange]);
+
   // BACKGROUND UPDATES: Periodic updates for smooth animation when no changes
   useEffect(() => {
     const config = getTimeRangeConfig(selectedTimeRange);
@@ -333,11 +334,6 @@ export const EnergyChart: React.FC<EnergyChartProps> = ({
               </div>
               <div className="text-2xl font-light text-high-contrast transition-all duration-300">
                 {formatConsumption(totalConsumption)} <span className="text-sm font-normal">kW</span>
-              </div>
-              
-              {/* Real-time change indicator */}
-              <div className="text-xs font-medium mt-1 text-green-600">
-                {activeDevices} aktive Geräte
               </div>
             </div>
             
