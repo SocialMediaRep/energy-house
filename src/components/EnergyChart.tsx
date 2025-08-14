@@ -291,8 +291,8 @@ export const EnergyChart: React.FC<EnergyChartProps> = ({
                     <svg className="w-full h-full transition-all duration-200" viewBox="0 0 100 100" preserveAspectRatio="none">
                       <defs>
                         <linearGradient id="areaGradient" x1="0%" y1="0%" x2="0%" y2="100%">
-                          <stop offset="0%" stopColor="rgba(34, 197, 94, 0.3)" />
-                          <stop offset="100%" stopColor="rgba(34, 197, 94, 0.08)" />
+                          <stop offset="0%" stopColor="rgba(34, 122, 197, 0.3)" />
+                          <stop offset="100%" stopColor=rgba(34, 122, 197, 0.08)" />
                         </linearGradient>
                         <linearGradient id="lineGradient" x1="0%" y1="0%" x2="100%" y2="0%">
                           <stop offset="0%" stopColor="#1064b9" />
